@@ -1,0 +1,89 @@
+import React from "react";
+import hampiImg from "../assests/badami.webp";
+import belurImg from "../assests/hampi.jpg";
+
+const HistoricalLegacy = () => {
+  return (
+    <section className="py-24 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+
+          {/* LEFT CONTENT */}
+          <div>
+            <div className="w-12 h-1 bg-yellow-400 mb-6 rounded-full"></div>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-red-700 dark:text-red-500 mb-8">
+              Historical Legacy
+            </h2>
+
+            <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
+              Karnataka's history is a grand epic spanning over two millennia.
+              From the mighty Vijayanagara Empire to the intricate craftsmanship
+              of the Hoysalas.
+            </p>
+
+            <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-10">
+              UNESCO World Heritage sites like Hampi and Pattadakal stand as
+              silent sentinels of a glorious past.
+            </p>
+
+            <div className="flex gap-10">
+              <div className="border-l-2 border-yellow-400 pl-5">
+                <span className="block text-2xl font-bold">UNESCO</span>
+                <span className="text-sm text-slate-500">Heritage Sites</span>
+              </div>
+
+              <div className="border-l-2 border-yellow-400 pl-5">
+                <span className="block text-2xl font-bold">2000+</span>
+                <span className="text-sm text-slate-500">Years of History</span>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT IMAGES */}
+          <div className="grid grid-cols-2 gap-6">
+
+            {/* Left column */}
+            <div className="space-y-6">
+              <div className="rounded-3xl overflow-hidden shadow-xl aspect-[3/4]">
+                <img
+                  src={hampiImg}
+                  alt="Hampi Stone Chariot"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="bg-red-600 text-white p-8 rounded-3xl">
+                <h4 className="font-bold text-xl mb-2">Vijayanagara</h4>
+                <p className="text-sm text-white/80">
+                  The epicenter of South Indian renaissance.
+                </p>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div className="space-y-6 pt-12">
+              <div className="bg-yellow-400 text-red-700 p-8 rounded-3xl">
+                <h4 className="font-bold text-xl mb-2">Hoysala Art</h4>
+                <p className="text-sm text-red-700/80">
+                  Soapstone wonders with minute carvings.
+                </p>
+              </div>
+
+              <div className="rounded-3xl overflow-hidden shadow-xl aspect-[3/4]">
+                <img
+                  src={belurImg}
+                  alt="Belur Temple Architecture"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HistoricalLegacy;
