@@ -9,45 +9,20 @@ const Rmap = () => {
           {/* DOTTED BACKGROUND */}
           <div className="absolute inset-0 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:18px_18px]" />
 
-          {/* MAP CONTENT */}
           <div className="relative z-10">
 
             {/* ROUTE LINES */}
             <svg className="absolute inset-0 w-full h-full">
-              <line
-                x1="70%"
-                y1="65%"
-                x2="55%"
-                y2="72%"
-                stroke="#ef4444"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-              />
-              <line
-                x1="55%"
-                y1="72%"
-                x2="45%"
-                y2="65%"
-                stroke="#ef4444"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-              />
-              <line
-                x1="45%"
-                y1="65%"
-                x2="60%"
-                y2="35%"
-                stroke="#ef4444"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-              />
+              <line x1="70%" y1="65%" x2="55%" y2="72%" stroke="#ef4444" strokeWidth="2" strokeDasharray="6 6" />
+              <line x1="55%" y1="72%" x2="45%" y2="65%" stroke="#ef4444" strokeWidth="2" strokeDasharray="6 6" />
+              <line x1="45%" y1="65%" x2="60%" y2="35%" stroke="#ef4444" strokeWidth="2" strokeDasharray="6 6" />
             </svg>
 
             {/* MAP NODES */}
-            <MapNode label="Bengaluru" color="yellow" style="left-[70%] top-[65%]" />
-            <MapNode label="Mysuru" color="yellow" style="left-[55%] top-[72%]" />
-            <MapNode label="Coorg" color="yellow" style="left-[45%] top-[65%]" />
-            <MapNode label="Hampi" color="red" style="left-[60%] top-[35%]" />
+            <MapNode label="Bengaluru" color="yellow" positionClasses="left-[70%] top-[65%]" />
+            <MapNode label="Mysuru" color="yellow" positionClasses="left-[55%] top-[72%]" />
+            <MapNode label="Coorg" color="yellow" positionClasses="left-[45%] top-[65%]" />
+            <MapNode label="Hampi" color="red" positionClasses="left-[60%] top-[35%]" />
 
             {/* LEGEND */}
             <div className="absolute bottom-6 left-6 bg-white rounded-2xl p-5 shadow-md w-56">
@@ -87,12 +62,11 @@ const Rmap = () => {
 };
 
 /* MAP NODE */
-const MapNode = ({ label, color, style }) => {
-  const nodeColor =
-    color === "red" ? "bg-red-500" : "bg-yellow-400";
+const MapNode = ({ label, color, positionClasses }) => {
+  const nodeColor = color === "red" ? "bg-red-500" : "bg-yellow-400";
 
   return (
-    <div className={`absolute ${style}`}>
+    <div className={`absolute ${positionClasses}`}>
       <div className={`w-5 h-5 ${nodeColor} rounded-full border-4 border-white shadow-md`} />
       <p className="mt-2 text-sm font-semibold text-gray-700">
         {label}
