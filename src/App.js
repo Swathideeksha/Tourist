@@ -26,6 +26,7 @@ function App() {
         <Route path="/beaches" element={<Beaches />} />
         <Route path="/businfo" element={<Businfo />} />
         <Route path="/routemap" element={<Routemap />} />
+          <Route path="/discover-more" element={<DiscoverMore />} />
       </Routes>
     </BrowserRouter>
   );
