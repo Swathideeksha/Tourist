@@ -2,6 +2,7 @@ import { placesData } from "../data/placesData";
 import PlaceCard from "../components/PlaceCard";
 import { useNavigate } from "react-router-dom";
 import { useLikes } from "../context/LikesContext";
+import Navbar from "./Navbar";
 
 const Beaches = () => {
   const navigate = useNavigate();
@@ -12,10 +13,12 @@ const Beaches = () => {
   );
 
   return (
-    <div className="px-4 md:px-10 mt-16 md:mt-20">
-      <h1 className="text-2xl md:text-4xl font-extrabold mb-4 md:mb-6">
-        Beaches of Karnataka
-      </h1>
+    <>
+      <Navbar />
+      <div className="px-4 md:px-10 pt-24 md:pt-28">
+        <h1 className="text-2xl md:text-4xl font-extrabold mb-4 md:mb-6">
+          Beaches of Karnataka
+        </h1>
 
       <button
         onClick={() => navigate("/places")}
@@ -34,7 +37,8 @@ const Beaches = () => {
           />
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

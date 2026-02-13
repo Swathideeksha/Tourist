@@ -1,23 +1,28 @@
-import heroImg from "../assests/placehero.png";
+import kodachadriImg from "../assests/places/kodachadri.webp";
 
-const PlacesHero = () => {
+const PlaceHero = () => {
   return (
-    <div
-      className="mx-4 md:mx-10 mt-4 md:mt-6 rounded-2xl md:rounded-3xl h-[250px] md:h-[380px] bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${heroImg})` }}
-    >
-      <div className="absolute inset-0 bg-black-500/70 rounded-2xl md:rounded-3xl flex items-center">
-        <div className="px-6 md:px-16 text-white max-w-2xl">
-          <span className="bg-yellow-400 text-black text-xs px-3 py-1 rounded-full">
-            UNESCO WORLD HERITAGE
-          </span>
+    <div className="w-full px-4 md:px-8 py-6">
+      {/* Card with background image */}
+      <div 
+        className="relative w-full h-[400px] md:h-[500px] rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden"
+        style={{
+          backgroundImage: `url(${kodachadriImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
 
-          <h1 className="text-2xl md:text-4xl font-bold mt-4 md:mt-6">
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-yellow-400 mb-6">
             Explore Tourist Places in Karnataka
           </h1>
-
-          <p className="mt-2 md:mt-3 text-gray-200 text-sm md:text-base">
-            Witness the grandeur of Hampi and discover the land of sandalwood.
+          <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed">
+            Witness the grandeur of Hampi and discover the land of sandalwood. 
+            From ancient monuments to pristine coastlines and lush hills.
           </p>
         </div>
       </div>
@@ -25,4 +30,4 @@ const PlacesHero = () => {
   );
 };
 
-export default PlacesHero;
+export default PlaceHero;

@@ -10,14 +10,11 @@ const Businfo = () => {
  
   return (
     <>
-     
       <Navbar />
       <Bushero />
       <PrivateScheduledServices />
       <TopRatedPrivateOperators />
       <Footer />
-
-      {/* later you can add filters, cards, etc */}
     </>
   );
 };

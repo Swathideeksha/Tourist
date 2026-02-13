@@ -26,10 +26,15 @@ import Kundadri from "../assests/kundadri.jpg";
 import Madikeri from "../assests/madikeri.jpg.webp";
 import nandihills from "../assests/nandi hills.jpg";
 
-// ================= WATERFALLS / HISTORY =================
+// ================= HISTORY & RELIGIOUS =================
 import jog from "../assests/jog-falls.jpg";
 import belur from "../assests/belur.jpg";
 import badami from "../assests/badami.webp";
+import hampi from "../assests/hampi.jpg";
+import ghats from "../assests/ghats.jpg";
+import paradise from "../assests/paradise.jpg";
+import kudremukh from "../assests/kudremukh.jpg";
+import sugama from "../assests/sugama.jpg";
 
 export const placesData = [
   // 🌊 BEACHES
@@ -62,6 +67,13 @@ export const placesData = [
 
   // 💧 WATERFALLS / HISTORY
   { id: 201, name: "Jog Falls", location: "Shivamogga", img: jog, category: "waterfall" },
-  { id: 202, name: "Belur Temple", location: "Hassan", img: belur, category: "history" },
+  { id: 202, name: "Belur Temple", location: "Hassan", img: belur, category: "religious" },
   { id: 203, name: "Badami Caves", location: "Bagalkot", img: badami, category: "history" },
+  { id: 204, name: "Hampi Ruins", location: "Vijayanagara", img: hampi, category: "history" },
+  { id: 205, name: "Hoysaleswara Temple", location: "Halebidu", img: Kodachadri, category: "religious" },
+  { id: 206, name: "Virupaksha Temple", location: "Hampi", img: ghats, category: "religious" },
+  { id: 207, name: "Channarayana Temple", location: "Belur", img: paradise, category: "religious" },
+  { id: 208, name: "Shravanabelagola", location: "Hassan", img: sugama, category: "religious" },
+  { id: 209, name: "Fort of Chitradurga", location: "Chitradurga", img: kudremukh, category: "history" },
+  { id: 210, name: "Nagarhole Temple Complex", location: "Mysuru", img: ghats, category: "religious" },
 ];

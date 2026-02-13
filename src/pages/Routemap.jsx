@@ -7,11 +7,9 @@ import RouteMapHero from "../components/RouteMapHero";
 const Routemap = () => {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <RouteMapHero />
-    <Rmap/>
-
-      {/* Next sections: filters, map, routes */}
+      <Rmap/>
     </>
   );
 };

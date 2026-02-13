@@ -17,7 +17,6 @@ const Home = () => {
       <Destinations search={search} />
       <DiscoverMore />
       <Footer />
-    
     </>
   );
 };

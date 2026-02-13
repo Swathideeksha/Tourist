@@ -7,6 +7,8 @@ import PlaceDetails from "./pages/PlaceDetails";
 import DiscoverMore from "./components/DiscoverMore";
 import HillStations from "./components/HillStations";
 import Beaches from "./components/Beaches";
+import History from "./components/History";
+import Religious from "./components/Religious";
 import Businfo from "./pages/Businfo";
 import Routemap from "./pages/Routemap";
 import DestinationDetails from "./pages/DestinationDetails";
@@ -24,6 +26,8 @@ function App() {
         <Route path="/hill-stations" element={<HillStations />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/beaches" element={<Beaches />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/religious" element={<Religious />} />
         <Route path="/businfo" element={<Businfo />} />
         <Route path="/routemap" element={<Routemap />} />
           <Route path="/discover-more" element={<DiscoverMore />} />
