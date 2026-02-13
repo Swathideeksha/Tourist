@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const PlaceCard = ({
   id,
   img,
@@ -6,6 +8,8 @@ const PlaceCard = ({
   isLiked,
   toggleLike,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white rounded-2xl shadow p-4 relative">
       <button
@@ -23,6 +27,14 @@ const PlaceCard = ({
 
       <h3 className="font-semibold mt-2">{name}</h3>
       <p className="text-sm text-gray-500">{location}</p>
+
+      {/* ✅ VIEW DETAILS BUTTON */}
+      <button
+        onClick={() => navigate(`/destination/${id}`)}
+        className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-full transition"
+      >
+        View Details
+      </button>
     </div>
   );
 };

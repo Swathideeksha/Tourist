@@ -1,19 +1,13 @@
+import React from 'react';
+
 const TransitCTA = () => {
   return (
-    <div className="mx-10 my-16 bg-red-800 text-white rounded-3xl p-10 flex justify-between items-center">
-      <div>
-        <h2 className="text-2xl font-bold">Plan Your Transit Today</h2>
-        <p className="text-gray-200 mt-2">
-          Find official bus routes, schedules, and maps.
-        </p>
-      </div>
-
-      <div className="flex gap-4">
-        <button className="bg-yellow-400 text-black px-6 py-3 rounded-full">
-          Check Tourist Bus Routes
-        </button>
-        <button className="border border-white px-6 py-3 rounded-full">
-          View Map
+    <div className="px-4 md:px-10 py-6 md:py-8">
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-4 md:p-6 shadow-lg text-white">
+        <h3 className="text-lg md:text-xl font-bold mb-2">Need a Bus?</h3>
+        <p className="text-sm md:text-base mb-4 opacity-90">Find KSRTC buses to your destination</p>
+        <button className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition text-sm md:text-base">
+          Search Buses
         </button>
       </div>
     </div>

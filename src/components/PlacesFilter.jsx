@@ -1,47 +1,30 @@
 import { useNavigate } from "react-router-dom";
 
-const categories = [
-  "All Places",
-  "Hill Stations",
-  "Beaches",
-  "History",
-  "Religious",
-];
-
 const PlacesFilter = () => {
   const navigate = useNavigate();
 
-  const handleNavigation = (category) => {
-    if (category === "Hill Stations") {
-      navigate("/hill-stations");
-    } else if (category === "Beaches") {
-      navigate("/beaches");
-    } 
-  };
-
   return (
-    <div className="flex justify-between items-center px-10 mt-8">
-      <div className="flex gap-3">
-        {categories.map((cat, index) => (
-          <button
-            key={index}
-            onClick={() => handleNavigation(cat)}
-            className={`px-4 py-2 rounded-full text-sm transition ${
-              index === 0
-                ? "bg-yellow-400 text-black"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-wrap gap-3 md:gap-4 justify-center mt-4 md:mt-6 px-4">
+      <button
+        onClick={() => navigate("/places")}
+        className="px-4 md:px-6 py-2 rounded-full bg-yellow-400 font-semibold text-sm md:text-base"
+      >
+        All Places
+      </button>
 
-      <input
-        type="text"
-        placeholder="Search destinations..."
-        className="border rounded-full px-4 py-2 w-64 outline-none focus:ring-2 focus:ring-yellow-400"
-      />
+      <button
+        onClick={() => navigate("/hill-stations")}
+        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base"
+      >
+        Hill Stations
+      </button>
+
+      <button
+        onClick={() => navigate("/beaches")}
+        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base"
+      >
+        Beaches
+      </button>
     </div>
   );
 };

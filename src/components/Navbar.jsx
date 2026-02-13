@@ -1,22 +1,37 @@
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <nav className="bg-[#6b0000] px-10 py-4 flex justify-between items-center shadow-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#6b0000] px-4 md:px-10 py-4 flex flex-col md:flex-row justify-between items-center shadow-md">
       
-      <div className="flex items-center gap-3 mb-8">
-              <div className="size-8 bg-karnataka-yellow rounded flex items-center justify-center text-deep-red">
-                <span className="material-symbols-outlined text-xl">
-                  temple_hindu
-                </span>
-              </div>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                Explore Karnataka
-              </h2>
-            </div>
+      <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
+        <div className="flex items-center gap-3">
+          <div className="size-8 bg-karnataka-yellow rounded flex items-center justify-center text-deep-red">
+            <span className="material-symbols-outlined text-xl">
+              temple_hindu
+            </span>
+          </div>
+          <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+            Explore Karnataka
+          </h2>
+        </div>
+        
+        {/* Mobile menu button */}
+        <button 
+          className="md:hidden text-white p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span className="material-symbols-outlined text-3xl">
+            {isMenuOpen ? "close" : "menu"}
+          </span>
+        </button>
+      </div>
  
-      {/* Nav Links */}
-      <ul className="flex gap-8 text-white font-medium relative">
+      {/* Nav Links - Desktop */}
+      <ul className={`flex gap-4 md:gap-8 text-white font-medium relative ${isMenuOpen ? 'flex-col mt-4' : 'hidden md:flex'}`}>
         {[
           { name: "Home", path: "/" },
           { name: "Places", path: "/places" },
@@ -41,8 +56,8 @@ const Navbar = () => {
       </ul>
 
       {/* Right side – ONLY Contact Support */}
-      <div>
-        <button className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full">
+      <div className={`${isMenuOpen ? 'mt-4' : 'hidden md:block'}`}>
+        <button className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full text-sm md:text-base">
           Contact Support
         </button>
       </div>

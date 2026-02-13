@@ -35,91 +35,38 @@ import MaravantheBeach from "../assests/Maravanthe.avif";
 import PadubidriBeach from "../assests/padubidri.jpg";
 
 const places = [
-  // waterfalls / history
-  { id: 1, name: "Jog Falls", location: "Shivamogga", img: jog },
-  { id: 2, name: "Belur Temple", location: "Hassan", img: belur },
-  { id: 3, name: "Badami Caves", location: "Bagalkot", img: badami },
+  // waterfalls / history - using IDs 201+ to avoid conflicts
+  { id: 201, name: "Jog Falls", location: "Shivamogga", img: jog },
+  { id: 202, name: "Belur Temple", location: "Hassan", img: belur },
+  { id: 203, name: "Badami Caves", location: "Bagalkot", img: badami },
 
-  // hill stations
+  // hill stations - IDs 101-111 (matching placesData.jsx)
   { id: 101, name: "Sakleshpur", location: "Hassan", img: sakleshpur },
   { id: 102, name: "Coorg", location: "Kodagu", img: coorg },
-  { id: 103, name: "chikamangalur", location: "chikmangalur", img: chikmangalur },
- {
-    id: 104,
-    name: "Agumbe",
-    location: "Shivamogga",
-    rating: 4.8,
-    img: Agumbe,
-  },
-    {
-    id: 105,
-    name: "biligiri",
-    location: "ChamarajNagara",
-    rating: 4.8,
-    img: biligiri,
-  },
-   {
-    id: 106,
-    name: "gangamoola",
-    location: "Chikmagalur",
-    rating: 4.8,
-    img: gangamoola,
-  },
- {
-    id: 107,
-    name: "Kemmannugundi",
-    location: "Chikmagalur",
-    rating: 4.8,
-    img: Kemmannugundi,
-  },
-  {
-    id: 108,
-    name: "Kodachadri",
-    location: "Shivamogga",
-    rating: 4.8,
-    img: Kodachadri,
-  },
-  {
-    id: 109,
-    name: "Kundadri",
-    location: "Shivamogga",
-    rating: 4.8,
-    img: Kundadri,
-  },
-   {
-    id: 110,
-    name: "Madikeri",
-    location: "Madikeri",
-    rating: 4.8,
-    img: Madikeri,
-  },
-  {
-    id: 111,
-    name: "nandihills",
-    location: "Chikballapura",
-    rating: 4.8,
-    img: nandihills,
-  },
+  { id: 103, name: "Chikmagalur", location: "Chikmagalur", img: chikmangalur },
+  { id: 104, name: "Agumbe", location: "Shivamogga", img: Agumbe },
+  { id: 105, name: "Biligiri Hills", location: "Chamarajanagar", img: biligiri },
+  { id: 106, name: "Gangamoola", location: "Chikmagalur", img: gangamoola },
+  { id: 107, name: "Kemmannugundi", location: "Chikmagalur", img: Kemmannugundi },
+  { id: 108, name: "Kodachadri", location: "Shivamogga", img: Kodachadri },
+  { id: 109, name: "Kundadri", location: "Shivamogga", img: Kundadri },
+  { id: 110, name: "Madikeri", location: "Madikeri", img: Madikeri },
+  { id: 111, name: "Nandi Hills", location: "Chikkaballapura", img: nandihills },
 
-
-
-
-  // beaches
-  { id: 6, name: "Kapu-Beach", location: "Udupi", img: kapuBeach },
-  { id: 7, name: "devbagh-Beach", location: "Karvar", img: devbaghBeach },
-{ id: 8, name: "Malpe Beach", location: "Udupi", img: Malpe },
-{ id: 9, name: "Mattu Beach", location: "Udupi", img: Mattu },
-{ id: 10, name: "Murudeshwara Beach", location: "Batkal", img: Murudeshwara },
-{ id: 11, name: "Om-beach", location: "Gokarna", img: Ombeach },
-{ id: 12, name: "Panamburu Beach", location: "Mangaluru", img: PanamburuBeach },
-{ id: 13, name: "Someshwara Beach", location: "Mangaluru", img: SomeshwaraBeach },
-{ id: 14, name: "St.Marry Beach", location: "Udupi", img: StMarryBeach },
-{ id: 15, name: "Surathkal Beach", location: "Mangaluru", img: SurathkalBeach },
-{ id: 16, name: "Thannirbhavi Beach", location: "Mangaluru", img: ThannirbhaviBeach },
-{ id: 17, name: "Maravanthe Beach", location: "Kundapura", img: MaravantheBeach },
-{ id: 18, name: "Padubidri Beach", location: "Udupi", img: PadubidriBeach },
-
-
+  // beaches - IDs 1-13 (matching placesData.jsx)
+  { id: 1, name: "Kapu Beach", location: "Udupi", img: kapuBeach },
+  { id: 2, name: "Devbagh Beach", location: "Karwar", img: devbaghBeach },
+  { id: 3, name: "Malpe Beach", location: "Udupi", img: Malpe },
+  { id: 4, name: "Mattu Beach", location: "Udupi", img: Mattu },
+  { id: 5, name: "Murudeshwara Beach", location: "Bhatkal", img: Murudeshwara },
+  { id: 6, name: "Om Beach", location: "Gokarna", img: Ombeach },
+  { id: 7, name: "Panamburu Beach", location: "Mangaluru", img: PanamburuBeach },
+  { id: 8, name: "Someshwara Beach", location: "Mangaluru", img: SomeshwaraBeach },
+  { id: 9, name: "St. Mary's Island", location: "Udupi", img: StMarryBeach },
+  { id: 10, name: "Surathkal Beach", location: "Mangaluru", img: SurathkalBeach },
+  { id: 11, name: "Thannirbhavi Beach", location: "Mangaluru", img: ThannirbhaviBeach },
+  { id: 12, name: "Maravanthe Beach", location: "Kundapura", img: MaravantheBeach },
+  { id: 13, name: "Padubidri Beach", location: "Udupi", img: PadubidriBeach },
 ];
 
 const LikedCollection = () => {
@@ -133,24 +80,24 @@ const LikedCollection = () => {
   // 🟡 If nothing liked
   if (likedData.length === 0) {
     return (
-      <div className="px-10 mt-20">
-        <h2 className="text-2xl font-semibold mb-2">
+      <div className="px-4 md:px-10 mt-16 md:mt-20">
+        <h2 className="text-xl md:text-2xl font-semibold mb-2">
           ❤️ My Liked Places
         </h2>
         <p className="text-gray-500">
-          You haven’t liked any places yet.
+          You haven't liked any places yet.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="px-10 mt-20">
-      <h2 className="text-2xl font-semibold mb-6">
+    <div className="px-4 md:px-10 mt-16 md:mt-20">
+      <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">
         ❤️ My Liked Places
       </h2>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {likedData.map((p) => (
           <PlaceCard
             key={p.id}
@@ -158,8 +105,8 @@ const LikedCollection = () => {
             img={p.img}
             name={p.name}
             location={p.location}
-            isLiked={true}
-            toggleLike={toggleLike} // ✅ UNLIKE WORKS HERE TOO
+            isLiked={likedPlaces.includes(p.id)}
+            toggleLike={toggleLike}
           />
         ))}
       </div>

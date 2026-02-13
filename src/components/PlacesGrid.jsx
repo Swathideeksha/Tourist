@@ -1,36 +1,62 @@
-import { useLikes } from "../context/LikesContext";
+import { placesData } from "../data/placesData";
 import PlaceCard from "./PlaceCard";
-import jog from "../assests/jog-falls.jpg";
-import belur from "../assests/belur.jpg";
-import badami from "../assests/badami.webp";
-import sakleshpur from "../assests/sakleshpur.webp";
-import kapuBeach from "../assests/Kapu-Beach.webp";
+import { useLikes } from "../context/LikesContext";
 
-const places = [
-  { id: 1, name: "Jog Falls", location: "Shivamogga", img: jog, rating: 4.8 },
-  { id: 2, name: "Belur Temple", location: "Hassan", img: belur, rating: 4.9 },
-  { id: 3, name: "Badami Caves", location: "Bagalkot", img: badami, rating: 4.7 },
-  { id: 4, name: "Sakleshpur", location: "Hassan", img: sakleshpur, rating: 4.6 },
-  { id: 6, name: "KapuBeach", location: "Udupi", img: kapuBeach, rating: 4.7 },
-];
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-const PlacesGrid = () => {
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+const PlacesGrid = ({ search, activeCategory }) => {
   const { likedPlaces, toggleLike } = useLikes();
 
+  const filteredPlaces = placesData.filter((place) => {
+    const matchesCategory =
+      activeCategory === "All Places" ||
+      place.category === activeCategory;
+
+    const matchesSearch =
+      place.name.toLowerCase().includes(search.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
+
+  if (filteredPlaces.length === 0) {
+    return <p className="text-center text-gray-500 mt-10">No places found</p>;
+  }
+
   return (
-    <div className="grid grid-cols-3 gap-6 px-10 mt-10">
-      {places.map((p) => (
-        <PlaceCard
-          key={p.id}
-          id={p.id}
-          img={p.img}
-          name={p.name}
-          location={p.location}
-          isLiked={likedPlaces.includes(p.id)}
-          toggleLike={toggleLike}
-        />
+    <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      spaceBetween={24}
+      navigation
+      pagination={{
+        clickable: true,
+        el: ".swiper-pagination",
+        type: "bullets",
+        dynamicBullets: false,
+      }}
+      autoplay={{ delay: 3000 }}
+      breakpoints={{
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }}
+      className="pb-10"
+    >
+      {filteredPlaces.map((p) => (
+        <SwiperSlide key={p.id}>
+          <PlaceCard
+            {...p}
+            isLiked={likedPlaces.includes(p.id)}
+            toggleLike={toggleLike}
+          />
+        </SwiperSlide>
       ))}
-    </div>
+      <div className="swiper-pagination"></div>
+    </Swiper>
   );
 };
 
