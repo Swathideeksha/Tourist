@@ -10,6 +10,7 @@ import Beaches from "./components/Beaches";
 import History from "./components/History";
 import Religious from "./components/Religious";
 import Businfo from "./pages/Businfo";
+import BusDetails from "./pages/BusDetails";
 import Routemap from "./pages/Routemap";
 import DestinationDetails from "./pages/DestinationDetails";
 
@@ -29,8 +30,9 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/religious" element={<Religious />} />
         <Route path="/businfo" element={<Businfo />} />
+        <Route path="/bus/:id" element={<BusDetails />} />
         <Route path="/routemap" element={<Routemap />} />
-          <Route path="/discover-more" element={<DiscoverMore />} />
+        <Route path="/discover-more" element={<DiscoverMore />} />
       </Routes>
     </BrowserRouter>
   );
