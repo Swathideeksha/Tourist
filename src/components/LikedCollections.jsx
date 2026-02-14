@@ -9,9 +9,31 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // waterfalls / history
-import jog from "../assests/jog-falls.jpg";
-import belur from "../assests/belur.jpg";
 import badami from "../assests/badami.webp";
+import hampi from "../assests/hampi.jpg";
+import mysore from "../assests/places/Mysore.webp";
+import bijapur from "../assests/places/Bijapur.webp";
+import shimoga from "../assests/places/Shimoga.webp";
+import halebidu from "../assests/places/Halebidu.webp";
+import srirangapatna from "../assests/places/Srirangapatna.webp";
+import aihole from "../assests/places/Aihole.webp";
+import dandeli from "../assests/places/Dandeli.webp";
+import ramanagaram from "../assests/places/Ramanagaram.webp";
+import hassan from "../assests/places/Hassan.webp";
+import bidar from "../assests/places/Bidar.webp";
+import talakadu from "../assests/places/Talakadu.webp";
+import melukote from "../assests/places/Melukote.webp";
+import somnathpur from "../assests/places/Somnathpur.webp";
+import sringeri from "../assests/places/Sringeri.webp";
+import pattadakal from "../assests/places/Pattadakal.webp";
+
+// Religious
+import murudeshwaraTemple from "../assests/places/murudeshwara.jpg";
+import kotilingeshwara from "../assests/places/koti.lingeswara.jpg";
+import banashankari from "../assests/places/Banashankari.jpg";
+import mookambika from "../assests/Mookambika.jpeg";
+import kedareshwara from "../assests/Kedareshwara.jpg";
+import amrutheshwara from "../assests/Amrtesvara.webp";
 
 // hill stations
 import sakleshpur from "../assests/sakleshpur.webp";
@@ -43,9 +65,31 @@ import PadubidriBeach from "../assests/padubidri.jpg";
 
 const places = [
   // waterfalls / history - using IDs 201+ to avoid conflicts
-  { id: 201, name: "Jog Falls", location: "Shivamogga", img: jog },
-  { id: 202, name: "Belur Temple", location: "Hassan", img: belur },
-  { id: 203, name: "Badami Caves", location: "Bagalkot", img: badami },
+  { id: 201, name: "Hampi", location: "Vijayanagara", img: hampi },
+  { id: 202, name: "Mysore Palace", location: "Mysore", img: mysore },
+  { id: 203, name: "Bijapur Fort", location: "Bijapur", img: bijapur },
+  { id: 204, name: "Shimoga Fort", location: "Shimoga", img: shimoga },
+  { id: 205, name: "Badami Caves", location: "Bagalkot", img: badami },
+  { id: 206, name: "Halebidu Temple", location: "Hassan", img: halebidu },
+  { id: 207, name: "Srirangapatna Fort", location: "Mandya", img: srirangapatna },
+  { id: 208, name: "Aihole Temples", location: "Bagalkot", img: aihole },
+  { id: 209, name: "Dandeli Fort", location: "Uttara Kannada", img: dandeli },
+  { id: 210, name: "Ramanagaram Fort", location: "Ramanagaram", img: ramanagaram },
+  { id: 211, name: "Hassan Historic Site", location: "Hassan", img: hassan },
+  { id: 212, name: "Bidar Fort", location: "Bidar", img: bidar },
+  { id: 213, name: "Talakadu", location: "Mysore", img: talakadu },
+  { id: 214, name: "Melukote Temple", location: "Mandya", img: melukote },
+  { id: 215, name: "Somnathpur Temple", location: "Mysore", img: somnathpur },
+  { id: 216, name: "Sringeri Temple", location: "Chikmagalur", img: sringeri },
+  { id: 217, name: "Pattadakal Temple", location: "Bagalkot", img: pattadakal },
+
+  // Religious - IDs 301-306
+  { id: 301, name: "Murudeshwara Temple", location: "Uttara Kannada", img: murudeshwaraTemple },
+  { id: 302, name: "Koti Lingeshwara", location: "Kolar", img: kotilingeshwara },
+  { id: 303, name: "Banashankari Temple", location: "Bagalkot", img: banashankari },
+  { id: 304, name: "Mookambika Temple", location: "Kollur", img: mookambika },
+  { id: 305, name: "Kedareshwara Temple", location: "Halebidu", img: kedareshwara },
+  { id: 306, name: "Amrutheshwara Temple", location: "Chikkamagalur", img: amrutheshwara },
 
   // hill stations - IDs 101-111 (matching placesData.jsx)
   { id: 101, name: "Sakleshpur", location: "Hassan", img: sakleshpur },

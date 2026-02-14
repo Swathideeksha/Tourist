@@ -10,6 +10,10 @@ export const LikesProvider = ({ children }) => {
     setLikedPlaces(stored);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("likedPlaces", JSON.stringify(likedPlaces));
+  }, [likedPlaces]);
+
   const toggleLike = (id) => {
     setLikedPlaces((prev) =>
       prev.includes(id)

@@ -25,9 +25,31 @@ import MaravantheBeachImg from "../assests/Maravanthe.avif";
 import PadubidriBeachImg from "../assests/padubidri.jpg";
 
 // Waterfalls / History
-import jogImg from "../assests/jog-falls.jpg";
-import belurImg from "../assests/belur.jpg";
 import badamiImg from "../assests/badami.webp";
+import hampiImg from "../assests/hampi.jpg";
+import Bijapur from "../assests/places/Bijapur.webp";
+import Shimoga from "../assests/places/Shimoga.webp";
+import Halebidu from "../assests/places/Halebidu.webp";
+import Srirangapatna from "../assests/places/Srirangapatna.webp";
+import Aihole from "../assests/places/Aihole.webp";
+import Dandeli from "../assests/places/Dandeli.webp";
+import Ramanagaram from "../assests/places/Ramanagaram.webp";
+import Hassan from "../assests/places/Hassan.webp";
+import Bidar from "../assests/places/Bidar.webp";
+import Talakadu from "../assests/places/Talakadu.webp";
+import Melukote from "../assests/places/Melukote.webp";
+import Somnathpur from "../assests/places/Somnathpur.webp";
+import Sringeri from "../assests/places/Sringeri.webp";
+import Pattadakal from "../assests/places/Pattadakal.webp";
+import Mysore from "../assests/places/Mysore.webp";
+
+// Religious
+import Murudeshwara from "../assests/places/murudeshwara.jpg";
+import Kotilingeshwara from "../assests/places/koti.lingeswara.jpg";
+import Banashankari from "../assests/places/Banashankari.jpg";
+import Mookambika from "../assests/Mookambika.jpeg";
+import Kedareshwara from "../assests/Kedareshwara.jpg";
+import Amrutheshwara from "../assests/Amrtesvara.webp";
 
 const places = [
   {
@@ -325,32 +347,232 @@ Natural Elements: The site is unique due to the presence of two naturally formed
 // ================= WATERFALLS / HISTORY =================
 {
     id: "201",
-    name: "Jog Falls",
-    type: "Waterfall",
-    region: "Shivamogga",
-    image: jogImg,
-    about: `Jog Falls is one of the highest plunge waterfalls in India, located in Shimoga district of Karnataka. The falls are formed by the Sharavathi river dropping 253 meters (830 feet). It is a major tourist attraction and a popular pilgrimage site during monsoon season.`,
-    bestTime: "July to September",
+    name: "Hampi",
+    type: "Historical",
+    region: "Vijayanagara",
+    image: hampiImg,
+    about: `Hampi is a UNESCO World Heritage Site and one of India's most famous historical destinations. It was the capital of the Vijayanagara Empire (14th-16th centuries). The ruins showcase magnificent architecture, temples, and monuments that reflect the cultural and political grandeur of the era.`,
+    bestTime: "October to March",
 },
 
 {
     id: "202",
-    name: "Belur Temple",
+    name: "Mysore Palace",
     type: "Historical",
-    region: "Hassan",
-    image: belurImg,
-    about: `The Chennakesava Temple is a 12th-century Hindu temple located in Belur, Karnataka. It was built by the Hoysala Empire king Vishnuvardhana to commemorate his conversion to Vaishnavism. The temple is known for its exquisite architecture and intricate carvings.`,
+    region: "Mysore",
+    image: Mysore,
+    about: `Mysore Palace is one of India's most iconic palaces, known for its stunning Indo-Saracenic architecture. Built in 1897, it served as the royal residence of the Wodeyar dynasty. Visitors can explore ornate halls, intricate carvings, and beautiful courtyards.`,
     bestTime: "October to March",
 },
 
 {
     id: "203",
+    name: "Bijapur Fort",
+    type: "Historical",
+    region: "Bijapur",
+    image: Bijapur,
+    about: `Bijapur Fort is a massive fortification built in the 16th century by the Adil Shahi dynasty. The fort features solid bastions, gateways, and walls that stretch over 10 km. It showcases the military architecture of medieval India.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "204",
+    name: "Shimoga Fort",
+    type: "Historical",
+    region: "Shimoga",
+    image: Shimoga,
+    about: `Shimoga Fort is a historical fortification that played an important role during various dynasties. The fort offers panoramic views and remains a testament to the strategic importance of Shimoga in medieval times.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "205",
     name: "Badami Caves",
     type: "Historical",
     region: "Bagalkot",
     image: badamiImg,
     about: `Badami Caves are a group of Hindu, Buddhist and Jain cave temples located in Badami, Karnataka. The caves date back to the 6th-7th centuries and showcase the evolution of Indian rock-cut architecture. They are known for their intricate carvings and beautiful sculptures.`,
     bestTime: "October to February",
+},
+
+{
+    id: "206",
+    name: "Halebidu Temple",
+    type: "Historical",
+    region: "Hassan",
+    image: Halebidu,
+    about: `The Hoysaleswara Temple in Halebidu is a masterpiece of Hoysala architecture built in the 12th century. The temple features intricate stone carvings and sculptures depicting various mythological scenes. It remains one of the most visited temples in Karnataka.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "207",
+    name: "Srirangapatna Fort",
+    type: "Historical",
+    region: "Mandya",
+    image: Srirangapatna,
+    about: `Srirangapatna is an island fortress that served as the capital of Tipu Sultan, the famous warrior king. The fort contains several temples, mosques, and historical monuments that reflect its rich heritage. The Tippu Sultan Summer Palace is located here.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "208",
+    name: "Aihole Temples",
+    type: "Historical",
+    region: "Bagalkot",
+    image: Aihole,
+    about: `Aihole is an ancient historical site known as the "Cradle of Indian Architecture." It contains over 120 temples built between the 6th and 12th centuries. These temples demonstrate the evolution of Indian temple architecture over centuries.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "209",
+    name: "Dandeli Fort",
+    type: "Historical",
+    region: "Uttara Kannada",
+    image: Dandeli,
+    about: `Dandeli Fort is a historical fortification situated on the banks of the Kali River. It played a significant role in protecting the region during medieval times. Today, it's a popular trekking destination offering adventure activities and scenic views.`,
+    bestTime: "October to May",
+},
+
+{
+    id: "210",
+    name: "Ramanagaram Fort",
+    type: "Historical",
+    region: "Ramanagaram",
+    image: Ramanagaram,
+    about: `Ramanagaram Fort is a historic fortification with ruins that showcase medieval architecture. The fort offers trekking trails and panoramic views of the surrounding landscape. It has been a filming location for many Indian movies.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "211",
+    name: "Hassan Historic Site",
+    type: "Historical",
+    region: "Hassan",
+    image: Hassan,
+    about: `Hassan is home to several historical and religious monuments including temples and ancient sites. The region has a rich history spanning multiple centuries and dynasties, with remnants of their architectural achievements still visible.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "212",
+    name: "Bidar Fort",
+    type: "Historical",
+    region: "Bidar",
+    image: Bidar,
+    about: `Bidar Fort is one of the largest medieval fortifications in India, built in the 14th century. The fort covers an area of about 70 acres and contains palaces, mosques, and military structures. It reflects the architectural styles of the Bahmani Sultanate.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "213",
+    name: "Talakadu",
+    type: "Historical",
+    region: "Mysore",
+    image: Talakadu,
+    about: `Talakadu is an ancient city on the banks of the Kaveri River with several temples buried under sand. It's a sacred pilgrimage site with ruins of temples and historical significance. The annually flooded ruins create a unique landscape.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "214",
+    name: "Melukote Temple",
+    type: "Historical",
+    region: "Mandya",
+    image: Melukote,
+    about: `Melukote is a sacred Hindu pilgrimage site with the renowned Cheluvanarayana Temple. The temple complex contains temples from the Chola and Hoysala periods with intricate carvings. It's considered one of the 108 divya desams.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "215",
+    name: "Somnathpur Temple",
+    type: "Historical",
+    region: "Mysore",
+    image: Somnathpur,
+    about: `Somnathpur Temple is a stunning example of Hoysala architecture built in the 13th century. The temple features intricate stone carvings, sculptures, and a distinctive star-shaped floor plan. It's a UNESCO World Heritage Site.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "216",
+    name: "Sringeri Temple",
+    type: "Historical",
+    region: "Chikmagalur",
+    image: Sringeri,
+    about: `Sringeri is an ancient religious and cultural center located on the banks of the Tunga River. The Sringeri Sharada Pith (temple) is one of the four cardinal institutions established by Adi Shankara. It's a major pilgrimage destination.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "217",
+    name: "Pattadakal Temple",
+    type: "Historical",
+    region: "Bagalkot",
+    image: Pattadakal,
+    about: `Pattadakal is a UNESCO World Heritage Site featuring a collection of Hindu and Jain temples built between the 7th and 8th centuries. The temples showcase the architectural styles of the Chalukya dynasty with intricate carvings and sculptures.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "301",
+    name: "Murudeshwara",
+    type: "Religious",
+    region: "Uttara Kannada",
+    image: Murudeshwara,
+    about: `Murudeshwara is a sacred Hindu pilgrimage site located on the Arabian Sea coast. The Murudeshwara Temple is famous for its 249-foot tall statue of Shiva, one of the tallest in the world. The temple complex offers stunning views of the sea and the statue.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "302",
+    name: "Koti Lingeshwara",
+    type: "Religious",
+    region: "Kolar",
+    image: Kotilingeshwara,
+    about: `Koti Lingeshwara Temple is dedicated to Lord Shiva and is located in Kolar district. The temple is known for its intricate architecture and religious significance. It's believed to house a thousand lingams, hence the name 'Koti' (thousand) Lingeshwara.`,
+    bestTime: "Year-round",
+},
+
+{
+    id: "303",
+    name: "Banashankari Temple",
+    type: "Religious",
+    region: "Bagalkot",
+    image: Banashankari,
+    about: `Banashankari Temple is a historic temple dedicated to the Goddess. Located on the banks of the Tungabhadra River, the temple is known for its religious importance and spiritual atmosphere. It's a popular pilgrimage destination.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "304",
+    name: "Mookambika Temple",
+    type: "Religious",
+    region: "Kollur",
+    image: Mookambika,
+    about: `Mookambika Temple is one of the most revered temple complexes in Karnataka, dedicated to the Goddess. Located in the Western Ghats, the temple is surrounded by forests and natural beauty. It's an important pilgrimage site for devotees.`,
+    bestTime: "October to May",
+},
+
+{
+    id: "305",
+    name: "Kedareshwara Temple",
+    type: "Religious",
+    region: "Halebidu",
+    image: Kedareshwara,
+    about: `Kedareshwara Temple is an ancient Hindu temple dedicated to Lord Shiva. Located in Halebidu, the temple showcases beautiful medieval architecture with intricate stone carvings. It's one of the important religious monuments in Hassan district.`,
+    bestTime: "October to March",
+},
+
+{
+    id: "306",
+    name: "Amrutheshwara Temple",
+    type: "Religious",
+    region: "Chikkamagalur",
+    image: Amrutheshwara,
+    about: `Amrutheshwara Temple is an ancient temple dedicated to Lord Shiva. The temple is known for its beautiful architecture and religious significance. Surrounded by coffee plantations and scenic beauty, it's a peaceful pilgrimage destination.`,
+    bestTime: "October to March",
 },
 
 ];
