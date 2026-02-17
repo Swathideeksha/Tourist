@@ -21,10 +21,10 @@ import Agumbe from "../assests/Agumbe.jpeg";
 import biligiri from "../assests/biligiri.jpg";
 import gangamoola from "../assests/ganga mula.jpg";
 import Kemmannugundi from "../assests/kemmannugundi.jpg";
-import Kodachadri from "../assests/kodachadri.webp";
-import Kundadri from "../assests/kundadri.jpg";
-import Madikeri from "../assests/madikeri.jpg.webp";
-import nandihills from "../assests/nandi hills.jpg";
+import Kodachadri from "../assests/kodachadri.png";
+import Kundadri from "../assests/KundadriHills.webp";
+import Madikeri from "../assests/places/madikeri.jpg";
+import nandihills from "../assests/NandiHills.jpg";
 
 // ================= HISTORY =================
 import hampi from "../assests/hampi.jpg";

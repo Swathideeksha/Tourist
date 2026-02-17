@@ -1,13 +1,14 @@
 import sakleshpurImg from "../assests/places/sakleshpur.webp";
 import coorgImg from "../assests/places/Coorg.jpg";
 import chikamagalurImg from "../assests/places/Chikmagalur.jpg";
-import AgumbeImg from "../assests/places/agumbe1.jpg";
+import AgumbeImg from "../assests/Agumbe.jpeg";
 import bilgiriImg from "../assests/places/bilgiri.jpg";
 import kemmannugundiImg from "../assests/places/kemmangundii.jpg";
 import gangamoolaImg from "../assests/places/gangamoola.webp";
-import kodachadriImg from "../assests/places/kodachadri.webp";
-import kundadriImg from "../assests/places/kundadri.webp";
+import kodachadriImg from "../assests/kodachadri.png";
+import kundadriImg from "../assests/KundadriHills.webp";
 import madikeriImg from "../assests/places/madikeri.jpg";
+import nandihillsImg from "../assests/NandiHills.jpg";
 
 // Beaches
 import kapuBeachImg from "../assests/Kapu-Beach.webp";
@@ -171,16 +172,11 @@ Distance: It is approximately 400 km from Bangalore.`,
 
 {
     id: "109",
-    name: "kodachadri",
+    name: "Kundadri",
     type: "Hill Station",
-    region: "Western Ghats",
-    image: kodachadriImg,
-    about: `Kodachadri is a prominent mountain peak and popular trekking destination situated in the Western Ghats of the Shivamogga (Shimoga) district of Karnataka, India. It is located within the Mookambika Wildlife Sanctuary, near the town of Kollur. 
-Key Details on Location and Access:
-Location: Kodachadri is in Hosanagar taluk, Shivamogga district.
-Elevation: It stands at an altitude of 1,343 meters (4,406 ft) above sea level, making it the 10th highest peak in Karnataka.
-Base Town: The nearest town is Kollur (famous for the Mookambika Temple), which serves as the base for treks.
-Distance: It is approximately 400 km from Bangalore.`,
+    region: "Shivamogga",
+    image: kundadriImg,
+    about: `Kundadri is a scenic hill station near Agumbe in Shivamogga district, Karnataka. This 826-meter tall monolithic hill is famous for its 17th-century Jain temple dedicated to Parshwanath. The temple sits atop the rocky peak and offers stunning panoramic views of the surrounding landscapes. Known for its spiritual significance and serene environment, Kundadri also features natural water ponds on its rocky surface. The trek to the top is moderately challenging and popular among adventure enthusiasts. The hill is surrounded by thick forests and is home to diverse flora and fauna. Best visited during the cooler months, Kundadri provides a perfect blend of adventure and spirituality.`,
     bestTime: "October to February",
 },
 
@@ -188,29 +184,24 @@ Distance: It is approximately 400 km from Bangalore.`,
 
 {
     id: "110",
-    name: "kundadri",
+    name: "Madikeri",
     type: "Hill Station",
-    region: "Western Ghats",
-    image:  kundadriImg,
-    about: `Kundadri Hill, located near Agumbe in Karnataka's Shivamogga district, is a 3,200-foot (826m) tall monolithic rock formation famous for its 17th-century Jain temple dedicated to Parshwanath Tirthankara. Named after the 4th-century Acharya Kundakunda, who is said to have meditated here, this historic site features ancient stone structures and two natural water ponds. 
-Key Historical and Cultural Aspects
-Significance: It is a revered pilgrimage site for Jains, known for its serene environment, and was historically a place of shelter for sage Kundakunda.
-Temple Structure: The main temple, a basadi (Jain shrine), was built during the 17th century using, which is reflected in its simple yet elegant, rustic stone architecture.
-Ancient Roots: Though the structure is 17th-century, the spot holds deeper historical significance, with some accounts suggesting the area has been associated with Jain, specifically, for over 2,000 years.
-Natural Elements: The site is unique due to the presence of two naturally formed, perennial, small ponds on the rock surface, which served the, needs of sages in earlier centuries. `,
-    bestTime: "October - February",
+    region: "Coorg",
+    image: madikeriImg,
+    about: `Madikeri is the charming heart of Coorg district in Karnataka, nestled in the Western Ghats. Known as the Queen of Coorg, this historic hill town combines natural beauty with rich cultural heritage. Raja's Seat offers breathtaking sunset views overlooking coffee plantations and forests. The imposing Madikeri Fort, built in the 17th century, stands as a testament to the region's history with its distinctive stone elephants guarding the entrance. The town is surrounded by misty mountains, lush coffee estates, and scenic valleys. Abbey Falls, a picturesque waterfall nearby, is surrounded by spice plantations. Madikeri is perfect for trekking, exploring spice gardens, and experiencing authentic Coorgi hospitality and cuisine.`,
+    bestTime: "October to February",
 },
 
 
 
 {
     id: "111",
-    name: "madikeri",
+    name: "Nandi Hills",
     type: "Hill Station",
-    region: "Western Ghats",
-    image: madikeriImg,
-    about: `Madikeri is a hill town in southern India. Framed by the Western Ghats mountain range, it's known for the Raja's Seat, a simple monument overlooking forests and rice paddies. In the center, the 17th-century Madikeri Fort features 2 stone elephants at the entrance. Nearby, the domed Omkareshwar Temple is dedicated to the Hindu deity Shiva. To the northwest, cascading Abbey Falls is surrounded by spice plantations`,
-    bestTime: "October to February",
+    region: "Chikkaballapura",
+    image: nandihillsImg,
+    about: `Nandi Hills is a scenic hill station located near Chikkaballapura, just 60 kilometers from Bengaluru. Named after the sacred Nandi temple at its base, this picturesque destination is famous for its cool climate and panoramic views. The hill station is ideal for trekking, paragliding, and enjoying nature. Tipu Sultan's Fort, situated at the hilltop, offers historical significance and breathtaking vistas. The winding roads leading up the hills provide an exhilarating driving experience. Lumbini Gardens, spread across the slopes, offer peaceful walking paths amidst lush greenery. Nandi Hills is perfect for weekend getaways with stunning sunrise and sunset views, making it a popular destination for both adventure seekers and nature lovers.`,
+    bestTime: "October to March",
 },
 
 // ================= BEACHES =================
