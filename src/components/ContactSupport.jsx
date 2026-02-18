@@ -32,7 +32,7 @@ const ContactSupport = ({ isOpen, onClose }) => {
     { id: "message", icon: "chat", label: "Send Message" }
   ];
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = "https://tourist-backend-seven.vercel.app";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
