@@ -1,4 +1,4 @@
-import kodachadriImg from "../assests/places/kodachadri.webp";
+import kodachadriImg from "../assests/placehero.png";
 
 const PlaceHero = () => {
   return (

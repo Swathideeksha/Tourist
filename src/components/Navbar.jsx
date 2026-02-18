@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import ContactSupport from "./ContactSupport";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showContactSupport, setShowContactSupport] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#6b0000] px-4 md:px-10 py-4 flex flex-col md:flex-row justify-between items-center shadow-lg border-b border-yellow-400/20">
@@ -57,10 +59,17 @@ const Navbar = () => {
 
       {/* Right side – ONLY Contact Support */}
       <div className={`${isMenuOpen ? 'mt-4' : 'hidden md:block'}`}>
-        <button className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full text-sm md:text-base">
+        <button 
+          onClick={() => setShowContactSupport(true)}
+          className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full text-sm md:text-base"
+        >
           Contact Support
         </button>
       </div>
+      <ContactSupport 
+        isOpen={showContactSupport} 
+        onClose={() => setShowContactSupport(false)} 
+      />
     </nav>
   );
 };

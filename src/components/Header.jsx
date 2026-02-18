@@ -1,6 +1,8 @@
 import React from "react";
+import ContactSupport from "./ContactSupport";
 
 const Header = () => {
+  const [showContactSupport, setShowContactSupport] = React.useState(false);
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-karnataka-red backdrop-blur-lg border-b border-karnataka-yellow/20 shadow-lg">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-3 md:py-5 gap-3 md:gap-0">
@@ -34,11 +36,18 @@ const Header = () => {
             <span className="text-sm font-medium hidden md:block">English</span>
             <span className="material-symbols-outlined text-sm hidden md:block">expand_more</span>
           </button>
-          <button className="bg-karnataka-yellow text-karnataka-red px-4 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-bold hover:bg-white hover:shadow-xl transition-all duration-300 whitespace-nowrap">
+          <button 
+            onClick={() => setShowContactSupport(true)}
+            className="bg-karnataka-yellow text-karnataka-red px-4 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-bold hover:bg-white hover:shadow-xl transition-all duration-300 whitespace-nowrap"
+          >
             Contact Support
           </button>
         </div>
       </div>
+      <ContactSupport 
+        isOpen={showContactSupport} 
+        onClose={() => setShowContactSupport(false)} 
+      />
     </header>
   );
 };
