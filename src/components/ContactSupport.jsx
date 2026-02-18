@@ -138,7 +138,7 @@ const ContactSupport = ({ isOpen, onClose }) => {
                 </p>
               </div>
               <a 
-                href="mailto:support@explorekarnataka.com"
+                href="mailto:explorekarnataka0@gmail.com"
                 className="block w-full bg-red-700 text-white text-center py-3 rounded-lg font-medium hover:bg-red-800 transition"
               >
                 Open Email App
