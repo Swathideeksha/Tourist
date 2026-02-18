@@ -32,12 +32,14 @@ const ContactSupport = ({ isOpen, onClose }) => {
     { id: "message", icon: "chat", label: "Send Message" }
   ];
 
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
     
     try {
-      const response = await fetch("http://localhost:5000/api/contact/contact", {
+      const response = await fetch(`${API_URL}/api/contact/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
