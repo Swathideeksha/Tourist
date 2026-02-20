@@ -11,8 +11,10 @@ import History from "./components/History";
 import Religious from "./components/Religious";
 import Businfo from "./pages/Businfo";
 import BusDetails from "./pages/BusDetails";
+import AllBuses from "./pages/AllBuses";
 import Routemap from "./pages/Routemap";
 import DestinationDetails from "./pages/DestinationDetails";
+
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
         <Route path="/bus/:id" element={<BusDetails />} />
         <Route path="/routemap" element={<Routemap />} />
         <Route path="/discover-more" element={<DiscoverMore />} />
+        <Route path="/allbuses" element={<AllBuses />} />
       </Routes>
     </BrowserRouter>
   );

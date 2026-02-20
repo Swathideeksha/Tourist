@@ -5,6 +5,12 @@ import Footer from "../components/Footer";
 import seabirdImg from '../assests/seabird.avif';
 import vrlImg from '../assests/VRL.jpg';
 import sugamaImg from '../assests/sugama.jpg';
+import srsImg from '../assests/SRS.jpg';
+import kadambaImg from '../assests/Kadamba.webp';
+import sharmaImg from '../assests/Sharma.png';
+import nationalImg from '../assests/National.Travels.jpg';
+import anandImg from '../assests/Anand.Travels.png';
+import orangeImg from '../assests/Orange.Tours.png';
 
 const BusDetails = () => {
   const { id } = useParams();
@@ -115,6 +121,251 @@ const BusDetails = () => {
       ],
       overallRating: 4.4,
     },
+    {
+      id: 4,
+      name: "SRS Travels",
+      type: "LUXURY COACHES",
+      image: srsImg,
+      model: "Scania Metrolink",
+      capacity: "40 Sleeper Berths",
+      safetyGear: "CCTV, ABS, Fire Extinguisher",
+      engine: "Euro 6 Compliant",
+      contact: "+91 80 2234 8888",
+      address: "#45, M G Road, Bengaluru, Karnataka - 560001",
+      amenities: ["High-Speed Wi-Fi", "USB Charging", "Reclining Seats", "Refreshments"],
+      reviews: [
+        {
+          name: "Karthik R.",
+          type: "Verified Traveler",
+          date: "3 days ago",
+          rating: 5,
+          text: "Amazing journey to Hampi! The Scania bus was super comfortable and the journey was smooth.",
+        },
+        {
+          name: "Lakshmi Devi",
+          type: "Verified Traveler",
+          date: "1 week ago",
+          rating: 4,
+          text: "Great service with comfortable seats. The staff was helpful throughout the journey.",
+        },
+      ],
+      travelInfo: [
+        "Carry valid ID proof for boarding.",
+        "Report 30 minutes before departure.",
+        "Refreshments included in ticket price",
+      ],
+      overallRating: 4.6,
+    },
+    {
+      id: 5,
+      name: "Kadamba Transport",
+      type: "STATE RUN",
+      image: kadambaImg,
+      model: "Ashok Leyland Viking",
+      capacity: "50 Seats",
+      safetyGear: "First Aid, Fire Extinguisher",
+      engine: "BS-IV Compliant",
+      contact: "+91 832 222 1234",
+      address: "Kadamba Depot, Panaji, Goa - 403001",
+      amenities: ["Air Conditioning", "Reading Lights", "Emergency Exit", "Qualified Driver"],
+      reviews: [
+        {
+          name: "Rahul Desai",
+          type: "Verified Traveler",
+          date: "5 days ago",
+          rating: 4,
+          text: "Good connectivity between Karnataka and Goa. Affordable pricing and reliable schedules.",
+        },
+        {
+          name: "Meera Shetty",
+          type: "Verified Traveler",
+          date: "2 weeks ago",
+          rating: 4,
+          text: "Decent service for interstate travel. Buses are well-maintained.",
+        },
+      ],
+      travelInfo: [
+        "Valid ID required for interstate travel.",
+        "Arrive 20 minutes before departure.",
+        "Luggage allowance: 25kg per passenger",
+      ],
+      overallRating: 4.2,
+    },
+    {
+      id: 6,
+      name: "KSRTC Volvo",
+      type: "PREMIUM",
+      image: seabirdImg,
+      model: "Volvo 9400 Multi-Axle",
+      capacity: "44 Sleeper Berths",
+      safetyGear: "CCTV, GPS, Fire Safety",
+      engine: "BS-VI Compliant",
+      contact: "+91 80 2235 9999",
+      address: "Shantinagar Bus Station, Bengaluru, Karnataka - 560027",
+      amenities: ["Wi-Fi", "USB Charging", "AC", "Water Bottle"],
+      reviews: [
+        {
+          name: "Deepak Gowda",
+          type: "Verified Traveler",
+          date: "1 day ago",
+          rating: 5,
+          text: "Excellent Volvo service to Coorg! Very comfortable and punctual. Highly recommended.",
+        },
+        {
+          name: "Smitha Nair",
+          type: "Verified Traveler",
+          date: "3 days ago",
+          rating: 4,
+          text: "Great experience traveling to hill stations. Clean buses and professional staff.",
+        },
+      ],
+      travelInfo: [
+        "Online booking available on KSRTC app.",
+        "Report 15 minutes before departure.",
+        "Student and senior citizen discounts available",
+      ],
+      overallRating: 4.3,
+    },
+    {
+      id: 7,
+      name: "Sharma Transport",
+      type: "AC SLEEPER",
+      image: sharmaImg,
+      model: "Mercedes-Benz O500",
+      capacity: "38 Sleeper Berths",
+      safetyGear: "CCTV, ABS, GPS",
+      engine: "Euro 5 Compliant",
+      contact: "+91 80 2236 1010",
+      address: "Electronic City Phase 1, Bengaluru, Karnataka - 560100",
+      amenities: ["Premium Wi-Fi", "Individual AC Controls", "Blankets", "Snacks"],
+      reviews: [
+        {
+          name: "Arjun Reddy",
+          type: "Verified Traveler",
+          date: "4 days ago",
+          rating: 5,
+          text: "Luxury travel to Mysore! The Mercedes bus was amazing with all amenities.",
+        },
+        {
+          name: "Divya Menon",
+          type: "Verified Traveler",
+          date: "1 week ago",
+          rating: 4,
+          text: "Very comfortable journey. AC worked perfectly and seats were very comfortable.",
+        },
+      ],
+      travelInfo: [
+        "ID proof mandatory for booking.",
+        "Boarding point: Electronic City Toll Plaza.",
+        "Snacks and water provided free of cost",
+      ],
+      overallRating: 4.5,
+    },
+    {
+      id: 8,
+      name: "National Travels",
+      type: "EXPRESS",
+      image: nationalImg,
+      model: "Volvo B9R",
+      capacity: "45 Seater",
+      safetyGear: "CCTV, Fire Extinguisher",
+      engine: "BS-IV Compliant",
+      contact: "+91 80 2237 2020",
+      address: "Anand Rao Circle, Bengaluru, Karnataka - 560009",
+      amenities: ["Wi-Fi", "Charging Points", "Air Conditioning", "Pushback Seats"],
+      reviews: [
+        {
+          name: "Suresh Prabhu",
+          type: "Verified Traveler",
+          date: "2 days ago",
+          rating: 4,
+          text: "Good express service to Mangalore. Fast and comfortable journey.",
+        },
+        {
+          name: "Asha Joseph",
+          type: "Verified Traveler",
+          date: "5 days ago",
+          rating: 4,
+          text: "Reliable service with decent amenities. On-time departure.",
+        },
+      ],
+      travelInfo: [
+        "Express routes with minimal stops.",
+        "Report 20 minutes before departure.",
+        "Cancellation allowed up to 6 hours before departure",
+      ],
+      overallRating: 4.4,
+    },
+    {
+      id: 9,
+      name: "Anand Travels",
+      type: "SEMI SLEEPER",
+      image: anandImg,
+      model: "Ashok Leyland 3200",
+      capacity: "42 Semi-Sleeper",
+      safetyGear: "First Aid Kit, Fire Extinguisher",
+      engine: "BS-IV Compliant",
+      contact: "+91 80 2238 3030",
+      address: "Kengeri Bus Terminal, Bengaluru, Karnataka - 560060",
+      amenities: ["AC", "Charging Points", "Cup Holder", "Leg Rest"],
+      reviews: [
+        {
+          name: "Naveen Kumar",
+          type: "Verified Traveler",
+          date: "6 days ago",
+          rating: 4,
+          text: "Good semi-sleeper service to Chikmagalur. Affordable and comfortable.",
+        },
+        {
+          name: "Pooja Singh",
+          type: "Verified Traveler",
+          date: "10 days ago",
+          rating: 4,
+          text: "Nice experience traveling to hill station. Seats were comfortable.",
+        },
+      ],
+      travelInfo: [
+        "Semi-sleeper configuration for comfort.",
+        "Report 15 minutes before departure.",
+        "Economical option for budget travelers",
+      ],
+      overallRating: 4.1,
+    },
+    {
+      id: 10,
+      name: "Orange Tours",
+      type: "PREMIUM",
+      image: orangeImg,
+      model: "Volvo 9800 Multi-Axle",
+      capacity: "40 Sleeper Berths",
+      safetyGear: "CCTV, ABS, GPS, Fire Safety",
+      engine: "BS-VI Compliant",
+      contact: "+91 80 2239 4040",
+      address: "Yeshwanthpur Bus Depot, Bengaluru, Karnataka - 560022",
+      amenities: ["Hi-Speed Wi-Fi", "USB Charging", "Climate Control", "Bedroll Provided"],
+      reviews: [
+        {
+          name: "Vijay Malhotra",
+          type: "Verified Traveler",
+          date: "2 days ago",
+          rating: 5,
+          text: "Best premium service to Udupi! The multi-axle bus made the journey butter smooth.",
+        },
+        {
+          name: "Radha Iyer",
+          type: "Verified Traveler",
+          date: "4 days ago",
+          rating: 5,
+          text: "Excellent service with world-class amenities. Will definitely travel again.",
+        },
+      ],
+      travelInfo: [
+        "Premium multi-axle coaches for extra comfort.",
+        "Report 30 minutes before departure.",
+        "Complimentary bedroll and water provided",
+      ],
+      overallRating: 4.6,
+    },
   ];
 
   const bus = busesData.find((b) => b.id === parseInt(id));
@@ -135,19 +386,22 @@ const BusDetails = () => {
     <>
       <Navbar />
       <div className="bg-white">
-        {/* Hero Section with Bus Image */}
-        <div className="relative h-96 md:h-[450px] overflow-hidden rounded-xl mx-4 md:mx-10 mt-6 shadow-lg">
-          <img
-            src={bus.image}
-            alt={bus.name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-900/70 via-red-900/50 to-transparent flex items-center justify-start">
-            <div className="text-white p-8 md:p-12 max-w-md">
-              <p className="text-xs md:text-sm font-bold text-yellow-400 mb-3 uppercase tracking-wide">{bus.type}</p>
-              <h1 className="text-3xl md:text-5xl font-bold mb-2 leading-tight">{bus.name}</h1>
-              <div className="w-16 h-1 bg-yellow-400 mt-4"></div>
-            </div>
+        {/* Hero Section - Like Place Details */}
+        <div
+          className="h-[280px] md:h-[350px] lg:h-[420px] relative flex items-end"
+          style={{
+            backgroundImage: `url(${bus.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          <div className="relative z-10 p-4 md:p-10 text-white">
+            <h1 className="text-2xl md:text-4xl font-bold">{bus.name}</h1>
+            <p className="mt-1 md:mt-2 text-sm opacity-90">
+              {bus.type} • {bus.model}
+            </p>
           </div>
         </div>
 
@@ -225,6 +479,19 @@ const BusDetails = () => {
                     {amenity === "USB Charging" && "🔌"}
                     {amenity === "AC & Heating" && "🌡️"}
                     {amenity === "Blankets & Pillows" && "🛏️"}
+                    {amenity === "Reclining Seats" && "💺"}
+                    {amenity === "Refreshments" && "🥤"}
+                    {amenity === "Air Conditioning" && "❄️"}
+                    {amenity === "Emergency Exit" && "🚪"}
+                    {amenity === "Qualified Driver" && "👨‍✈️"}
+                    {amenity === "Reading Lights" && "💡"}
+                    {amenity === "Water Bottle" && "💧"}
+                    {amenity === "Individual AC Controls" && "🎛️"}
+                    {amenity === "Snacks" && "🍪"}
+                    {amenity === "Pushback Seats" && "🪑"}
+                    {amenity === "Leg Rest" && "🦵"}
+                    {amenity === "Bedroll Provided" && "🛏️"}
+                    {amenity === "Cup Holder" && "☕"}
                   </div>
                   <p className="text-sm font-semibold text-gray-900">{amenity}</p>
                 </div>

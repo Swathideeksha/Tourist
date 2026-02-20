@@ -33,7 +33,7 @@ const Navbar = () => {
       </div>
  
       {/* Nav Links - Desktop */}
-      <ul className={`flex gap-4 md:gap-8 text-white font-medium relative ${isMenuOpen ? 'flex-col mt-4' : 'hidden md:flex'}`}>
+      <ul className={`flex gap-4 md:gap-8 text-white font-medium relative ${isMenuOpen ? 'flex-col items-start mt-4 w-full' : 'hidden md:flex'}`}>
         {[
           { name: "Home", path: "/" },
           { name: "Places", path: "/places" },
@@ -58,7 +58,7 @@ const Navbar = () => {
       </ul>
 
       {/* Right side – ONLY Contact Support */}
-      <div className={`${isMenuOpen ? 'mt-4' : 'hidden md:block'}`}>
+      <div className={`${isMenuOpen ? 'mt-4 w-full' : 'hidden md:block'}`}>
         <button 
           onClick={() => setShowContactSupport(true)}
           className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full text-sm md:text-base"

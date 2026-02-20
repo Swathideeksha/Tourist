@@ -1,44 +1,32 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PlacesFilter = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const filters = [
+    { name: "All Places", path: "/places" },
+    { name: "Hill Stations", path: "/hill-stations" },
+    { name: "Beaches", path: "/beaches" },
+    { name: "History", path: "/history" },
+    { name: "Religious", path: "/religious" },
+  ];
 
   return (
     <div className="flex flex-wrap gap-3 md:gap-4 justify-center mt-4 md:mt-6 px-4">
-      <button
-        onClick={() => navigate("/places")}
-        className="px-4 md:px-6 py-2 rounded-full bg-yellow-400 font-semibold text-sm md:text-base hover:bg-yellow-500 transition"
-      >
-        All Places
-      </button>
-
-      <button
-        onClick={() => navigate("/hill-stations")}
-        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base hover:bg-gray-300 transition"
-      >
-        Hill Stations
-      </button>
-
-      <button
-        onClick={() => navigate("/beaches")}
-        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base hover:bg-gray-300 transition"
-      >
-        Beaches
-      </button>
-
-      <button
-        onClick={() => navigate("/history")}
-        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base hover:bg-gray-300 transition"
-      >
-        History
-      </button>
-
-      <button
-        onClick={() => navigate("/religious")}
-        className="px-4 md:px-6 py-2 rounded-full bg-gray-200 font-semibold text-sm md:text-base hover:bg-gray-300 transition"
-      >
-        Religious
-      </button>
+      {filters.map((filter) => (
+        <button
+          key={filter.name}
+          onClick={() => navigate(filter.path)}
+          className={`px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base transition ${
+            location.pathname === filter.path
+              ? "bg-yellow-400 hover:bg-yellow-500"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
+        >
+          {filter.name}
+        </button>
+      ))}
     </div>
   );
 };

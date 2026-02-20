@@ -1,11 +1,10 @@
 import { placesData } from "../data/placesData";
 import PlaceCard from "../components/PlaceCard";
-import { useNavigate } from "react-router-dom";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
+import PlacesFilter from "./PlacesFilter";
 
 const HillStations = () => {
-  const navigate = useNavigate();
   const { likedPlaces, toggleLike } = useLikes();
 
   const hillStations = placesData.filter(
@@ -20,12 +19,7 @@ const HillStations = () => {
           Hill Stations of Karnataka
         </h1>
 
-      <button
-        onClick={() => navigate("/places")}
-        className="mb-6 md:mb-8 bg-yellow-400 px-5 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base"
-      >
-        Back To Places
-      </button>
+      <PlacesFilter />
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {hillStations.map((p) => (

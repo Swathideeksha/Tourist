@@ -6,6 +6,7 @@ import PlacesGrid from "../components/PlacesGrid";
 import Footer from "../components/Footer";
 import LikedCollections from "../components/LikedCollections";
 
+
 const Places = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Places");
