@@ -1,15 +1,30 @@
-import { placesData } from "../data/placesData";
+import { useState, useEffect } from "react";
 import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+
 const History = () => {
   const { likedPlaces, toggleLike } = useLikes();
+  const [historicalPlaces, setHistoricalPlaces] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const historicalPlaces = placesData.filter(
-    (place) => place.category === "history"
-  );
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const response = await fetch(`${API_URL}/places?category=history`);
+        const data = await response.json();
+        setHistoricalPlaces(data);
+      } catch (error) {
+        console.error("Error fetching historical places:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPlaces();
+  }, []);
 
   return (
     <>
@@ -21,16 +36,25 @@ const History = () => {
 
         <PlacesFilter />
 
+        {loading ? (
+          <p className="text-center text-gray-500">Loading...</p>
+        ) : historicalPlaces.length === 0 ? (
+          <p className="text-center text-gray-500">No historical sites found</p>
+        ) : (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {historicalPlaces.map((p) => (
             <PlaceCard
-              key={p.id}
-              {...p}
-              isLiked={likedPlaces.includes(p.id)}
+              key={p._id}
+              id={p._id}
+              img={p.image || "/images/placeholder.jpg"}
+              name={p.name}
+              location={p.location}
+              isLiked={likedPlaces.includes(p._id)}
               toggleLike={toggleLike}
             />
           ))}
         </div>
+        )}
       </div>
     </>
   );

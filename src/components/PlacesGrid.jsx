@@ -1,4 +1,4 @@
-import { placesData } from "../data/placesData";
+import { useState, useEffect } from "react";
 import PlaceCard from "./PlaceCard";
 import { useLikes } from "../context/LikesContext";
 
@@ -9,19 +9,48 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+
 const PlacesGrid = ({ search, activeCategory }) => {
   const { likedPlaces, toggleLike } = useLikes();
+  const [places, setPlaces] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredPlaces = placesData.filter((place) => {
-    const matchesCategory =
-      activeCategory === "All Places" ||
-      place.category === activeCategory;
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      setLoading(true);
+      try {
+        // Map frontend category names to backend category values
+        const categoryMap = {
+          "All Places": "all",
+          "Hill Stations": "hill-station",
+          "Beaches": "beach",
+          "Historical Sites": "history",
+          "Religious Sites": "religious"
+        };
+        const category = categoryMap[activeCategory] || "all";
+        const response = await fetch(`${API_URL}/places?category=${category}`);
+        const data = await response.json();
+        setPlaces(data);
+      } catch (error) {
+        console.error("Error fetching places:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPlaces();
+  }, [activeCategory]);
 
+  const filteredPlaces = places.filter((place) => {
     const matchesSearch =
-      place.name.toLowerCase().includes(search.toLowerCase());
-
-    return matchesCategory && matchesSearch;
+      place.name.toLowerCase().includes(search.toLowerCase()) ||
+      place.location.toLowerCase().includes(search.toLowerCase());
+    return matchesSearch;
   });
+
+  if (loading) {
+    return <p className="text-center text-gray-500 mt-10">Loading...</p>;
+  }
 
   if (filteredPlaces.length === 0) {
     return <p className="text-center text-gray-500 mt-10">No places found</p>;
@@ -50,10 +79,13 @@ const PlacesGrid = ({ search, activeCategory }) => {
         className="pb-12 relative group"
       >
         {filteredPlaces.map((p) => (
-          <SwiperSlide key={p.id}>
+          <SwiperSlide key={p._id}>
             <PlaceCard
-              {...p}
-              isLiked={likedPlaces.includes(p.id)}
+              id={p._id}
+              img={p.image || "/images/placeholder.jpg"}
+              name={p.name}
+              location={p.location}
+              isLiked={likedPlaces.includes(p._id)}
               toggleLike={toggleLike}
             />
           </SwiperSlide>
