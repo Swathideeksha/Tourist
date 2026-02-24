@@ -26,6 +26,7 @@ import Kundadri from "../assests/KundadriHills.webp";
 import Madikeri from "../assests/places/madikeri.jpg";
 import nandihills from "../assests/NandiHills.jpg";
 
+
 // ================= HISTORY =================
 import hampi from "../assests/hampi.jpg";
 import mysore from "../assests/places/Mysore.webp";
@@ -70,16 +71,16 @@ export const placesData = [
   { id: 13, name: "Padubidri Beach", location: "Udupi", img: PadubidriBeach, category: "beach" },
 
   // ⛰️ HILL STATIONS
-  { id: 101, name: "Sakleshpur", location: "Hassan", img: sakleshpur, category: "hill-station" },
-  { id: 102, name: "Coorg", location: "Kodagu", img: coorg, category: "hill-station" },
+  { id: 101, name: "Sakleshpur", location: "Hassan", img: sakleshpur, category: "hill-station"},
+  { id: 102, name: "Coorg", location: "Kodagu", img: coorg, category: "hill-station"},
   { id: 103, name: "Chikmagalur", location: "Chikmagalur", img: chikmangalur, category: "hill-station" },
   { id: 104, name: "Agumbe", location: "Shivamogga", img: Agumbe, category: "hill-station" },
   { id: 105, name: "Biligiri Hills", location: "Chamarajanagar", img: biligiri, category: "hill-station" },
-  { id: 106, name: "Gangamoola", location: "Chikmagalur", img: gangamoola, category: "hill-station" },
+  { id: 106, name: "Gangamoola", location: "Chikmagalur", img: gangamoola, category: "hill-station"},
   { id: 107, name: "Kemmannugundi", location: "Chikmagalur", img: Kemmannugundi, category: "hill-station" },
   { id: 108, name: "Kodachadri", location: "Shivamogga", img: Kodachadri, category: "hill-station" },
   { id: 109, name: "Kundadri", location: "Shivamogga", img: Kundadri, category: "hill-station" },
-  { id: 110, name: "Madikeri", location: "Madikeri", img: Madikeri, category: "hill-station" },
+  { id: 110, name: "Madikeri", location: "Madikeri", img: Madikeri, category: "hill-station"},
   { id: 111, name: "Nandi Hills", location: "Chikkaballapura", img: nandihills, category: "hill-station" },
 
   // 🏛️ HISTORY (17 Places)

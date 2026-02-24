@@ -26,6 +26,7 @@ const HillStations = () => {
           <PlaceCard
             key={p.id}
             {...p}
+            images={p.images}
             isLiked={likedPlaces.includes(p.id)}
             toggleLike={toggleLike}
           />
