@@ -34,6 +34,7 @@ const AdminPlaces = () => {
     if (admin && token) {
       fetchPlaces();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [admin, token]);
 
   const fetchPlaces = async () => {

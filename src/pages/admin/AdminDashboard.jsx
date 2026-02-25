@@ -24,6 +24,7 @@ const AdminDashboard = () => {
     if (admin && token) {
       fetchStats();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [admin, token]);
 
   const fetchStats = async () => {

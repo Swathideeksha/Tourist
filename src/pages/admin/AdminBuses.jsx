@@ -36,6 +36,7 @@ const AdminBuses = () => {
     if (admin && token) {
       fetchBuses();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [admin, token]);
 
   const fetchBuses = async () => {
