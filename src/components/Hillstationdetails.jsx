@@ -190,26 +190,37 @@ const Hillstationdetails = () => {
         <div className="space-y-6">
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow">
             <h3 className="font-semibold mb-4">
-              Plan Your Trip
+              Nearby Facilities
             </h3>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-center gap-2">
-                <span>🏨</span>
-                <span>Hotels & Resorts</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>🍽</span>
-                <span>Local Restaurants</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>🚗</span>
-                <span>Car Rentals</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>🗺️</span>
-                <span>Guided Tours</span>
-              </li>
-            </ul>
+            {place.nearbyFacilities && place.nearbyFacilities.length > 0 ? (
+              <ul className="space-y-3 text-gray-600">
+                {place.nearbyFacilities.map((facility, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <span>🏨</span>
+                    <span>{facility}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex items-center gap-2">
+                  <span>🏨</span>
+                  <span>Hotels & Resorts</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span>🍽</span>
+                  <span>Local Restaurants</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span>🚗</span>
+                  <span>Car Rentals</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span>🗺️</span>
+                  <span>Guided Tours</span>
+                </li>
+              </ul>
+            )}
           </div>
 
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow">

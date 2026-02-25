@@ -21,6 +21,7 @@ const AdminPlaces = () => {
     rating: 0,
     isActive: true,
     placesToVisit: [],
+    nearbyFacilities: [],
   });
 
   useEffect(() => {
@@ -62,10 +63,13 @@ const AdminPlaces = () => {
       const filteredImages = formData.images.filter(img => img.trim() !== "");
       // Filter out empty places to visit
       const filteredPlacesToVisit = formData.placesToVisit.filter(place => place.trim() !== "");
+      // Filter out empty nearby facilities
+      const filteredNearbyFacilities = formData.nearbyFacilities.filter(facility => facility.trim() !== "");
       const dataToSend = {
         ...formData,
         images: filteredImages,
         placesToVisit: filteredPlacesToVisit,
+        nearbyFacilities: filteredNearbyFacilities,
       };
 
       if (editingPlace) {
@@ -94,6 +98,7 @@ const AdminPlaces = () => {
         rating: 0,
         isActive: true,
         placesToVisit: [],
+        nearbyFacilities: [],
       });
       fetchPlaces();
     } catch (error) {
@@ -113,6 +118,7 @@ const AdminPlaces = () => {
       rating: place.rating,
       isActive: place.isActive,
       placesToVisit: place.placesToVisit || [],
+      nearbyFacilities: place.nearbyFacilities || [],
     });
     setShowModal(true);
   };
@@ -166,6 +172,7 @@ const AdminPlaces = () => {
                   rating: 0,
                   isActive: true,
                   placesToVisit: [],
+                  nearbyFacilities: [],
                 });
                 setShowModal(true);
               }}
@@ -352,6 +359,17 @@ const AdminPlaces = () => {
                       placeholder="Enter places to visit, one per line"
                     ></textarea>
                     <p className="text-xs text-gray-500 mt-1">Enter each place on a new line</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Nearby Facilities (one per line)</label>
+                    <textarea
+                      value={formData.nearbyFacilities.join("\n")}
+                      onChange={(e) => setFormData({ ...formData, nearbyFacilities: e.target.value.split("\n") })}
+                      rows="4"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                      placeholder="Enter nearby facilities, one per line"
+                    ></textarea>
+                    <p className="text-xs text-gray-500 mt-1">Enter each facility on a new line</p>
                   </div>
                   <div>
                     <label className="flex items-center gap-2">
