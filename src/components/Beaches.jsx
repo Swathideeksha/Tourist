@@ -37,7 +37,11 @@ const Beaches = () => {
       <PlacesFilter />
 
       {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div key={n} className="bg-gray-200 rounded-lg h-64 animate-pulse"></div>
+          ))}
+        </div>
       ) : beaches.length === 0 ? (
         <p className="text-center text-gray-500">No beaches found</p>
       ) : (
