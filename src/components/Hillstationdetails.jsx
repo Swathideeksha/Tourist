@@ -132,11 +132,22 @@ const Hillstationdetails = () => {
 
           <section className="bg-red-50 p-4 md:p-6 rounded-2xl">
             <h3 className="font-semibold text-red-600 mb-2">
-              Best Time to Visit
+              Places to Visit
             </h3>
-            <p>
-              October to March is the ideal time to visit, with pleasant weather and clear skies perfect for sightseeing and outdoor activities.
-            </p>
+            {place.placesToVisit && place.placesToVisit.length > 0 ? (
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                {place.placesToVisit.map((placeItem, index) => (
+                  <li key={index}>{placeItem}</li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Explore the main attraction and nearby viewpoints</li>
+                <li>Visit local markets and experience local culture</li>
+                <li>Nature walks and trekking trails</li>
+                <li>Photography spots at sunrise/sunset</li>
+              </ul>
+            )}
           </section>
 
           {/* GALLERY */}
@@ -203,19 +214,19 @@ const Hillstationdetails = () => {
 
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow">
             <h3 className="font-semibold mb-4">
-              Best Time to Visit
+              How to Reach
             </h3>
             <p className="text-gray-600 text-sm">
-              October to March offers pleasant weather with temperatures ranging from 15°C to 30°C, making it ideal for outdoor activities and sightseeing.
+              Well connected by road. The nearest railway station is {place.location} and major airports are accessible within 100-150 km.
             </p>
           </div>
 
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow">
             <h3 className="font-semibold mb-4">
-              How to Reach
+              Best Time to Visit
             </h3>
             <p className="text-gray-600 text-sm">
-              Well connected by road. The nearest railway station is {place.location} and major airports are accessible within 100-150 km.
+              October to March offers pleasant weather with temperatures ranging from 15°C to 30°C, making it ideal for outdoor activities and sightseeing.
             </p>
           </div>
         </div>

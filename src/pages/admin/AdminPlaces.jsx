@@ -20,6 +20,7 @@ const AdminPlaces = () => {
     images: ["", "", "", "", "", ""],
     rating: 0,
     isActive: true,
+    placesToVisit: [],
   });
 
   useEffect(() => {
@@ -59,9 +60,12 @@ const AdminPlaces = () => {
 
       // Filter out empty images and create the data to send
       const filteredImages = formData.images.filter(img => img.trim() !== "");
+      // Filter out empty places to visit
+      const filteredPlacesToVisit = formData.placesToVisit.filter(place => place.trim() !== "");
       const dataToSend = {
         ...formData,
         images: filteredImages,
+        placesToVisit: filteredPlacesToVisit,
       };
 
       if (editingPlace) {
@@ -89,6 +93,7 @@ const AdminPlaces = () => {
         images: ["", "", "", "", "", ""],
         rating: 0,
         isActive: true,
+        placesToVisit: [],
       });
       fetchPlaces();
     } catch (error) {
@@ -107,6 +112,7 @@ const AdminPlaces = () => {
       images: place.images && place.images.length >= 6 ? place.images : [...(place.images || []), ...Array(6 - (place.images?.length || 0)).fill("")],
       rating: place.rating,
       isActive: place.isActive,
+      placesToVisit: place.placesToVisit || [],
     });
     setShowModal(true);
   };
@@ -159,6 +165,7 @@ const AdminPlaces = () => {
                   images: ["", "", "", "", "", ""],
                   rating: 0,
                   isActive: true,
+                  placesToVisit: [],
                 });
                 setShowModal(true);
               }}
@@ -334,6 +341,17 @@ const AdminPlaces = () => {
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
                       required
                     ></textarea>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Places to Visit (one per line)</label>
+                    <textarea
+                      value={formData.placesToVisit.join("\n")}
+                      onChange={(e) => setFormData({ ...formData, placesToVisit: e.target.value.split("\n") })}
+                      rows="4"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                      placeholder="Enter places to visit, one per line"
+                    ></textarea>
+                    <p className="text-xs text-gray-500 mt-1">Enter each place on a new line</p>
                   </div>
                   <div>
                     <label className="flex items-center gap-2">
