@@ -15,10 +15,12 @@ const PlacesGrid = ({ search, activeCategory }) => {
   const { likedPlaces, toggleLike } = useLikes();
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPlaces = async () => {
       setLoading(true);
+      setError(null);
       try {
         // Map frontend category names to backend category values
         const categoryMap = {
@@ -30,10 +32,16 @@ const PlacesGrid = ({ search, activeCategory }) => {
         };
         const category = categoryMap[activeCategory] || "all";
         const response = await fetch(`${API_URL}/places?category=${category}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         setPlaces(data);
       } catch (error) {
         console.error("Error fetching places:", error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -50,6 +58,15 @@ const PlacesGrid = ({ search, activeCategory }) => {
 
   if (loading) {
     return <p className="text-center text-gray-500 mt-10">Loading...</p>;
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 mt-10">
+        <p>Error loading places: {error}</p>
+        <p className="text-sm text-gray-500 mt-2">Please check if the backend server is running</p>
+      </div>
+    );
   }
 
   if (filteredPlaces.length === 0) {
