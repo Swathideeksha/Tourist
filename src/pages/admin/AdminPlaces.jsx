@@ -22,6 +22,7 @@ const AdminPlaces = () => {
     isActive: true,
     placesToVisit: [],
     nearbyFacilities: [],
+    howToReach: "",
   });
 
   useEffect(() => {
@@ -100,6 +101,7 @@ const AdminPlaces = () => {
         isActive: true,
         placesToVisit: [],
         nearbyFacilities: [],
+        howToReach: "",
       });
       fetchPlaces();
     } catch (error) {
@@ -120,6 +122,7 @@ const AdminPlaces = () => {
       isActive: place.isActive,
       placesToVisit: place.placesToVisit || [],
       nearbyFacilities: place.nearbyFacilities || [],
+      howToReach: place.howToReach || "",
     });
     setShowModal(true);
   };
@@ -174,6 +177,7 @@ const AdminPlaces = () => {
                   isActive: true,
                   placesToVisit: [],
                   nearbyFacilities: [],
+                  howToReach: "",
                 });
                 setShowModal(true);
               }}
@@ -371,6 +375,17 @@ const AdminPlaces = () => {
                       placeholder="Enter nearby facilities, one per line"
                     ></textarea>
                     <p className="text-xs text-gray-500 mt-1">Enter each facility on a new line</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-bold text-gray-700 mb-1">How to Reach</label>
+                    <textarea
+                      value={formData.howToReach}
+                      onChange={(e) => setFormData({ ...formData, howToReach: e.target.value })}
+                      rows="4"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                      placeholder="Enter how to reach this place (by bus, train, flight, etc.)"
+                    ></textarea>
+                    <p className="text-xs text-gray-500 mt-1">Provide transportation details (nearest airport, railway station, bus stand, etc.)</p>
                   </div>
                   <div>
                     <label className="flex items-center gap-2">
