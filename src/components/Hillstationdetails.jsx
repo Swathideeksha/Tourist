@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLikes } from "../context/LikesContext";
+import places from "../data/places";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
 
@@ -15,12 +16,60 @@ const Hillstationdetails = () => {
 
   useEffect(() => {
     const fetchPlace = async () => {
+      setLoading(true);
+      
+      // First, try to find in static places.js data by matching name
+      // Convert id to lowercase for case-insensitive matching
+      const staticPlace = places.find(p => 
+        p.name.toLowerCase().replace(/\s+/g, '-') === id.toLowerCase() ||
+        p.name.toLowerCase().replace(/\s+/g, '') === id.toLowerCase() ||
+        p.id === id
+      );
+      
+      if (staticPlace) {
+        setPlace({
+          _id: staticPlace.id,
+          name: staticPlace.name,
+          location: staticPlace.region || staticPlace.type,
+          description: staticPlace.about,
+          image: staticPlace.image,
+          images: staticPlace.images || [],
+          category: staticPlace.type,
+          bestTime: staticPlace.bestTime
+        });
+        if (staticPlace.image) {
+          setSelectedImage(staticPlace.image);
+        }
+        setLoading(false);
+        return;
+      }
+      
+      // If not found in static data, try API with the id
       try {
         const response = await fetch(`${API_URL}/places/${id}`);
-        const data = await response.json();
-        setPlace(data);
-        if (data.image) {
-          setSelectedImage(data.image);
+        if (response.ok) {
+          const data = await response.json();
+          setPlace(data);
+          if (data.image) {
+            setSelectedImage(data.image);
+          }
+        } else {
+          // If API fails, try to find by name in all places from API
+          const allResponse = await fetch(`${API_URL}/places`);
+          if (allResponse.ok) {
+            const allPlaces = await allResponse.json();
+            // Try to find by name match
+            const decodedId = decodeURIComponent(id).toLowerCase().replace(/-/g, ' ');
+            const matchedPlace = allPlaces.find(p => 
+              p.name.toLowerCase().replace(/\s+/g, ' ') === decodedId
+            );
+            if (matchedPlace) {
+              setPlace(matchedPlace);
+              if (matchedPlace.image) {
+                setSelectedImage(matchedPlace.image);
+              }
+            }
+          }
         }
       } catch (error) {
         console.error("Error fetching place:", error);
