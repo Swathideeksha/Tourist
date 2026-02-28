@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLikes } from "../context/LikesContext";
 import PlaceCard from "./PlaceCard";
+import { placesData } from "../data/placesData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -9,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const LikedCollection = () => {
   const { likedPlaces, toggleLike } = useLikes();
@@ -25,15 +26,35 @@ const LikedCollection = () => {
       }
 
       try {
-        // Fetch all places and filter by liked IDs
+        // Try to fetch from API first
         const response = await fetch(`${API_URL}/places`);
-        const allPlaces = await response.json();
+        if (response.ok) {
+          const allPlaces = await response.json();
+          
+          // Filter places that are in the liked list (check both _id and id)
+          const filtered = allPlaces.filter(p => 
+            likedPlaces.includes(p._id) || likedPlaces.includes(p.id)
+          );
+          
+          if (filtered.length > 0) {
+            setLikedData(filtered);
+            setLoading(false);
+            return;
+          }
+        }
         
-        // Filter places that are in the liked list
-        const filtered = allPlaces.filter(p => likedPlaces.includes(p._id));
-        setLikedData(filtered);
+        // Fallback to static data
+        const staticFiltered = placesData.filter(p => 
+          likedPlaces.includes(String(p.id))
+        );
+        setLikedData(staticFiltered);
       } catch (error) {
         console.error("Error fetching liked places:", error);
+        // Fallback to static data on error
+        const staticFiltered = placesData.filter(p => 
+          likedPlaces.includes(String(p.id))
+        );
+        setLikedData(staticFiltered);
       } finally {
         setLoading(false);
       }
@@ -94,13 +115,13 @@ const LikedCollection = () => {
         className="pb-12 relative group"
       >
         {likedData.map((p) => (
-          <SwiperSlide key={p._id}>
+          <SwiperSlide key={p._id || p.id}>
             <PlaceCard
-              id={p._id}
-              img={p.image || "/images/placeholder.jpg"}
+              id={p._id || p.id}
+              img={p.image || p.img || "/images/placeholder.jpg"}
               name={p.name}
               location={p.location}
-              isLiked={likedPlaces.includes(p._id)}
+              isLiked={likedPlaces.includes(p._id || p.id)}
               toggleLike={toggleLike}
             />
           </SwiperSlide>
