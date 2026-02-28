@@ -84,7 +84,7 @@ const AdminDashboard = () => {
       location: placeForm.region,
       category: placeForm.type.toLowerCase().replace(' ', '-'),
       description: placeForm.about,
-      img: placeForm.image,
+      image: placeForm.image,
       bestTime: placeForm.bestTime,
       images: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img)
     };
@@ -119,7 +119,7 @@ const AdminDashboard = () => {
       location: placeForm.region,
       category: placeForm.type.toLowerCase().replace(' ', '-'),
       description: placeForm.about,
-      img: placeForm.image,
+      image: placeForm.image,
       bestTime: placeForm.bestTime,
       images: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img)
     };
