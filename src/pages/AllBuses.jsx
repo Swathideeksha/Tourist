@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,21 +12,50 @@ import nationalImg from '../assests/National.Travels.jpg';
 import anandImg from '../assests/Anand.Travels.png';
 import orangeImg from '../assests/Orange.Tours.png';
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
+// Static bus data for fallback
+const staticBuses = [
+  { id: 1, name: "Sea-Bird Travels", type: "PREMIUM SERVICES", image: seabirdImg, rating: 4.8, reviews: 324 },
+  { id: 2, name: "VRL Travels", type: "TOP RATED", image: vrlImg, rating: 4.5, reviews: 287 },
+  { id: 3, name: "Sugama Tourist", type: "HERITAGE", image: sugamaImg, rating: 4.4, reviews: 156 },
+  { id: 4, name: "SRS Travels", type: "LUXURY COACHES", image: srsImg, rating: 4.6, reviews: 198 },
+  { id: 5, name: "Kadamba Transport", type: "STATE RUN", image: kadambaImg, rating: 4.2, reviews: 145 },
+  { id: 6, name: "KSRTC Volvo", type: "PREMIUM", image: seabirdImg, rating: 4.3, reviews: 267 },
+  { id: 7, name: "Sharma Transport", type: "AC SLEEPER", image: sharmaImg, rating: 4.5, reviews: 189 },
+  { id: 8, name: "National Travels", type: "EXPRESS", image: nationalImg, rating: 4.4, reviews: 134 },
+  { id: 9, name: "Anand Travels", type: "SEMI SLEEPER", image: anandImg, rating: 4.1, reviews: 98 },
+  { id: 10, name: "Orange Tours", type: "PREMIUM", image: orangeImg, rating: 4.6, reviews: 212 },
+];
+
 const AllBuses = () => {
   const navigate = useNavigate();
+  const [buses, setBuses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const buses = [
-    { id: 1, name: "Sea-Bird Travels", type: "PREMIUM SERVICES", image: seabirdImg, rating: 4.8, reviews: 324 },
-    { id: 2, name: "VRL Travels", type: "TOP RATED", image: vrlImg, rating: 4.5, reviews: 287 },
-    { id: 3, name: "Sugama Tourist", type: "HERITAGE", image: sugamaImg, rating: 4.4, reviews: 156 },
-    { id: 4, name: "SRS Travels", type: "LUXURY COACHES", image: srsImg, rating: 4.6, reviews: 198 },
-    { id: 5, name: "Kadamba Transport", type: "STATE RUN", image: kadambaImg, rating: 4.2, reviews: 145 },
-    { id: 6, name: "KSRTC Volvo", type: "PREMIUM", image: seabirdImg, rating: 4.3, reviews: 267 },
-    { id: 7, name: "Sharma Transport", type: "AC SLEEPER", image: sharmaImg, rating: 4.5, reviews: 189 },
-    { id: 8, name: "National Travels", type: "EXPRESS", image: nationalImg, rating: 4.4, reviews: 134 },
-    { id: 9, name: "Anand Travels", type: "SEMI SLEEPER", image: anandImg, rating: 4.1, reviews: 98 },
-    { id: 10, name: "Orange Tours", type: "PREMIUM", image: orangeImg, rating: 4.6, reviews: 212 },
-  ];
+  useEffect(() => {
+    const fetchBuses = async () => {
+      try {
+        const response = await fetch(`${API_URL}/buses`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setBuses(data);
+          } else {
+            setBuses(staticBuses);
+          }
+        } else {
+          setBuses(staticBuses);
+        }
+      } catch (error) {
+        console.error("Error fetching buses:", error);
+        setBuses(staticBuses);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBuses();
+  }, []);
 
   return (
     <>
@@ -42,47 +71,66 @@ const AllBuses = () => {
           ← Back to Bus Info
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {buses.map((bus) => (
-            <div key={bus.id} className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              {/* Image Container */}
-              <div className="relative h-40 md:h-48 overflow-hidden bg-gray-200">
-                <img
-                  src={bus.image}
-                  alt={bus.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-3 left-3 bg-yellow-400 text-gray-900 px-2 py-1 rounded-full text-xs font-bold">
-                  {bus.type}
-                </div>
-              </div>
-
-              {/* Content Container */}
-              <div className="p-4">
-                <h3 className="text-lg font-bold mb-2 text-gray-900">{bus.name}</h3>
-
-                <div className="flex items-center mb-3">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className={i < Math.floor(bus.rating) ? 'text-sm' : 'text-sm opacity-30'}>
-                        ★
-                      </span>
-                    ))}
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(n => (
+              <div key={n} className="rounded-lg overflow-hidden shadow-lg h-64 bg-gray-200 animate-pulse"></div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {buses.map((bus) => (
+              <div key={bus._id || bus.id} className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                {/* Image Container */}
+                <div className="relative h-40 md:h-48 overflow-hidden bg-gray-200">
+                  <img
+                    src={bus.image || bus.img || seabirdImg}
+                    alt={bus.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1">
+                    <span className="text-yellow-500">★</span>
+                    <span className="font-semibold text-sm">{bus.rating}</span>
                   </div>
-                  <span className="ml-1 text-sm font-bold text-gray-900">{bus.rating}</span>
-                  <span className="ml-1 text-xs text-gray-500">({bus.reviews})</span>
                 </div>
 
-                <button
-                  onClick={() => navigate(`/bus/${bus.id}`)}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-lg transition-colors duration-300 text-sm"
-                >
-                  View Details →
-                </button>
+                {/* Content */}
+                <div className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-bold text-lg">{bus.name}</h3>
+                      <p className="text-sm text-gray-500">{bus.type}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                    <span>★</span>
+                    <span>{bus.rating} ({bus.reviews} reviews)</span>
+                  </div>
+
+                  {bus.contact && (
+                    <div className="text-sm text-gray-600 mb-3">
+                      <p>📞 {bus.contact}</p>
+                    </div>
+                  )}
+
+                  {bus.address && (
+                    <div className="text-sm text-gray-600 mb-3">
+                      <p>📍 {bus.address}</p>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={() => navigate(`/busdetails/${bus._id || bus.id}`)}
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg transition"
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
       <Footer />
     </>
