@@ -1,5 +1,4 @@
 import Hillstationdetails from "../components/Hillstationdetails";
-import VisitorReviews from "../components/VisitorReviews";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -8,7 +7,6 @@ const DestinationDetails = () => {
     <>
       <Navbar />
       <Hillstationdetails/>
-      <VisitorReviews />
       <Footer />
     </>
   );

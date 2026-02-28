@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -49,7 +50,11 @@ const Footer = () => {
               <li>Helpline Services</li>
               <li>Ghat Safety Rules</li>
               <li>Department of Tourism</li>
-              <li>Partner Logins</li>
+              <li>
+                <Link to="/admin-login" className="hover:text-karnataka-yellow transition">
+                  Admin Panel
+                </Link>
+              </li>
             </ul>
           </div>
 
