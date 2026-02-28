@@ -3,8 +3,9 @@ import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
+import { placesData } from "../data/placesData";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const Beaches = () => {
   const { likedPlaces, toggleLike } = useLikes();
@@ -16,9 +17,18 @@ const Beaches = () => {
       try {
         const response = await fetch(`${API_URL}/places?category=beach`);
         const data = await response.json();
-        setBeaches(data);
+        if (data && data.length > 0) {
+          setBeaches(data);
+        } else {
+          // Fallback to static data
+          const staticData = placesData.filter(p => p.category === "beach");
+          setBeaches(staticData);
+        }
       } catch (error) {
         console.error("Error fetching beaches:", error);
+        // Fallback to static data
+        const staticData = placesData.filter(p => p.category === "beach");
+        setBeaches(staticData);
       } finally {
         setLoading(false);
       }

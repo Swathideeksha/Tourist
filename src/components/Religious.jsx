@@ -3,8 +3,9 @@ import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
+import { placesData } from "../data/placesData";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const Religious = () => {
   const { likedPlaces, toggleLike } = useLikes();
@@ -16,9 +17,18 @@ const Religious = () => {
       try {
         const response = await fetch(`${API_URL}/places?category=religious`);
         const data = await response.json();
-        setReligiousPlaces(data);
+        if (data && data.length > 0) {
+          setReligiousPlaces(data);
+        } else {
+          // Fallback to static data
+          const staticData = placesData.filter(p => p.category === "religious");
+          setReligiousPlaces(staticData);
+        }
       } catch (error) {
         console.error("Error fetching religious places:", error);
+        // Fallback to static data
+        const staticData = placesData.filter(p => p.category === "religious");
+        setReligiousPlaces(staticData);
       } finally {
         setLoading(false);
       }
