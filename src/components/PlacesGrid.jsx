@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PlaceCard from "./PlaceCard";
 import { useLikes } from "../context/LikesContext";
+import { placesData } from "../data/placesData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -9,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const PlacesGrid = ({ search, activeCategory }) => {
   const { likedPlaces, toggleLike } = useLikes();
@@ -33,26 +34,51 @@ const PlacesGrid = ({ search, activeCategory }) => {
         const category = categoryMap[activeCategory] || "all";
         const response = await fetch(`${API_URL}/places?category=${category}`);
         
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setPlaces(data);
+          } else {
+            // Fallback to static data when API returns empty
+            const staticData = category === "all" 
+              ? placesData 
+              : placesData.filter(p => p.category === category);
+            setPlaces(staticData);
+          }
+        } else {
+          // Fallback to static data on API error
+          const staticData = category === "all" 
+            ? placesData 
+            : placesData.filter(p => p.category === category);
+          setPlaces(staticData);
         }
-        
-        const data = await response.json();
-        setPlaces(data);
       } catch (error) {
         console.error("Error fetching places:", error);
-        setError(error.message);
+        // Fallback to static data when API fails
+        const categoryMapLocal = {
+          "All Places": "all",
+          "Hill Stations": "hill-station",
+          "Beaches": "beach",
+          "Historical Sites": "history",
+          "Religious Sites": "religious"
+        };
+        const category = categoryMapLocal[activeCategory] || "all";
+        const staticData = category === "all" 
+          ? placesData 
+          : placesData.filter(p => p.category === category);
+        setPlaces(staticData);
       } finally {
         setLoading(false);
       }
     };
     fetchPlaces();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory]);
 
   const filteredPlaces = places.filter((place) => {
     const matchesSearch =
-      place.name.toLowerCase().includes(search.toLowerCase()) ||
-      place.location.toLowerCase().includes(search.toLowerCase());
+      (place.name?.toLowerCase().includes(search.toLowerCase()) ||
+      place.location?.toLowerCase().includes(search.toLowerCase()));
     return matchesSearch;
   });
 
@@ -96,13 +122,13 @@ const PlacesGrid = ({ search, activeCategory }) => {
         className="pb-12 relative group"
       >
         {filteredPlaces.map((p) => (
-          <SwiperSlide key={p._id}>
+          <SwiperSlide key={p._id || p.id}>
             <PlaceCard
-              id={p._id}
-              img={p.image || "/images/placeholder.jpg"}
+              id={p._id || p.id}
+              img={p.image || p.img || "/images/placeholder.jpg"}
               name={p.name}
               location={p.location}
-              isLiked={likedPlaces.includes(p._id)}
+              isLiked={likedPlaces.includes(p._id || p.id)}
               toggleLike={toggleLike}
             />
           </SwiperSlide>
