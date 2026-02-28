@@ -1,15 +1,30 @@
-import { placesData } from "../data/placesData";
+import { useState, useEffect } from "react";
 import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/api";
+
 const Beaches = () => {
   const { likedPlaces, toggleLike } = useLikes();
+  const [beaches, setBeaches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const beaches = placesData.filter(
-    (place) => place.category === "beach"
-  );
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const response = await fetch(`${API_URL}/places?category=beach`);
+        const data = await response.json();
+        setBeaches(data);
+      } catch (error) {
+        console.error("Error fetching beaches:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPlaces();
+  }, []);
 
   return (
     <>
@@ -21,16 +36,29 @@ const Beaches = () => {
 
       <PlacesFilter />
 
+      {loading ? (
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div key={n} className="bg-gray-200 rounded-lg h-64 animate-pulse"></div>
+          ))}
+        </div>
+      ) : beaches.length === 0 ? (
+        <p className="text-center text-gray-500">No beaches found</p>
+      ) : (
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {beaches.map((p) => (
           <PlaceCard
-            key={p.id}
-            {...p}
-            isLiked={likedPlaces.includes(p.id)}
+            key={p._id}
+            id={p._id}
+            img={p.image || "/images/placeholder.jpg"}
+            name={p.name}
+            location={p.location}
+            isLiked={likedPlaces.includes(p._id)}
             toggleLike={toggleLike}
           />
         ))}
       </div>
+      )}
       </div>
     </>
   );

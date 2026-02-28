@@ -57,8 +57,8 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Right side – ONLY Contact Support */}
-      <div className={`${isMenuOpen ? 'mt-4 w-full' : 'hidden md:block'}`}>
+      {/* Right side – Contact Support */}
+      <div className={`${isMenuOpen ? 'mt-4 w-full' : 'hidden md:block'} flex items-center gap-3`}>
         <button 
           onClick={() => setShowContactSupport(true)}
           className="bg-[#7a1c1c] border border-white/20 text-white px-4 py-2 rounded-full text-sm md:text-base"

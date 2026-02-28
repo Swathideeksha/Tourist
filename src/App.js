@@ -19,7 +19,6 @@ import DestinationDetails from "./pages/DestinationDetails";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 
-
 function App() {
   return (
     <AdminProvider>
@@ -41,6 +40,7 @@ function App() {
           <Route path="/routemap" element={<Routemap />} />
           <Route path="/discover-more" element={<DiscoverMore />} />
           <Route path="/allbuses" element={<AllBuses />} />
+          
           {/* Admin Routes */}
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route
