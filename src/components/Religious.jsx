@@ -58,12 +58,10 @@ const Religious = () => {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {religiousPlaces.map((p) => (
             <PlaceCard
-              key={p._id}
-              id={p._id}
-              img={p.image || "/images/placeholder.jpg"}
-              name={p.name}
-              location={p.location}
-              isLiked={likedPlaces.includes(p._id)}
+              key={p.id || p._id}
+              {...p}
+              id={p.id || p._id}
+              isLiked={likedPlaces.includes(p.id || p._id)}
               toggleLike={toggleLike}
             />
           ))}
