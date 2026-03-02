@@ -36,17 +36,12 @@ const PlacesGrid = ({ search, activeCategory }) => {
         
         if (response.ok) {
           const data = await response.json();
-          if (data && data.length > 0) {
-            setPlaces(data);
-          } else {
-            // Fallback to static data when API returns empty
-            const staticData = category === "all" 
-              ? placesData 
-              : placesData.filter(p => p.category === category);
-            setPlaces(staticData);
-          }
+          console.log("API Response for places:", data);
+          // Always use API data if successful (even if empty, don't fallback to static)
+          setPlaces(data || []);
         } else {
           // Fallback to static data on API error
+          console.error("API error:", response.status);
           const staticData = category === "all" 
             ? placesData 
             : placesData.filter(p => p.category === category);

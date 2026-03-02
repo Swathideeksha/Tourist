@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_URL = process.env.REACT_APP_API_URL?.replace('/api', '') || "http://localhost:5000";
+
 const ContactSupport = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState("faq");
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -31,8 +33,6 @@ const ContactSupport = ({ isOpen, onClose }) => {
     { id: "email", icon: "email", label: "Email Us" },
     { id: "message", icon: "chat", label: "Send Message" }
   ];
-
-  const API_URL = "https://tourist-backend-seven.vercel.app";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

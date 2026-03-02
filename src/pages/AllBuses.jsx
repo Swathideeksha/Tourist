@@ -39,12 +39,11 @@ const AllBuses = () => {
         const response = await fetch(`${API_URL}/buses`);
         if (response.ok) {
           const data = await response.json();
-          if (data && data.length > 0) {
-            setBuses(data);
-          } else {
-            setBuses(staticBuses);
-          }
+          console.log("API Response for buses:", data);
+          // Always use API data if successful (even if empty, don't fallback to static)
+          setBuses(data || []);
         } else {
+          console.error("API error:", response.status);
           setBuses(staticBuses);
         }
       } catch (error) {

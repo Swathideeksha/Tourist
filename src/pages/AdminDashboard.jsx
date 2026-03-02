@@ -6,6 +6,7 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('places');
   const [places, setPlaces] = useState([]);
   const [buses, setBuses] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddPlaceForm, setShowAddPlaceForm] = useState(false);
   const [showAddBusForm, setShowAddBusForm] = useState(false);
@@ -13,7 +14,7 @@ const AdminDashboard = () => {
   const [editingBus, setEditingBus] = useState(null);
   const { admin, logout } = useAdmin();
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
   // Place:5000/api form state - matching places.js structure
   const [placeForm, setPlaceForm] = useState({
@@ -54,16 +55,19 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [placesRes, busesRes] = await Promise.all([
+      const [placesRes, busesRes, messagesRes] = await Promise.all([
         fetch(`${API_URL}/admin/places`),
-        fetch(`${API_URL}/admin/buses`)
+        fetch(`${API_URL}/admin/buses`),
+        fetch(`${API_URL}/contact`)
       ]);
       
-      const placesData = await placesRes.json();
-      const busesData = await busesRes.json();
+      const placesData = placesRes.ok ? await placesRes.json() : [];
+      const busesData = busesRes.ok ? await busesRes.json() : [];
+      const messagesData = messagesRes.ok ? await messagesRes.json() : { messages: [] };
       
       setPlaces(placesData);
       setBuses(busesData);
+      setMessages(messagesData.messages || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -542,6 +546,16 @@ const AdminDashboard = () => {
           >
             Manage Buses ({buses.length})
           </button>
+          <button
+            onClick={() => setActiveTab('messages')}
+            className={`px-6 py-3 rounded-lg font-semibold transition ${
+              activeTab === 'messages' 
+                ? 'bg-red-600 text-white' 
+                : 'bg-white text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Messages ({messages.length})
+          </button>
         </div>
 
         {/* Places Tab */}
@@ -692,6 +706,37 @@ const AdminDashboard = () => {
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* Messages Tab */}
+        {activeTab === 'messages' && (
+          <div>
+            <h2 className="text-xl font-bold mb-4">Contact Messages</h2>
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              {messages.length === 0 ? (
+                <div className="p-8 text-center text-gray-500">
+                  No messages yet. Messages from users will appear here.
+                </div>
+              ) : (
+                <div className="divide-y">
+                  {messages.map((msg) => (
+                    <div key={msg._id} className="p-4 hover:bg-gray-50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <span className="font-semibold text-lg">{msg.name}</span>
+                          <span className="text-gray-500 ml-2 text-sm">{msg.email}</span>
+                        </div>
+                        <span className="text-gray-400 text-sm">
+                          {msg.createdAt ? new Date(msg.createdAt).toLocaleDateString() : 'N/A'}
+                        </span>
+                      </div>
+                      <p className="text-gray-700 whitespace-pre-wrap">{msg.message}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
