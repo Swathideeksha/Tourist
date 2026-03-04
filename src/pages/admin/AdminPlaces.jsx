@@ -23,6 +23,8 @@ const AdminPlaces = () => {
     placesToVisit: [],
     nearbyFacilities: [],
     howToReach: "",
+    latitude: "",
+    longitude: "",
   });
 
   useEffect(() => {
@@ -72,6 +74,8 @@ const AdminPlaces = () => {
         images: filteredImages,
         placesToVisit: filteredPlacesToVisit,
         nearbyFacilities: filteredNearbyFacilities,
+        latitude: formData.latitude ? parseFloat(formData.latitude) : undefined,
+        longitude: formData.longitude ? parseFloat(formData.longitude) : undefined,
       };
 
       if (editingPlace) {
@@ -102,6 +106,8 @@ const AdminPlaces = () => {
         placesToVisit: [],
         nearbyFacilities: [],
         howToReach: "",
+        latitude: "",
+        longitude: "",
       });
       fetchPlaces();
     } catch (error) {
@@ -123,6 +129,8 @@ const AdminPlaces = () => {
       placesToVisit: place.placesToVisit || [],
       nearbyFacilities: place.nearbyFacilities || [],
       howToReach: place.howToReach || "",
+      latitude: place.latitude || "",
+      longitude: place.longitude || "",
     });
     setShowModal(true);
   };
@@ -289,6 +297,28 @@ const AdminPlaces = () => {
                       <option value="history">History</option>
                       <option value="religious">Religious</option>
                     </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Latitude</label>
+                    <input
+                      type="text"
+                      value={formData.latitude}
+                      onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                      placeholder="e.g., 13.3390"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">For map marker (e.g., 13.3390 for Karnataka)</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Longitude</label>
+                    <input
+                      type="text"
+                      value={formData.longitude}
+                      onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                      placeholder="e.g., 74.7421"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">For map marker (e.g., 74.7421 for Karnataka)</p>
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-1">Rating</label>

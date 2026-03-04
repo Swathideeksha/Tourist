@@ -61,13 +61,13 @@ const AdminDashboard = () => {
         fetch(`${API_URL}/contact`)
       ]);
       
-      const placesData = placesRes.ok ? await placesRes.json() : [];
-      const busesData = busesRes.ok ? await busesRes.json() : [];
-      const messagesData = messagesRes.ok ? await messagesRes.json() : { messages: [] };
+      const placesData = (placesRes.ok && placesRes.status !== 500) ? await placesRes.json() : [];
+      const busesData = (busesRes.ok && busesRes.status !== 500) ? await busesRes.json() : [];
+      const messagesData = (messagesRes.ok && messagesRes.status !== 500) ? await messagesRes.json() : { messages: [] };
       
-      setPlaces(placesData);
-      setBuses(busesData);
-      setMessages(messagesData.messages || []);
+      setPlaces(Array.isArray(placesData) ? placesData : []);
+      setBuses(Array.isArray(busesData) ? busesData : []);
+      setMessages(Array.isArray(messagesData?.messages) ? messagesData.messages : []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
