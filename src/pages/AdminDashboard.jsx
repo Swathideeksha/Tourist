@@ -56,7 +56,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const [placesRes, busesRes, messagesRes] = await Promise.all([
-        fetch(`${API_URL}/admin/places`),
+        fetch(`${API_URL}/places-management`),
         fetch(`${API_URL}/admin/buses`),
         fetch(`${API_URL}/contact`)
       ]);
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
     };
     
     try {
-      const response = await fetch(`${API_URL}/admin/places`, {
+      const response = await fetch(`${API_URL}/places-management`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(placeData)
@@ -129,7 +129,7 @@ const AdminDashboard = () => {
     };
     
     try {
-      const response = await fetch(`${API_URL}/admin/places/${editingPlace._id}`, {
+      const response = await fetch(`${API_URL}/places-management/${editingPlace._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(placeData)
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
   const handleDeletePlace = async (id) => {
     if (!window.confirm('Are you sure you want to delete this place?')) return;
     try {
-      const response = await fetch(`${API_URL}/admin/places/${id}`, {
+      const response = await fetch(`${API_URL}/places-management/${id}`, {
         method: 'DELETE'
       });
       
