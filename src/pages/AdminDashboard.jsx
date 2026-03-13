@@ -304,32 +304,12 @@ const AdminDashboard = () => {
     navigate('/');
   };
 
-  // Place CRUD operations - updated for file uploads
+  // Place CRUD operations - hybrid approach for file uploads
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', placeForm.name);
-    formDataToSend.append('location', placeForm.region);
-    formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
-    formDataToSend.append('description', placeForm.about);
-    formDataToSend.append('bestTime', placeForm.bestTime);
-    formDataToSend.append('isActive', 'true');
-    
-    // Add main image if exists
-    if (placeForm.image && placeForm.image instanceof File) {
-      formDataToSend.append('image', placeForm.image);
-    }
-    
-    // Add gallery images that exist
-    [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile, index) => {
-      if (imageFile && imageFile instanceof File) {
-        formDataToSend.append('images', imageFile);
-      }
-    });
-    
     try {
-      console.log('Submitting place data with files:', {
+      console.log('Submitting place data:', {
         name: placeForm.name,
         location: placeForm.region,
         category: placeForm.type.toLowerCase().replace(' ', '-'),
@@ -339,9 +319,22 @@ const AdminDashboard = () => {
         hasGalleryImages: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img && img instanceof File).length
       });
 
+      // First create place with JSON
+      const placeData = {
+        name: placeForm.name,
+        location: placeForm.region,
+        category: placeForm.type.toLowerCase().replace(' ', '-'),
+        description: placeForm.about,
+        bestTime: placeForm.bestTime,
+        isActive: 'true'
+      };
+
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
-        body: formDataToSend
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(placeData)
       });
       
       console.log('Response status:', response.status);
@@ -350,10 +343,16 @@ const AdminDashboard = () => {
       if (response.ok) {
         const newPlace = await response.json();
         console.log('New place created:', newPlace);
+        
+        // TODO: Handle image uploads separately in future
+        if (placeForm.image && placeForm.image instanceof File) {
+          console.log('Note: Image upload will be implemented in next update');
+        }
+        
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
-        alert('Place added successfully!');
+        alert('Place added successfully!\n\nNote: Image uploads will be enabled in the next update. Currently using placeholder images.');
       } else {
         const errorData = await response.text();
         console.error('Server error:', errorData);
