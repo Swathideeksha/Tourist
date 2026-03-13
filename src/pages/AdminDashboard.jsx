@@ -299,48 +299,59 @@ const AdminDashboard = () => {
     }
   };
 
-  // Place CRUD operations - real file uploads with FormData
+  // Place CRUD operations - convert images to base64 before sending
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
-    // Create FormData for file uploads
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', placeForm.name);
-    formDataToSend.append('location', placeForm.region);
-    formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
-    formDataToSend.append('description', placeForm.about);
-    formDataToSend.append('bestTime', placeForm.bestTime);
-    formDataToSend.append('isActive', 'true');
-    
-    // Add main image if exists
-    if (placeForm.image && placeForm.image instanceof File) {
-      console.log('Adding main image to form:', placeForm.image.name, placeForm.image.type, placeForm.image.size);
-      formDataToSend.append('image', placeForm.image);
-    }
-    
-    // Add gallery images that exist
-    [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile, index) => {
-      if (imageFile && imageFile instanceof File) {
-        console.log(`Adding gallery image ${index + 1} to form:`, imageFile.name, imageFile.type, imageFile.size);
-        formDataToSend.append('images', imageFile);
-      }
-    });
-    
     try {
-      console.log('Submitting place data with files:', {
+      console.log('Processing place data with images...');
+      
+      // Convert images to base64
+      let mainImageBase64 = '';
+      let galleryImagesBase64 = [];
+      
+      // Process main image
+      if (placeForm.image && placeForm.image instanceof File) {
+        console.log('Converting main image to base64:', placeForm.image.name);
+        mainImageBase64 = await fileToBase64(placeForm.image);
+        console.log('Main image converted, length:', mainImageBase64.length);
+      }
+      
+      // Process gallery images
+      for (let i = 1; i <= 6; i++) {
+        const imageKey = `image${i}`;
+        if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
+          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name);
+          const base64 = await fileToBase64(placeForm[imageKey]);
+          galleryImagesBase64.push(base64);
+          console.log(`Gallery image ${i} converted, length:`, base64.length);
+        }
+      }
+      
+      // Prepare place data
+      const placeData = {
         name: placeForm.name,
         location: placeForm.region,
         category: placeForm.type.toLowerCase().replace(' ', '-'),
         description: placeForm.about,
         bestTime: placeForm.bestTime,
-        hasImage: !!placeForm.image && placeForm.image instanceof File,
-        hasGalleryImages: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img && img instanceof File).length
+        isActive: 'true',
+        mainImageBase64: mainImageBase64,
+        galleryImagesBase64: galleryImagesBase64
+      };
+
+      console.log('Submitting place with base64 images:', {
+        name: placeData.name,
+        hasMainImage: !!mainImageBase64,
+        galleryImageCount: galleryImagesBase64.length
       });
 
-      // Don't set Content-Type header - let browser set it for FormData
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
-        body: formDataToSend
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(placeData)
       });
       
       console.log('Response status:', response.status);
@@ -362,6 +373,16 @@ const AdminDashboard = () => {
       console.error('Network error:', error);
       alert(`Network error: ${error.message}`);
     }
+  };
+
+  // Helper function to convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
   };
 
   const handleUpdatePlace = async (e) => {
