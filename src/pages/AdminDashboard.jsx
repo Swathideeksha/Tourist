@@ -306,25 +306,41 @@ const AdminDashboard = () => {
     try {
       console.log('Processing place data with images...');
       
+      // Validate file sizes before processing
+      const maxFileSize = 5 * 1024 * 1024; // 5MB
+      
+      if (placeForm.image && placeForm.image instanceof File && placeForm.image.size > maxFileSize) {
+        alert('Main image is too large. Please choose an image under 5MB.');
+        return;
+      }
+      
+      for (let i = 1; i <= 6; i++) {
+        const imageKey = `image${i}`;
+        if (placeForm[imageKey] && placeForm[imageKey] instanceof File && placeForm[imageKey].size > maxFileSize) {
+          alert(`Gallery image ${i} is too large. Please choose images under 5MB.`);
+          return;
+        }
+      }
+      
       // Convert images to base64
       let mainImageBase64 = '';
       let galleryImagesBase64 = [];
       
       // Process main image
       if (placeForm.image && placeForm.image instanceof File) {
-        console.log('Converting main image to base64:', placeForm.image.name);
+        console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
         mainImageBase64 = await fileToBase64(placeForm.image);
-        console.log('Main image converted, length:', mainImageBase64.length);
+        console.log('Main image converted, original size:', placeForm.image.size, 'compressed length:', mainImageBase64.length);
       }
       
       // Process gallery images
       for (let i = 1; i <= 6; i++) {
         const imageKey = `image${i}`;
         if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
-          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name);
+          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
           const base64 = await fileToBase64(placeForm[imageKey]);
           galleryImagesBase64.push(base64);
-          console.log(`Gallery image ${i} converted, length:`, base64.length);
+          console.log(`Gallery image ${i} converted, original size:`, placeForm[imageKey].size, 'compressed length:', base64.length);
         }
       }
       
@@ -375,13 +391,44 @@ const AdminDashboard = () => {
     }
   };
 
-  // Helper function to convert file to base64
+  // Helper function to compress and convert file to base64
   const fileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          // Calculate new dimensions (max 800px width/height)
+          let width = img.width;
+          let height = img.height;
+          const maxSize = 800;
+          
+          if (width > height && width > maxSize) {
+            height = (height * maxSize) / width;
+            width = maxSize;
+          } else if (height > maxSize) {
+            width = (width * maxSize) / height;
+            height = maxSize;
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw and compress
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Convert to base64 with compression (0.7 quality)
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+          resolve(compressedBase64);
+        };
+        img.onerror = error => reject(error);
+        img.src = event.target.result;
+      };
       reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
     });
   };
 
