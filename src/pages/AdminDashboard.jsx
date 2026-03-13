@@ -299,51 +299,60 @@ const AdminDashboard = () => {
     }
   };
 
-  // Place CRUD operations - use FormData for Cloudinary uploads
+  // Place CRUD operations - use base64 for reliable uploads
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
     try {
-      console.log('Processing place data with Cloudinary uploads...');
+      console.log('Processing place data with base64 uploads...');
       
-      // Create FormData for file uploads to Cloudinary
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', placeForm.name);
-      formDataToSend.append('location', placeForm.region);
-      formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
-      formDataToSend.append('description', placeForm.about);
-      formDataToSend.append('bestTime', placeForm.bestTime);
-      formDataToSend.append('isActive', 'true');
+      // Convert images to base64
+      let mainImageBase64 = '';
+      let galleryImagesBase64 = [];
       
-      // Add main image if exists
+      // Process main image
       if (placeForm.image && placeForm.image instanceof File) {
-        console.log('Adding main image for Cloudinary upload:', placeForm.image.name, placeForm.image.type, placeForm.image.size);
-        formDataToSend.append('image', placeForm.image);
+        console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
+        mainImageBase64 = await fileToBase64(placeForm.image);
+        console.log('Main image converted, original size:', placeForm.image.size, 'base64 length:', mainImageBase64.length);
       }
       
-      // Add gallery images that exist
-      [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile, index) => {
-        if (imageFile && imageFile instanceof File) {
-          console.log(`Adding gallery image ${index + 1} for Cloudinary upload:`, imageFile.name, imageFile.type, imageFile.size);
-          formDataToSend.append('images', imageFile);
+      // Process gallery images
+      for (let i = 1; i <= 6; i++) {
+        const imageKey = `image${i}`;
+        if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
+          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
+          const base64 = await fileToBase64(placeForm[imageKey]);
+          galleryImagesBase64.push(base64);
+          console.log(`Gallery image ${i} converted, original size:`, placeForm[imageKey].size, 'base64 length:', base64.length);
         }
-      });
+      }
       
-      console.log('Submitting place data with files for Cloudinary:', {
+      // Prepare place data with base64 images
+      const placeData = {
         name: placeForm.name,
         location: placeForm.region,
         category: placeForm.type.toLowerCase().replace(' ', '-'),
         description: placeForm.about,
         bestTime: placeForm.bestTime,
-        hasImage: !!placeForm.image && placeForm.image instanceof File,
-        hasGalleryImages: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img && img instanceof File).length
+        isActive: 'true',
+        mainImageBase64: mainImageBase64,
+        galleryImagesBase64: galleryImagesBase64
+      };
+
+      console.log('Submitting place with base64 images:', {
+        name: placeData.name,
+        hasMainImage: !!mainImageBase64,
+        galleryImageCount: galleryImagesBase64.length
       });
 
-      // Send FormData to backend for Cloudinary upload
+      // Send JSON with base64 images
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
-        body: formDataToSend
-        // Don't set Content-Type header - browser sets it for FormData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(placeData)
       });
       
       console.log('Response status:', response.status);
@@ -351,11 +360,11 @@ const AdminDashboard = () => {
       
       if (response.ok) {
         const newPlace = await response.json();
-        console.log('New place created with Cloudinary images:', newPlace);
+        console.log('New place created with images:', newPlace);
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
-        alert('Place added successfully with images uploaded to Cloudinary!');
+        alert('Place added successfully with your images!');
       } else {
         const errorData = await response.text();
         console.error('Server error:', errorData);
