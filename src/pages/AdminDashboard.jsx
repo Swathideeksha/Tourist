@@ -299,75 +299,51 @@ const AdminDashboard = () => {
     }
   };
 
-  // Place CRUD operations - convert images to base64 before sending
+  // Place CRUD operations - use FormData for Cloudinary uploads
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
     try {
-      console.log('Processing place data with images...');
+      console.log('Processing place data with Cloudinary uploads...');
       
-      // Validate file sizes before processing
-      const maxFileSize = 5 * 1024 * 1024; // 5MB
+      // Create FormData for file uploads to Cloudinary
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', placeForm.name);
+      formDataToSend.append('location', placeForm.region);
+      formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
+      formDataToSend.append('description', placeForm.about);
+      formDataToSend.append('bestTime', placeForm.bestTime);
+      formDataToSend.append('isActive', 'true');
       
-      if (placeForm.image && placeForm.image instanceof File && placeForm.image.size > maxFileSize) {
-        alert('Main image is too large. Please choose an image under 5MB.');
-        return;
-      }
-      
-      for (let i = 1; i <= 6; i++) {
-        const imageKey = `image${i}`;
-        if (placeForm[imageKey] && placeForm[imageKey] instanceof File && placeForm[imageKey].size > maxFileSize) {
-          alert(`Gallery image ${i} is too large. Please choose images under 5MB.`);
-          return;
-        }
-      }
-      
-      // Convert images to base64
-      let mainImageBase64 = '';
-      let galleryImagesBase64 = [];
-      
-      // Process main image
+      // Add main image if exists
       if (placeForm.image && placeForm.image instanceof File) {
-        console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
-        mainImageBase64 = await fileToBase64(placeForm.image);
-        console.log('Main image converted, original size:', placeForm.image.size, 'compressed length:', mainImageBase64.length);
+        console.log('Adding main image for Cloudinary upload:', placeForm.image.name, placeForm.image.type, placeForm.image.size);
+        formDataToSend.append('image', placeForm.image);
       }
       
-      // Process gallery images
-      for (let i = 1; i <= 6; i++) {
-        const imageKey = `image${i}`;
-        if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
-          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
-          const base64 = await fileToBase64(placeForm[imageKey]);
-          galleryImagesBase64.push(base64);
-          console.log(`Gallery image ${i} converted, original size:`, placeForm[imageKey].size, 'compressed length:', base64.length);
+      // Add gallery images that exist
+      [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile, index) => {
+        if (imageFile && imageFile instanceof File) {
+          console.log(`Adding gallery image ${index + 1} for Cloudinary upload:`, imageFile.name, imageFile.type, imageFile.size);
+          formDataToSend.append('images', imageFile);
         }
-      }
+      });
       
-      // Prepare place data
-      const placeData = {
+      console.log('Submitting place data with files for Cloudinary:', {
         name: placeForm.name,
         location: placeForm.region,
         category: placeForm.type.toLowerCase().replace(' ', '-'),
         description: placeForm.about,
         bestTime: placeForm.bestTime,
-        isActive: 'true',
-        mainImageBase64: mainImageBase64,
-        galleryImagesBase64: galleryImagesBase64
-      };
-
-      console.log('Submitting place with base64 images:', {
-        name: placeData.name,
-        hasMainImage: !!mainImageBase64,
-        galleryImageCount: galleryImagesBase64.length
+        hasImage: !!placeForm.image && placeForm.image instanceof File,
+        hasGalleryImages: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img && img instanceof File).length
       });
 
+      // Send FormData to backend for Cloudinary upload
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(placeData)
+        body: formDataToSend
+        // Don't set Content-Type header - browser sets it for FormData
       });
       
       console.log('Response status:', response.status);
@@ -375,11 +351,11 @@ const AdminDashboard = () => {
       
       if (response.ok) {
         const newPlace = await response.json();
-        console.log('New place created:', newPlace);
+        console.log('New place created with Cloudinary images:', newPlace);
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
-        alert('Place added successfully with your images!');
+        alert('Place added successfully with images uploaded to Cloudinary!');
       } else {
         const errorData = await response.text();
         console.error('Server error:', errorData);
@@ -448,19 +424,26 @@ const AdminDashboard = () => {
     formDataToSend.append('bestTime', placeForm.bestTime);
     formDataToSend.append('isActive', 'true');
     
-    // Add main image if exists
-    if (placeForm.image) {
+    // Add existing images to preserve them if no new ones are uploaded
+    formDataToSend.append('existingImage', editingPlace.image || '');
+    formDataToSend.append('existingImages', JSON.stringify(editingPlace.images || []));
+    
+    // Add main image if new one is selected
+    if (placeForm.image && placeForm.image instanceof File) {
+      console.log('Updating main image for Cloudinary upload:', placeForm.image.name);
       formDataToSend.append('image', placeForm.image);
     }
     
-    // Add gallery images that exist
+    // Add gallery images if new ones are selected
     [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile) => {
-      if (imageFile) {
+      if (imageFile && imageFile instanceof File) {
+        console.log('Updating gallery image for Cloudinary upload:', imageFile.name);
         formDataToSend.append('images', imageFile);
       }
     });
     
     try {
+      console.log('Updating place with Cloudinary images...');
       const response = await fetch(`${API_URL}/admin/places/${editingPlace._id}`, {
         method: 'PUT',
         body: formDataToSend
@@ -468,23 +451,19 @@ const AdminDashboard = () => {
       
       if (response.ok) {
         const updatedPlace = await response.json();
+        console.log('Place updated with Cloudinary images:', updatedPlace);
         setPlaces(places.map(p => p._id === editingPlace._id ? updatedPlace : p));
         setEditingPlace(null);
         resetPlaceForm();
+        alert('Place updated successfully with images uploaded to Cloudinary!');
+      } else {
+        const errorData = await response.text();
+        console.error('Server error:', errorData);
+        alert(`Error: ${response.status} - ${errorData}`);
       }
     } catch (error) {
       console.error('Error updating place:', error);
-      // Demo mode - update local state
-      const updatedPlace = { 
-        ...placeForm, 
-        _id: editingPlace._id,
-        location: placeForm.region,
-        category: placeForm.type.toLowerCase().replace(' ', '-'),
-        description: placeForm.about
-      };
-      setPlaces(places.map(p => p._id === editingPlace._id ? updatedPlace : p));
-      setEditingPlace(null);
-      resetPlaceForm();
+      alert(`Network error: ${error.message}`);
     }
   };
 
