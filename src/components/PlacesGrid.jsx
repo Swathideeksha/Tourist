@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import PlaceCard from "./PlaceCard";
 import { useLikes } from "../context/LikesContext";
-import { placesData } from "../data/placesData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -37,31 +36,17 @@ const PlacesGrid = ({ search, activeCategory }) => {
         if (response.ok) {
           const data = await response.json();
           console.log("API Response for places:", data);
-          // Always use API data if successful (even if empty, don't fallback to static)
+          // Always use API data - remove fallback to static data
           setPlaces(data || []);
         } else {
-          // Fallback to static data on API error
           console.error("API error:", response.status);
-          const staticData = category === "all" 
-            ? placesData 
-            : placesData.filter(p => p.category === category);
-          setPlaces(staticData);
+          setError("Failed to load places from server");
+          setPlaces([]); // Don't use static fallback
         }
       } catch (error) {
         console.error("Error fetching places:", error);
-        // Fallback to static data when API fails
-        const categoryMapLocal = {
-          "All Places": "all",
-          "Hill Stations": "hill-station",
-          "Beaches": "beach",
-          "Historical Sites": "history",
-          "Religious Sites": "religious"
-        };
-        const category = categoryMapLocal[activeCategory] || "all";
-        const staticData = category === "all" 
-          ? placesData 
-          : placesData.filter(p => p.category === category);
-        setPlaces(staticData);
+        setError("Network error loading places");
+        setPlaces([]); // Don't use static fallback
       } finally {
         setLoading(false);
       }
