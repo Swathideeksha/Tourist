@@ -385,6 +385,11 @@ const AdminDashboard = () => {
     });
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const handleUpdatePlace = async (e) => {
     e.preventDefault();
     
