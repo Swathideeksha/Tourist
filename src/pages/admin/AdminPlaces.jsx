@@ -16,8 +16,8 @@ const AdminPlaces = () => {
     location: "",
     description: "",
     category: "beach",
-    image: "",
-    images: ["", "", "", "", "", ""],
+    image: null,
+    images: [null, null, null, null, null, null],
     rating: 0,
     isActive: true,
     placesToVisit: [],
@@ -56,35 +56,57 @@ const AdminPlaces = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formDataToSend = new FormData();
+      
+      // Add all form fields
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('location', formData.location);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('category', formData.category);
+      formDataToSend.append('rating', formData.rating);
+      formDataToSend.append('isActive', formData.isActive);
+      formDataToSend.append('placesToVisit', formData.placesToVisit.join('\n'));
+      formDataToSend.append('nearbyFacilities', formData.nearbyFacilities.join('\n'));
+      formDataToSend.append('howToReach', formData.howToReach);
+      
+      // Add main image if exists
+      if (formData.image) {
+        formDataToSend.append('image', formData.image);
+      }
+      
+      // Add gallery images that exist
+      formData.images.forEach((imageFile, index) => {
+        if (imageFile) {
+          formDataToSend.append('images', imageFile);
+        }
+      });
+      
+      // For editing, include existing image URLs
+      if (editingPlace) {
+        if (formData.image && typeof formData.image === 'string') {
+          formDataToSend.append('existingImage', formData.image);
+        }
+        const existingImages = formData.images.filter(img => typeof img === 'string');
+        if (existingImages.length > 0) {
+          formDataToSend.append('existingImages', JSON.stringify(existingImages));
+        }
+      }
+
       const headers = {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-
-      // Filter out empty images and create the data to send
-      const filteredImages = formData.images.filter(img => img.trim() !== "");
-      // Filter out empty places to visit
-      const filteredPlacesToVisit = formData.placesToVisit.filter(place => place.trim() !== "");
-      // Filter out empty nearby facilities
-      const filteredNearbyFacilities = formData.nearbyFacilities.filter(facility => facility.trim() !== "");
-      const dataToSend = {
-        ...formData,
-        images: filteredImages,
-        placesToVisit: filteredPlacesToVisit,
-        nearbyFacilities: filteredNearbyFacilities,
       };
 
       if (editingPlace) {
         await fetch(`${API_URL}/places-management/${editingPlace._id}`, {
           method: "PUT",
           headers,
-          body: JSON.stringify(dataToSend),
+          body: formDataToSend,
         });
       } else {
         await fetch(`${API_URL}/places-management`, {
           method: "POST",
           headers,
-          body: JSON.stringify(dataToSend),
+          body: formDataToSend,
         });
       }
 
@@ -95,8 +117,8 @@ const AdminPlaces = () => {
         location: "",
         description: "",
         category: "beach",
-        image: "",
-        images: ["", "", "", "", "", ""],
+        image: null,
+        images: [null, null, null, null, null, null],
         rating: 0,
         isActive: true,
         placesToVisit: [],
@@ -117,7 +139,7 @@ const AdminPlaces = () => {
       description: place.description,
       category: place.category,
       image: place.image,
-      images: place.images && place.images.length >= 6 ? place.images : [...(place.images || []), ...Array(6 - (place.images?.length || 0)).fill("")],
+      images: place.images && place.images.length >= 6 ? place.images : [...(place.images || []), ...Array(6 - (place.images?.length || 0)).fill(null)],
       rating: place.rating,
       isActive: place.isActive,
       placesToVisit: place.placesToVisit || [],
@@ -171,8 +193,8 @@ const AdminPlaces = () => {
                   location: "",
                   description: "",
                   category: "beach",
-                  image: "",
-                  images: ["", "", "", "", "", ""],
+                  image: null,
+                  images: [null, null, null, null, null, null],
                   rating: 0,
                   isActive: true,
                   placesToVisit: [],
@@ -303,14 +325,27 @@ const AdminPlaces = () => {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-bold text-gray-700 mb-1">Image URL</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Main Image</label>
                     <input
-                      type="text"
-                      value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      type="file"
+                      onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
-                      placeholder="https://example.com/image.jpg"
+                      accept="image/*"
                     />
+                    {formData.image && typeof formData.image === 'string' && (
+                      <img
+                        src={formData.image}
+                        alt="Current main image"
+                        className="mt-2 w-32 h-32 object-cover rounded"
+                      />
+                    )}
+                    {formData.image && typeof formData.image === 'object' && (
+                      <img
+                        src={URL.createObjectURL(formData.image)}
+                        alt="Preview main image"
+                        className="mt-2 w-32 h-32 object-cover rounded"
+                      />
+                    )}
                   </div>
                   
                   {/* Image Gallery Section - 6 Images */}
@@ -321,28 +356,33 @@ const AdminPlaces = () => {
                         <div key={index} className="flex gap-2 items-center">
                           <span className="text-xs font-bold text-gray-500 w-6">#{index + 1}</span>
                           <input
-                            type="text"
-                            value={formData.images[index] || ""}
+                            type="file"
                             onChange={(e) => {
                               const newImages = [...formData.images];
-                              newImages[index] = e.target.value;
+                              newImages[index] = e.target.files[0];
                               setFormData({ ...formData, images: newImages });
                             }}
                             className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700 text-sm"
-                            placeholder={`Image URL ${index + 1}`}
+                            accept="image/*"
                           />
-                          {formData.images[index] && (
+                          {formData.images[index] && typeof formData.images[index] === 'string' && (
                             <img
                               src={formData.images[index]}
-                              alt={`Preview ${index + 1}`}
+                              alt={`Current image ${index + 1}`}
                               className="w-10 h-10 object-cover rounded"
-                              onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                          )}
+                          {formData.images[index] && typeof formData.images[index] === 'object' && (
+                            <img
+                              src={URL.createObjectURL(formData.images[index])}
+                              alt={`Preview image ${index + 1}`}
+                              className="w-10 h-10 object-cover rounded"
                             />
                           )}
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Enter exactly 6 image URLs for the gallery</p>
+                    <p className="text-xs text-gray-500 mt-2">Upload up to 6 images for the gallery</p>
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-sm font-bold text-gray-700 mb-1">Description</label>

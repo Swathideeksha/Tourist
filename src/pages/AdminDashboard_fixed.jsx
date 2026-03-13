@@ -1,230 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../context/AdminContext';
-
-const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) => (
-  <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
-    <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Place' : 'Add New Place'}</h3>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <div>
-        <label className="block text-sm font-medium mb-1">Place Name *</label>
-        <input
-          type="text"
-          placeholder="e.g., Sakleshpur"
-          value={placeForm.name || ''}
-          onChange={(e) => setPlaceForm({...placeForm, name: e.target.value})}
-          className="w-full border p-2 rounded"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Type *</label>
-        <select
-          value={placeForm.type}
-          onChange={(e) => setPlaceForm({...placeForm, type: e.target.value})}
-          className="w-full border p-2 rounded"
-        >
-          <option value="Hill Station">Hill Station</option>
-          <option value="Beach">Beach</option>
-          <option value="History">History</option>
-          <option value="Religious">Religious</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Region *</label>
-        <input
-          type="text"
-          placeholder="e.g., Western Ghats"
-          value={placeForm.region || ''}
-          onChange={(e) => setPlaceForm({...placeForm, region: e.target.value})}
-          className="w-full border p-2 rounded"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Best Time to Visit</label>
-        <input
-          type="text"
-          placeholder="e.g., October to March"
-          value={placeForm.bestTime || ''}
-          onChange={(e) => setPlaceForm({...placeForm, bestTime: e.target.value})}
-          className="w-full border p-2 rounded"
-        />
-      </div>
-    </div>
-
-    <div className="mb-4">
-      <label className="block text-sm font-medium mb-1">Main Image *</label>
-      <input
-        type="file"
-        onChange={(e) => setPlaceForm({...placeForm, image: e.target.files[0]})}
-        className="w-full border p-2 rounded"
-        accept="image/*"
-        required={!isEditing}
-      />
-      {placeForm.image && typeof placeForm.image === 'string' && (
-        <img
-          src={placeForm.image}
-          alt="Current main image"
-          className="mt-2 w-32 h-32 object-cover rounded"
-        />
-      )}
-      {placeForm.image && typeof placeForm.image === 'object' && (
-        <img
-          src={URL.createObjectURL(placeForm.image)}
-          alt="Preview main image"
-          className="mt-2 w-32 h-32 object-cover rounded"
-        />
-      )}
-    </div>
-
-    <div className="mb-4">
-      <label className="block text-sm font-medium mb-1">About the Place</label>
-      <textarea
-        placeholder="Describe the place, attractions, activities..."
-        value={placeForm.about || ''}
-        onChange={(e) => setPlaceForm({...placeForm, about: e.target.value})}
-        className="w-full border p-2 rounded h-24"
-        required
-      />
-    </div>
-
-    <div className="mb-4">
-      <label className="block text-sm font-medium mb-2">Gallery Images (up to 6)</label>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-        {[1, 2, 3, 4, 5, 6].map((num) => (
-          <div key={num} className="space-y-1">
-            <input 
-              type="file" 
-              onChange={(e) => setPlaceForm({...placeForm, [`image${num}`]: e.target.files[0]})} 
-              className="border p-2 rounded text-sm w-full" 
-              accept="image/*"
-            />
-            {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'string' && (
-              <img
-                src={placeForm[`image${num}`]}
-                alt={`Current image ${num}`}
-                className="w-full h-20 object-cover rounded"
-              />
-            )}
-            {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'object' && (
-              <img
-                src={URL.createObjectURL(placeForm[`image${num}`])}
-                alt={`Preview image ${num}`}
-                className="w-full h-20 object-cover rounded"
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div className="flex gap-2">
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        {isEditing ? 'Update' : 'Add'} Place
-      </button>
-      <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-        Cancel
-      </button>
-    </div>
-  </form>
-);
-
-const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => (
-  <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
-    <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Bus' : 'Add New Bus'}</h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input
-        type="text"
-        placeholder="Bus Operator Name"
-        value={busForm.name}
-        onChange={(e) => setBusForm({...busForm, name: e.target.value})}
-        className="border p-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Type (e.g., PREMIUM, LUXURY)"
-        value={busForm.type}
-        onChange={(e) => setBusForm({...busForm, type: e.target.value})}
-        className="border p-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={busForm.image}
-        onChange={(e) => setBusForm({...busForm, image: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Bus Model"
-        value={busForm.model}
-        onChange={(e) => setBusForm({...busForm, model: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Capacity"
-        value={busForm.capacity}
-        onChange={(e) => setBusForm({...busForm, capacity: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Safety Gear"
-        value={busForm.safetyGear}
-        onChange={(e) => setBusForm({...busForm, safetyGear: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Engine Type"
-        value={busForm.engine}
-        onChange={(e) => setBusForm({...busForm, engine: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Contact"
-        value={busForm.contact}
-        onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Address"
-        value={busForm.address}
-        onChange={(e) => setBusForm({...busForm, address: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Amenities (comma separated)"
-        value={busForm.amenities}
-        onChange={(e) => setBusForm({...busForm, amenities: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Travel Info (comma separated)"
-        value={busForm.travelInfo}
-        onChange={(e) => setBusForm({...busForm, travelInfo: e.target.value})}
-        className="border p-2 rounded md:col-span-2"
-      />
-    </div>
-    <div className="flex gap-2 mt-4">
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        {isEditing ? 'Update' : 'Add'} Bus
-      </button>
-      <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-        Cancel
-      </button>
-    </div>
-  </form>
-);
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('places');
@@ -238,7 +14,7 @@ const AdminDashboard = () => {
   const [editingBus, setEditingBus] = useState(null);
   const { admin, logout } = useAdmin();
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL || 'https://backend-chi-one-70.vercel.app/api';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
   // Place form state - updated for file uploads
   const [placeForm, setPlaceForm] = useState({
@@ -279,15 +55,15 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [placesResponse, busesResponse, messagesResponse] = await Promise.all([
-        fetch(`${API_URL}/admin/places`),
+      const [placesRes, busesRes, messagesRes] = await Promise.all([
+        fetch(`${API_URL}/places-management`),
         fetch(`${API_URL}/admin/buses`),
         fetch(`${API_URL}/contact`)
       ]);
       
-      const placesData = (placesResponse.ok && placesResponse.status !== 500) ? await placesResponse.json() : [];
-      const busesData = (busesResponse.ok && busesResponse.status !== 500) ? await busesResponse.json() : [];
-      const messagesData = (messagesResponse.ok && messagesResponse.status !== 500) ? await messagesResponse.json() : { messages: [] };
+      const placesData = (placesRes.ok && placesRes.status !== 500) ? await placesRes.json() : [];
+      const busesData = (busesRes.ok && busesRes.status !== 500) ? await busesRes.json() : [];
+      const messagesData = (messagesRes.ok && messagesRes.status !== 500) ? await messagesRes.json() : { messages: [] };
       
       setPlaces(Array.isArray(placesData) ? placesData : []);
       setBuses(Array.isArray(busesData) ? busesData : []);
@@ -314,67 +90,6 @@ const AdminDashboard = () => {
     formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
     formDataToSend.append('description', placeForm.about);
     formDataToSend.append('bestTime', placeForm.bestTime);
-    formDataToSend.append('isActive', 'true');
-    
-    // Add main image if exists
-    if (placeForm.image && placeForm.image instanceof File) {
-      formDataToSend.append('image', placeForm.image);
-    }
-    
-    // Add gallery images that exist
-    [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile, index) => {
-      if (imageFile && imageFile instanceof File) {
-        formDataToSend.append('images', imageFile);
-      }
-    });
-    
-    try {
-      console.log('Submitting place data with files:', {
-        name: placeForm.name,
-        location: placeForm.region,
-        category: placeForm.type.toLowerCase().replace(' ', '-'),
-        description: placeForm.about,
-        bestTime: placeForm.bestTime,
-        hasImage: !!placeForm.image && placeForm.image instanceof File,
-        hasGalleryImages: [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].filter(img => img && img instanceof File).length
-      });
-
-      const response = await fetch(`${API_URL}/admin/places`, {
-        method: 'POST',
-        body: formDataToSend
-      });
-      
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
-      
-      if (response.ok) {
-        const newPlace = await response.json();
-        console.log('New place created:', newPlace);
-        setPlaces([newPlace, ...places]);
-        setShowAddPlaceForm(false);
-        resetPlaceForm();
-        alert('Place added successfully!');
-      } else {
-        const errorData = await response.text();
-        console.error('Server error:', errorData);
-        alert(`Error: ${response.status} - ${errorData}`);
-      }
-    } catch (error) {
-      console.error('Network error:', error);
-      alert(`Network error: ${error.message}`);
-    }
-  };
-
-  const handleUpdatePlace = async (e) => {
-    e.preventDefault();
-    
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', placeForm.name);
-    formDataToSend.append('location', placeForm.region);
-    formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
-    formDataToSend.append('description', placeForm.about);
-    formDataToSend.append('bestTime', placeForm.bestTime);
-    formDataToSend.append('isActive', 'true');
     
     // Add main image if exists
     if (placeForm.image) {
@@ -389,8 +104,60 @@ const AdminDashboard = () => {
     });
     
     try {
-      const response = await fetch(`${API_URL}/admin/places/${editingPlace._id}`, {
+      const response = await fetch(`${API_URL}/places-management`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
+        body: formDataToSend
+      });
+      
+      if (response.ok) {
+        const newPlace = await response.json();
+        setPlaces([newPlace, ...places]);
+        setShowAddPlaceForm(false);
+        resetPlaceForm();
+      }
+    } catch (error) {
+      console.error('Error adding place:', error);
+      // Demo mode - add to local state
+      const newPlace = { 
+        ...placeForm, 
+        _id: Date.now().toString(),
+        location: placeForm.region,
+        category: placeForm.type.toLowerCase().replace(' ', '-'),
+        description: placeForm.about
+      };
+      setPlaces([newPlace, ...places]);
+      setShowAddPlaceForm(false);
+      resetPlaceForm();
+    }
+  };
+
+  const handleUpdatePlace = async (e) => {
+    e.preventDefault();
+    
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', placeForm.name);
+    formDataToSend.append('location', placeForm.region);
+    formDataToSend.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
+    formDataToSend.append('description', placeForm.about);
+    formDataToSend.append('bestTime', placeForm.bestTime);
+    
+    // Add main image if exists
+    if (placeForm.image) {
+      formDataToSend.append('image', placeForm.image);
+    }
+    
+    // Add gallery images that exist
+    [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile) => {
+      if (imageFile) {
+        formDataToSend.append('images', imageFile);
+      }
+    });
+    
+    try {
+      const response = await fetch(`${API_URL}/places-management/${editingPlace._id}`, {
         method: 'PUT',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
         body: formDataToSend
       });
       
@@ -419,7 +186,7 @@ const AdminDashboard = () => {
   const handleDeletePlace = async (id) => {
     if (!window.confirm('Are you sure you want to delete this place?')) return;
     try {
-      const response = await fetch(`${API_URL}/admin/places/${id}`, {
+      const response = await fetch(`${API_URL}/places-management/${id}`, {
         method: 'DELETE'
       });
       
@@ -569,6 +336,250 @@ const AdminDashboard = () => {
     setBusForm({ name: '', type: '', image: '', model: '', capacity: '', safetyGear: '', engine: '', contact: '', address: '', amenities: '', travelInfo: '' });
   };
 
+  const PlaceForm = memo(({ onSubmit, onCancel, isEditing }) => {
+    const handleInputChange = (field) => (e) => {
+      const value = e.target.value;
+      console.log(`${field} input change:`, value);
+      setPlaceForm(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    };
+
+    const handleFileChange = (field) => (e) => {
+      const file = e.target.files[0];
+      console.log(`${field} file change:`, file);
+      setPlaceForm(prev => ({
+        ...prev,
+        [field]: file
+      }));
+    };
+
+    return (
+      <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Place' : 'Add New Place'}</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Place Name *</label>
+            <input
+              type="text"
+              placeholder="e.g., Sakleshpur"
+              value={placeForm.name || ''}
+              onChange={handleInputChange('name')}
+              className="w-full border p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Type *</label>
+            <select
+              value={placeForm.type}
+              onChange={handleInputChange('type')}
+              className="w-full border p-2 rounded"
+            >
+              <option value="Hill Station">Hill Station</option>
+              <option value="Beach">Beach</option>
+              <option value="History">History</option>
+              <option value="Religious">Religious</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Region *</label>
+            <input
+              type="text"
+              placeholder="e.g., Western Ghats"
+              value={placeForm.region || ''}
+              onChange={handleInputChange('region')}
+              className="w-full border p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Best Time to Visit</label>
+            <input
+              type="text"
+              placeholder="e.g., October to March"
+              value={placeForm.bestTime || ''}
+              onChange={handleInputChange('bestTime')}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Main Image *</label>
+          <input
+            type="file"
+            onChange={handleFileChange('image')}
+            className="w-full border p-2 rounded"
+            accept="image/*"
+            required={!isEditing}
+          />
+          {placeForm.image && typeof placeForm.image === 'string' && (
+            <img
+              src={placeForm.image}
+              alt="Current main image"
+              className="mt-2 w-32 h-32 object-cover rounded"
+            />
+          )}
+          {placeForm.image && typeof placeForm.image === 'object' && (
+            <img
+              src={URL.createObjectURL(placeForm.image)}
+              alt="Preview main image"
+              className="mt-2 w-32 h-32 object-cover rounded"
+            />
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">About/Description</label>
+          <textarea
+            placeholder="Describe the place..."
+            value={placeForm.about || ''}
+            onChange={handleInputChange('about')}
+            className="w-full border p-2 rounded"
+            rows="4"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Gallery Images (up to 6)</label>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {[1, 2, 3, 4, 5, 6].map((num) => (
+              <div key={num} className="space-y-1">
+                <input 
+                  type="file" 
+                  onChange={handleFileChange(`image${num}`)} 
+                  className="border p-2 rounded text-sm w-full" 
+                  accept="image/*"
+                />
+                {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'string' && (
+                  <img
+                    src={placeForm[`image${num}`]}
+                    alt={`Current image ${num}`}
+                    className="w-full h-20 object-cover rounded"
+                  />
+                )}
+                {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'object' && (
+                  <img
+                    src={URL.createObjectURL(placeForm[`image${num}`])}
+                    alt={`Preview image ${num}`}
+                    className="w-full h-20 object-cover rounded"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            {isEditing ? 'Update' : 'Add'} Place
+          </button>
+          <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+            Cancel
+          </button>
+        </div>
+      </form>
+    );
+  });
+
+  const BusForm = memo(({ onSubmit, onCancel, isEditing }) => (
+    <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Bus' : 'Add New Bus'}</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Bus Operator Name"
+          value={busForm.name}
+          onChange={(e) => setBusForm({...busForm, name: e.target.value})}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Type (e.g., PREMIUM, LUXURY)"
+          value={busForm.type}
+          onChange={(e) => setBusForm({...busForm, type: e.target.value})}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Image URL"
+          value={busForm.image}
+          onChange={(e) => setBusForm({...busForm, image: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Bus Model"
+          value={busForm.model}
+          onChange={(e) => setBusForm({...busForm, model: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Capacity"
+          value={busForm.capacity}
+          onChange={(e) => setBusForm({...busForm, capacity: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Safety Gear"
+          value={busForm.safetyGear}
+          onChange={(e) => setBusForm({...busForm, safetyGear: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Engine Type"
+          value={busForm.engine}
+          onChange={(e) => setBusForm({...busForm, engine: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Contact"
+          value={busForm.contact}
+          onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          value={busForm.address}
+          onChange={(e) => setBusForm({...busForm, address: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Amenities (comma separated)"
+          value={busForm.amenities}
+          onChange={(e) => setBusForm({...busForm, amenities: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Travel Info (comma separated)"
+          value={busForm.travelInfo}
+          onChange={(e) => setBusForm({...busForm, travelInfo: e.target.value})}
+          className="border p-2 rounded md:col-span-2"
+        />
+      </div>
+      <div className="flex gap-2 mt-4">
+        <button type="submit" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded hover:bg-green-700">
+          {isEditing ? 'Update' : 'Add'} Bus
+        </button>
+        <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+          Cancel
+        </button>
+      </div>
+    </form>
+  ));
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -649,8 +660,6 @@ const AdminDashboard = () => {
 
             {(showAddPlaceForm || editingPlace) && (
               <PlaceForm
-                placeForm={placeForm}
-                setPlaceForm={setPlaceForm}
                 onSubmit={editingPlace ? handleUpdatePlace : handleAddPlace}
                 onCancel={() => {
                   setShowAddPlaceForm(false);
@@ -729,8 +738,6 @@ const AdminDashboard = () => {
 
             {(showAddBusForm || editingBus) && (
               <BusForm
-                busForm={busForm}
-                setBusForm={setBusForm}
                 onSubmit={editingBus ? handleUpdateBus : handleAddBus}
                 onCancel={() => {
                   setShowAddBusForm(false);
