@@ -3,7 +3,6 @@ import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
-import { placesData } from "../data/placesData";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
@@ -11,29 +10,33 @@ const Religious = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [religiousPlaces, setReligiousPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPlaces = async () => {
+    const fetchReligious = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=religious`);
-        const data = await response.json();
-        if (data && data.length > 0) {
-          setReligiousPlaces(data);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Religious API Response:", data);
+          setReligiousPlaces(data || []);
         } else {
-          // Fallback to static data
-          const staticData = placesData.filter(p => p.category === "religious");
-          setReligiousPlaces(staticData);
+          console.error("Religious API error:", response.status);
+          setError("Failed to load religious places");
+          setReligiousPlaces([]);
         }
       } catch (error) {
-        console.error("Error fetching religious places:", error);
-        // Fallback to static data
-        const staticData = placesData.filter(p => p.category === "religious");
-        setReligiousPlaces(staticData);
+        console.error("Error fetching religious:", error);
+        setError("Network error loading religious places");
+        setReligiousPlaces([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchPlaces();
+    fetchReligious();
   }, []);
 
   return (
@@ -53,19 +56,22 @@ const Religious = () => {
             ))}
           </div>
         ) : religiousPlaces.length === 0 ? (
-          <p className="text-center text-gray-500">No religious sites found</p>
+          <div className="text-center py-10">
+            <p className="text-gray-500 mb-4">No religious places found</p>
+            <p className="text-sm text-gray-400">Add religious places through the Admin Dashboard to see them here</p>
+          </div>
         ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {religiousPlaces.map((p) => (
-            <PlaceCard
-              key={p.id || p._id}
-              {...p}
-              id={p.id || p._id}
-              isLiked={likedPlaces.includes(p.id || p._id)}
-              toggleLike={toggleLike}
-            />
-          ))}
-        </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {religiousPlaces.map((p) => (
+              <PlaceCard
+                key={p.id || p._id}
+                {...p}
+                id={p.id || p._id}
+                isLiked={likedPlaces.includes(p.id || p._id)}
+                toggleLike={toggleLike}
+              />
+            ))}
+          </div>
         )}
       </div>
     </>

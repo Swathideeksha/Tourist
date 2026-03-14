@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import PlaceCard from "../components/PlaceCard";
 import { useLikes } from "../context/LikesContext";
 import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
-import { placesData } from "../data/placesData";
+import PlaceCard from "./PlaceCard";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
@@ -11,29 +10,33 @@ const Beaches = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [beaches, setBeaches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPlaces = async () => {
+    const fetchBeaches = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=beach`);
-        const data = await response.json();
-        if (data && data.length > 0) {
-          setBeaches(data);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Beaches API Response:", data);
+          setBeaches(data || []);
         } else {
-          // Fallback to static data
-          const staticData = placesData.filter(p => p.category === "beach");
-          setBeaches(staticData);
+          console.error("Beaches API error:", response.status);
+          setError("Failed to load beaches");
+          setBeaches([]);
         }
       } catch (error) {
         console.error("Error fetching beaches:", error);
-        // Fallback to static data
-        const staticData = placesData.filter(p => p.category === "beach");
-        setBeaches(staticData);
+        setError("Network error loading beaches");
+        setBeaches([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchPlaces();
+    fetchBeaches();
   }, []);
 
   return (
@@ -53,7 +56,10 @@ const Beaches = () => {
           ))}
         </div>
       ) : beaches.length === 0 ? (
-        <p className="text-center text-gray-500">No beaches found</p>
+        <div className="text-center py-10">
+          <p className="text-gray-500 mb-4">No beaches found</p>
+          <p className="text-sm text-gray-400">Add beaches through the Admin Dashboard to see them here</p>
+        </div>
       ) : (
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {beaches.map((p) => (
