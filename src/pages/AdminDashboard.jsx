@@ -327,7 +327,7 @@ const AdminDashboard = () => {
       let totalSize = 0;
       for (const { file, type } of allFiles) {
         if (file.size > maxFileSize) {
-          alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 3MB.`);
+          window.alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 3MB.`);
           return;
         }
         totalSize += file.size;
@@ -414,19 +414,19 @@ const AdminDashboard = () => {
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
-        alert('Place added successfully with your images!');
+        window.alert('Place added successfully with your images!');
       } else {
         const errorData = await response.text();
         // console.error('Server error:', errorData);
         if (errorData.includes('Payload Too Large')) {
-          alert('Error: Images are too large. Try uploading fewer or smaller images.');
+          window.alert('Error: Images are too large. Try uploading fewer or smaller images.');
         } else {
-          alert(`Error: ${response.status} - ${errorData}`);
+          window.alert(`Error: ${response.status} - ${errorData}`);
         }
       }
     } catch (error) {
       // console.error('Network error:', error);
-      alert(`Network error: ${error.message}`);
+      window.alert(`Network error: ${error.message}`);
     }
   };
 
@@ -518,15 +518,15 @@ const AdminDashboard = () => {
         setPlaces(places.map(p => p._id === editingPlace._id ? updatedPlace : p));
         setEditingPlace(null);
         resetPlaceForm();
-        alert('Place updated successfully with images uploaded to Cloudinary!');
+        window.alert('Place updated successfully with images uploaded to Cloudinary!');
       } else {
         const errorData = await response.text();
         // console.error('Server error:', errorData);
-        alert(`Error: ${response.status} - ${errorData}`);
+        window.alert(`Error: ${response.status} - ${errorData}`);
       }
     } catch (error) {
       // console.error('Error updating place:', error);
-      alert(`Network error: ${error.message}`);
+      window.alert(`Network error: ${error.message}`);
     }
   };
 
