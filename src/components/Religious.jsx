@@ -10,12 +10,12 @@ const Religious = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [religiousPlaces, setReligiousPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchReligious = async () => {
       setLoading(true);
-      setError(null);
+      // setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=religious`);
         
@@ -25,12 +25,12 @@ const Religious = () => {
           setReligiousPlaces(data || []);
         } else {
           console.error("Religious API error:", response.status);
-          setError("Failed to load religious places");
+          // setError("Failed to load religious places");
           setReligiousPlaces([]);
         }
       } catch (error) {
         console.error("Error fetching religious:", error);
-        setError("Network error loading religious places");
+        // setError("Network error loading religious places");
         setReligiousPlaces([]);
       } finally {
         setLoading(false);

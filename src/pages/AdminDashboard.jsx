@@ -68,14 +68,14 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
       {placeForm.image && typeof placeForm.image === 'string' && (
         <img
           src={placeForm.image}
-          alt="Current main image"
+          alt="Current main"
           className="mt-2 w-32 h-32 object-cover rounded"
         />
       )}
       {placeForm.image && typeof placeForm.image === 'object' && (
         <img
           src={URL.createObjectURL(placeForm.image)}
-          alt="Preview main image"
+          alt="Preview main"
           className="mt-2 w-32 h-32 object-cover rounded"
         />
       )}
@@ -106,14 +106,14 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
             {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'string' && (
               <img
                 src={placeForm[`image${num}`]}
-                alt={`Current gallery photo ${num}`}
+                alt={`Current gallery ${num}`}
                 className="w-full h-20 object-cover rounded"
               />
             )}
             {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'object' && (
               <img
                 src={URL.createObjectURL(placeForm[`image${num}`])}
-                alt={`Preview gallery photo ${num}`}
+                alt={`Preview gallery ${num}`}
                 className="w-full h-20 object-cover rounded"
               />
             )}
