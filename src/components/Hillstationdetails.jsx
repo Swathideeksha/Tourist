@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLikes } from "../context/LikesContext";
-import places from "../data/places";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
@@ -18,34 +17,7 @@ const Hillstationdetails = () => {
     const fetchPlace = async () => {
       setLoading(true);
       
-      // First, try to find in static places.js data by matching name
-      const staticPlace = places.find(p => 
-        p.name.toLowerCase().replace(/\s+/g, '-') === id.toLowerCase() ||
-        p.name.toLowerCase().replace(/\s+/g, '') === id.toLowerCase() ||
-        p.id === id ||
-        p.id === parseInt(id)
-      );
-      
-      if (staticPlace) {
-        setPlace({
-          _id: staticPlace.id,
-          name: staticPlace.name,
-          location: staticPlace.region || staticPlace.type,
-          description: staticPlace.about,
-          about: staticPlace.about,
-          image: staticPlace.image,
-          images: staticPlace.images || [],
-          category: staticPlace.type,
-          bestTime: staticPlace.bestTime
-        });
-        if (staticPlace.image) {
-          setSelectedImage(staticPlace.image);
-        }
-        setLoading(false);
-        return;
-      }
-      
-      // If not found in static data, try API
+      // Try API directly - no static data fallback
       try {
         const response = await fetch(`${API_URL}/places/${id}`);
         if (response.ok) {
@@ -54,6 +26,8 @@ const Hillstationdetails = () => {
           if (data.image) {
             setSelectedImage(data.image);
           }
+        } else {
+          console.error("Place not found in API");
         }
       } catch (error) {
         console.error("Error fetching place:", error);
