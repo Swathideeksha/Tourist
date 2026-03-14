@@ -1,17 +1,9 @@
-import kapuImg from "../assests/Kapu-Beach.webp";
+// ================= EMPTY - ALL BEACHES REMOVED =================
+// All static beaches data has been removed
+// Only beaches added through Admin Dashboard will be displayed
+// Go to /admin to add new beaches with your images
 
-
-const beaches = [
-  {
-    id: "b1",
-    name: "Kapu Beach",
-    type: "Beach",
-    region: "Udupi",
-    image: kapuImg,
-    about: "Kapu Beach is famous for its lighthouse and golden sand.",
-    bestTime: "October to March",
-  },
- 
-];
+// Empty array - no static beaches
+const beaches = [];
 
 export default beaches;
