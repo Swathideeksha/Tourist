@@ -10,12 +10,12 @@ const Beaches = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [beaches, setBeaches] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBeaches = async () => {
       setLoading(true);
-      setError(null);
+      // setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=beach`);
         
@@ -25,12 +25,12 @@ const Beaches = () => {
           setBeaches(data || []);
         } else {
           console.error("Beaches API error:", response.status);
-          setError("Failed to load beaches");
+          // setError("Failed to load beaches");
           setBeaches([]);
         }
       } catch (error) {
         console.error("Error fetching beaches:", error);
-        setError("Network error loading beaches");
+        // setError("Network error loading beaches");
         setBeaches([]);
       } finally {
         setLoading(false);

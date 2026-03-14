@@ -10,12 +10,12 @@ const HillStations = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [hillStations, setHillStations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchHillStations = async () => {
       setLoading(true);
-      setError(null);
+      // setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=hill-station`);
         
@@ -25,12 +25,12 @@ const HillStations = () => {
           setHillStations(data || []);
         } else {
           console.error("Hill Stations API error:", response.status);
-          setError("Failed to load hill stations");
+          // setError("Failed to load hill stations");
           setHillStations([]);
         }
       } catch (error) {
         console.error("Error fetching hill stations:", error);
-        setError("Network error loading hill stations");
+        // setError("Network error loading hill stations");
         setHillStations([]);
       } finally {
         setLoading(false);

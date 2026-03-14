@@ -10,12 +10,12 @@ const History = () => {
   const { likedPlaces, toggleLike } = useLikes();
   const [historyPlaces, setHistoryPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
       setLoading(true);
-      setError(null);
+      // setError(null);
       try {
         const response = await fetch(`${API_URL}/places?category=history`);
         
@@ -25,12 +25,12 @@ const History = () => {
           setHistoryPlaces(data || []);
         } else {
           console.error("History API error:", response.status);
-          setError("Failed to load historical places");
+          // setError("Failed to load historical places");
           setHistoryPlaces([]);
         }
       } catch (error) {
         console.error("Error fetching history:", error);
-        setError("Network error loading historical places");
+        // setError("Network error loading historical places");
         setHistoryPlaces([]);
       } finally {
         setLoading(false);
