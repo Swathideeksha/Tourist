@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../context/AdminContext';
 
+// Version: 2.1 - Image Upload Fixed
+
 const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) => (
   <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
     <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Place' : 'Add New Place'}</h3>
