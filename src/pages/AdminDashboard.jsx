@@ -335,7 +335,7 @@ const AdminDashboard = () => {
       
       // Warn if total size is large
       if (totalSize > 10 * 1024 * 1024) { // 10MB total
-        const proceed = confirm(`Total upload size is ${(totalSize / 1024 / 1024).toFixed(1)}MB. This may take longer to upload. Continue?`);
+        const proceed = window.confirm(`Total upload size is ${(totalSize / 1024 / 1024).toFixed(1)}MB. This may take longer to upload. Continue?`);
         if (!proceed) return;
       }
       
