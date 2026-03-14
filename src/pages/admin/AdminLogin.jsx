@@ -35,7 +35,7 @@ const AdminLogin = () => {
             </span>
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
-          <p className="text-gray-500 mt-2">Explore Karnataka Admin Panel</p>
+          <p className="text-gray-500 mt-2">Admin Panel</p>
         </div>
 
         {error && (

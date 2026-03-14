@@ -21,7 +21,7 @@ const busData = {
     rating: 4.8,
     reviews: 324,
     contact: "+91-819-1234-567",
-    address: "Mangalore, Karnataka",
+    address: "Mangalore",
     model: "Volvo 9800 Multi-Axle",
     capacity: "45 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit, Safety Hammers",
@@ -29,11 +29,11 @@ const busData = {
     amenities: ["WiFi", "USB Charging", "Climate Control", "Water Bottle", "Reading Light"],
     reviewsList: [
       { name: "Rahul Sharma", type: "Business Traveler", date: "Jan 2024", rating: 5, text: "Excellent service, comfortable seats and great staff." },
-      { name: "Priya Nair", type: "Tourist", date: "Dec 2023", rating: 5, text: "Best bus service in Karnataka. Highly recommended!" }
+      { name: "Priya Nair", type: "Tourist", date: "Dec 2023", rating: 5, text: "Best bus service. Highly recommended!" }
     ],
     travelInfo: [
       "Boarding points: Mangalore, Bangalore, Hubli",
-      "Dropping points: Major cities in Karnataka",
+      "Dropping points: Major cities",
       "Cancellation policy: 24 hours prior to departure"
     ]
   },
@@ -44,7 +44,7 @@ const busData = {
     rating: 4.5,
     reviews: 287,
     contact: "+91-831-1234-567",
-    address: "Hubli, Karnataka",
+    address: "Hubli",
     model: "Scania Metrolink",
     capacity: "40 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit, CCTV",
@@ -66,7 +66,7 @@ const busData = {
     rating: 4.4,
     reviews: 156,
     contact: "+91-80-1234-5678",
-    address: "Bangalore, Karnataka",
+    address: "Bangalore",
     model: "Ashok Leyland Viking",
     capacity: "38 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit",
@@ -88,7 +88,7 @@ const busData = {
     rating: 4.6,
     reviews: 198,
     contact: "+91-80-2345-6789",
-    address: "Bangalore, Karnataka",
+    address: "Bangalore",
     model: "Volvo 9400 AX",
     capacity: "42 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit, GPS",
@@ -132,7 +132,7 @@ const busData = {
     rating: 4.3,
     reviews: 267,
     contact: "+91-80-1234-0000",
-    address: "Bangalore, Karnataka",
+    address: "Bangalore",
     model: "Volvo 8400",
     capacity: "40 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit, Safety Hammers",
@@ -143,7 +143,7 @@ const busData = {
     ],
     travelInfo: [
       "Boarding points: Bangalore, Mysore, Mangalore",
-      "Dropping points: All Karnataka cities",
+      "Dropping points: All major cities",
       "Cancellation policy: 24 hours prior"
     ]
   },
@@ -154,7 +154,7 @@ const busData = {
     rating: 4.5,
     reviews: 189,
     contact: "+91-821-1234-567",
-    address: "Mysore, Karnataka",
+    address: "Mysore",
     model: "Bharat Benz AC Sleeper",
     capacity: "32 Sleeper",
     safetyGear: "Fire Extinguisher, First Aid Kit, CCTV",
@@ -176,7 +176,7 @@ const busData = {
     rating: 4.4,
     reviews: 134,
     contact: "+91-80-3456-7890",
-    address: "Bangalore, Karnataka",
+    address: "Bangalore",
     model: "Ashok Leyland Express",
     capacity: "44 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit",
@@ -198,7 +198,7 @@ const busData = {
     rating: 4.1,
     reviews: 98,
     contact: "+91-820-1234-567",
-    address: "Mangalore, Karnataka",
+    address: "Mangalore",
     model: "Tata Starbus Semi Sleeper",
     capacity: "40 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit",
@@ -220,7 +220,7 @@ const busData = {
     rating: 4.6,
     reviews: 212,
     contact: "+91-80-4567-8901",
-    address: "Bangalore, Karnataka",
+    address: "Bangalore",
     model: "Volvo 9800 Premium",
     capacity: "38 Seater",
     safetyGear: "Fire Extinguisher, First Aid Kit, GPS, CCTV",

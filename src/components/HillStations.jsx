@@ -44,7 +44,7 @@ const HillStations = () => {
       <Navbar />
       <div className="px-4 md:px-10 pt-24 md:pt-28">
         <h1 className="text-2xl md:text-4xl font-extrabold mb-4 md:mb-6">
-          Hill Stations of Karnataka
+          Hill Stations
         </h1>
 
       <PlacesFilter />

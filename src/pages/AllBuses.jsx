@@ -24,7 +24,7 @@ const AllBuses = () => {
       rating: 4.8,
       reviews: 324,
       contact: "+91-819-1234-567",
-      address: "Mangalore, Karnataka",
+      address: "Mangalore",
     },
     {
       id: 2,
@@ -34,7 +34,7 @@ const AllBuses = () => {
       rating: 4.5,
       reviews: 287,
       contact: "+91-831-1234-567",
-      address: "Hubli, Karnataka",
+      address: "Hubli",
     },
     {
       id: 3,
@@ -44,7 +44,7 @@ const AllBuses = () => {
       rating: 4.4,
       reviews: 156,
       contact: "+91-80-1234-5678",
-      address: "Bangalore, Karnataka",
+      address: "Bangalore",
     },
     {
       id: 4,
@@ -54,7 +54,7 @@ const AllBuses = () => {
       rating: 4.6,
       reviews: 198,
       contact: "+91-80-2345-6789",
-      address: "Bangalore, Karnataka",
+      address: "Bangalore",
     },
     {
       id: 5,
@@ -74,7 +74,7 @@ const AllBuses = () => {
       rating: 4.3,
       reviews: 267,
       contact: "+91-80-1234-0000",
-      address: "Bangalore, Karnataka",
+      address: "Bangalore",
     },
     {
       id: 7,
@@ -94,7 +94,7 @@ const AllBuses = () => {
       rating: 4.4,
       reviews: 134,
       contact: "+91-80-3456-7890",
-      address: "Bangalore, Karnataka",
+      address: "Bangalore",
     },
     {
       id: 9,
@@ -104,7 +104,7 @@ const AllBuses = () => {
       rating: 4.1,
       reviews: 98,
       contact: "+91-820-1234-567",
-      address: "Mangalore, Karnataka",
+      address: "Mangalore",
     },
     {
       id: 10,
@@ -114,7 +114,7 @@ const AllBuses = () => {
       rating: 4.6,
       reviews: 212,
       contact: "+91-80-4567-8901",
-      address: "Bangalore, Karnataka",
+      address: "Bangalore",
     },
   ];
 
@@ -123,7 +123,7 @@ const AllBuses = () => {
       <Navbar />
       <div className="px-4 md:px-10 pt-24 md:pt-28 pb-12">
         <h1 className="text-2xl md:text-4xl font-extrabold mb-2">All Tourist Buses</h1>
-        <p className="text-gray-600 mb-6 md:mb-8">Showing all {buses.length} private agency routes in Karnataka</p>
+        <p className="text-gray-600 mb-6 md:mb-8">Showing all {buses.length} private agency routes</p>
 
         <button
           onClick={() => navigate("/businfo")}

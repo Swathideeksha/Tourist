@@ -5,7 +5,7 @@ const RouteMapHero = () => {
         {/* Red Gradient Background */}
         <div className="bg-gradient-to-r from-[#6a0000] via-[#b11226] to-[#d11a2a] px-8 py-20 text-center">
           <h1 className="text-white text-4xl md:text-5xl font-bold mb-6">
-            Karnataka Tourist Route Map
+            Tourist Route Map
           </h1>
 
           <p className="text-white/90 max-w-3xl mx-auto text-lg leading-relaxed">

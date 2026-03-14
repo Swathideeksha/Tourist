@@ -18,11 +18,12 @@ const PlaceHero = () => {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-yellow-400 mb-6">
-            Explore Tourist Places in Karnataka
+            Explore Tourist Places
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed">
-            Witness the grandeur of Hampi and discover the land of sandalwood. 
-            From ancient monuments to pristine coastlines and lush hills.
+            Visualize your journey across the heart of South India. Discover
+            high-frequency bus corridors and heritage circuits in vibrant
+            red and yellow state.
           </p>
         </div>
       </div>

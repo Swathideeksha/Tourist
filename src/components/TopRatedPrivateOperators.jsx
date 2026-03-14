@@ -5,7 +5,7 @@ const operators = [
     badge: "TRAVELER CHOICE",
     title: "Sea-Bird Multi-Axle",
     desc:
-      "Pioneer in coastal Karnataka routes with premium Volvo and Scania sleeper coaches.",
+      "Pioneer in coastal routes with premium Volvo and Scania sleeper coaches.",
     rating: "4.8/5",
     dark: true,
   },
@@ -13,7 +13,7 @@ const operators = [
     badge: "NETWORK LEADER",
     title: "VRL I-Shift Volvo",
     desc:
-      "Unmatched connectivity across North Karnataka with high-frequency schedules.",
+      "Unmatched connectivity across major routes with high-frequency schedules.",
     rating: "4.7/5",
     dark: false,
   },
