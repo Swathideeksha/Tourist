@@ -499,7 +499,7 @@ const AdminDashboard = () => {
       name: place.name || '',
       type: place.type || place.category || 'Hill Station',
       region: place.region || place.location || '',
-      image: place.img || place.image || null,
+      image: place.image || place.img || null,
       about: place.about || place.description || '',
       bestTime: place.bestTime || '',
       image1: place.images?.[0] || null,
@@ -736,7 +736,7 @@ const AdminDashboard = () => {
                   {places.map((place) => (
                     <tr key={place._id} className="border-b hover:bg-gray-50">
                       <td className="p-3">
-                        <img src={place.img || place.image || 'https://via.placeholder.com/50'} alt="" className="w-16 h-12 object-cover rounded" />
+                        <img src={place.image || place.img || 'https://via.placeholder.com/50'} alt="" className="w-16 h-12 object-cover rounded" />
                       </td>
                       <td className="p-3 font-medium">{place.name}</td>
                       <td className="p-3">{place.type || place.category}</td>
