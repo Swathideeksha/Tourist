@@ -339,7 +339,7 @@ const AdminDashboard = () => {
         if (!proceed) return;
       }
       
-      console.log(`Processing ${allFiles.length} images, total size: ${(totalSize / 1024 / 1024).toFixed(1)}MB`);
+      // console.log(`Processing ${allFiles.length} images, total size: ${(totalSize / 1024 / 1024).toFixed(1)}MB`);
       
       // Convert images to base64
       let mainImageBase64 = '';
@@ -347,19 +347,19 @@ const AdminDashboard = () => {
       
       // Process main image
       if (placeForm.image && placeForm.image instanceof File) {
-        console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
+        // console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
         mainImageBase64 = await fileToBase64(placeForm.image);
-        console.log('Main image compressed, original:', placeForm.image.size, 'compressed:', mainImageBase64.length);
+        // console.log('Main image compressed, original:', placeForm.image.size, 'compressed:', mainImageBase64.length);
       }
       
       // Process gallery images
       for (let i = 1; i <= 6; i++) {
         const imageKey = `image${i}`;
         if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
-          console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
+          // console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
           const base64 = await fileToBase64(placeForm[imageKey]);
           galleryImagesBase64.push(base64);
-          console.log(`Gallery image ${i} compressed, original:`, placeForm[imageKey].size, 'compressed:', base64.length);
+          // console.log(`Gallery image ${i} compressed, original:`, placeForm[imageKey].size, 'compressed:', base64.length);
         }
       }
       
@@ -375,7 +375,7 @@ const AdminDashboard = () => {
         galleryImagesBase64
       }).length;
       
-      console.log(`Final payload size: ${(finalPayloadSize / 1024 / 1024).toFixed(1)}MB`);
+      // console.log(`Final payload size: ${(finalPayloadSize / 1024 / 1024).toFixed(1)}MB`);
       
       // Prepare place data with base64 images
       const placeData = {
@@ -405,19 +405,19 @@ const AdminDashboard = () => {
         body: JSON.stringify(placeData)
       });
       
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
+      // console.log('Response status:', response.status);
+      // console.log('Response ok:', response.ok);
       
       if (response.ok) {
         const newPlace = await response.json();
-        console.log('New place created with images:', newPlace);
+        // console.log('New place created with images:', newPlace);
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
         alert('Place added successfully with your images!');
       } else {
         const errorData = await response.text();
-        console.error('Server error:', errorData);
+        // console.error('Server error:', errorData);
         if (errorData.includes('Payload Too Large')) {
           alert('Error: Images are too large. Try uploading fewer or smaller images.');
         } else {
@@ -425,7 +425,7 @@ const AdminDashboard = () => {
         }
       }
     } catch (error) {
-      console.error('Network error:', error);
+      // console.error('Network error:', error);
       alert(`Network error: ${error.message}`);
     }
   };
@@ -493,20 +493,20 @@ const AdminDashboard = () => {
     
     // Add main image if new one is selected
     if (placeForm.image && placeForm.image instanceof File) {
-      console.log('Updating main image for Cloudinary upload:', placeForm.image.name);
+      // console.log('Updating main image for Cloudinary upload:', placeForm.image.name);
       formDataToSend.append('image', placeForm.image);
     }
     
     // Add gallery images if new ones are selected
     [placeForm.image1, placeForm.image2, placeForm.image3, placeForm.image4, placeForm.image5, placeForm.image6].forEach((imageFile) => {
       if (imageFile && imageFile instanceof File) {
-        console.log('Updating gallery image for Cloudinary upload:', imageFile.name);
+        // console.log('Updating gallery image for Cloudinary upload:', imageFile.name);
         formDataToSend.append('images', imageFile);
       }
     });
     
     try {
-      console.log('Updating place with Cloudinary images...');
+      // console.log('Updating place with Cloudinary images...');
       const response = await fetch(`${API_URL}/admin/places/${editingPlace._id}`, {
         method: 'PUT',
         body: formDataToSend
@@ -514,18 +514,18 @@ const AdminDashboard = () => {
       
       if (response.ok) {
         const updatedPlace = await response.json();
-        console.log('Place updated with Cloudinary images:', updatedPlace);
+        // console.log('Place updated with Cloudinary images:', updatedPlace);
         setPlaces(places.map(p => p._id === editingPlace._id ? updatedPlace : p));
         setEditingPlace(null);
         resetPlaceForm();
         alert('Place updated successfully with images uploaded to Cloudinary!');
       } else {
         const errorData = await response.text();
-        console.error('Server error:', errorData);
+        // console.error('Server error:', errorData);
         alert(`Error: ${response.status} - ${errorData}`);
       }
     } catch (error) {
-      console.error('Error updating place:', error);
+      // console.error('Error updating place:', error);
       alert(`Network error: ${error.message}`);
     }
   };
@@ -541,7 +541,7 @@ const AdminDashboard = () => {
         setPlaces(places.filter(p => p._id !== id));
       }
     } catch (error) {
-      console.error('Error deleting place:', error);
+      // console.error('Error deleting place:', error);
       // Demo mode - delete from local state
       setPlaces(places.filter(p => p._id !== id));
     }
@@ -605,7 +605,7 @@ const AdminDashboard = () => {
         resetBusForm();
       }
     } catch (error) {
-      console.error('Error adding bus:', error);
+      // console.error('Error adding bus:', error);
       // Demo mode
       const newBus = { ...busData, _id: Date.now().toString() };
       setBuses([newBus, ...buses]);
@@ -636,7 +636,7 @@ const AdminDashboard = () => {
         resetBusForm();
       }
     } catch (error) {
-      console.error('Error updating bus:', error);
+      // console.error('Error updating bus:', error);
       // Demo mode
       const updatedBus = { ...busData, _id: editingBus._id };
       setBuses(buses.map(b => b._id === editingBus._id ? updatedBus : b));
@@ -656,7 +656,7 @@ const AdminDashboard = () => {
         setBuses(buses.filter(b => b._id !== id));
       }
     } catch (error) {
-      console.error('Error deleting bus:', error);
+      // console.error('Error deleting bus:', error);
       // Demo mode
       setBuses(buses.filter(b => b._id !== id));
     }
