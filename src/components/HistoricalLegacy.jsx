@@ -1,6 +1,6 @@
 import React from "react";
-import hampiImg from "../assests/badami.webp";
-import belurImg from "../assests/hampi.jpg";
+import hampiImg from "../assets/Badami-Tour_BMCadventures1234.jpg";
+import belurImg from "../assets/The-Architecture-of-A-Fabled-Past-lg-cov.jpg";
 
 const HistoricalLegacy = () => {
   return (

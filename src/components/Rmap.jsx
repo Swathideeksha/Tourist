@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import L from "leaflet";
-import { placesData } from "../data/placesData";
 
 // Fix for default marker icons in React-Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -12,23 +10,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Empty places array - no hardcoded places
-const karnatakaPlaces = [];
-
 const Rmap = () => {
   const center = [14.5204, 75.7224]; // Center of Karnataka
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const navigate = useNavigate();
-
-  // Get place data from placesData.jsx (which is now empty)
-  const getPlaceImage = (placeId) => {
-    const place = placesData.find(p => p.id === placeId);
-    return place ? place.img : "https://images.unsplash.com/photo-1600359746315-119f93a7a7d4?w=800";
-  };
-
-  const handleViewDetails = (placeId) => {
-    navigate(`/destination/${placeId}`);
-  };
 
   return (
     <section className="bg-gray-50 py-4 md:py-8">
@@ -54,7 +37,7 @@ const Rmap = () => {
                   <h3 className="text-xl font-semibold text-gray-600 mb-4">No Places Available</h3>
                   <p className="text-gray-500 mb-4">Please add places through the Admin Dashboard</p>
                   <button 
-                    onClick={() => navigate('/admin')}
+                    onClick={() => window.location.href = '/admin'}
                     className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     Go to Admin Dashboard

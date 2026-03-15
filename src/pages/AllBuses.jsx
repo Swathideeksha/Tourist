@@ -1,178 +1,111 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-
-import seabirdImg from '../assests/seabird.avif';
-import vrlImg from '../assests/VRL.jpg';
-import sugamaImg from '../assests/sugama.jpg';
-import srsImg from '../assests/SRS.jpg';
-import kadambaImg from '../assests/Kadamba.webp';
-import sharmaImg from '../assests/Sharma.png';
-import nationalImg from '../assests/National.Travels.jpg';
-import anandImg from '../assests/Anand.Travels.png';
-import orangeImg from '../assests/Orange.Tours.png';
 
 const AllBuses = () => {
   const navigate = useNavigate();
+
   const buses = [
     {
       id: 1,
-      name: "Sea-Bird Travels",
-      type: "PREMIUM SERVICES",
-      image: seabirdImg,
+      name: "Premium Bus Service",
+      type: "AC SLEEPER",
       rating: 4.8,
       reviews: 324,
       contact: "+91-819-1234-567",
       address: "Mangalore",
+      model: "Volvo 9800 Multi-Axle",
+      capacity: "45 Seater",
+      safetyGear: "Fire Extinguisher, First Aid Kit, Safety Hammers",
+      engine: "BS6 Compliant",
+      amenities: ["WiFi", "USB Charging", "Climate Control", "Water Bottle", "Reading Light"]
     },
     {
       id: 2,
-      name: "VRL Travels",
+      name: "Express Bus Service",
       type: "TOP RATED",
-      image: vrlImg,
       rating: 4.5,
       reviews: 287,
       contact: "+91-831-1234-567",
       address: "Hubli",
+      model: "Volvo 9400",
+      capacity: "40 Seater",
+      safetyGear: "Fire Extinguisher, First Aid Kit, Safety Hammers",
+      engine: "BS6 Compliant",
+      amenities: ["WiFi", "USB Charging", "Climate Control", "Water Bottle"]
     },
     {
       id: 3,
-      name: "Sugama Tourist",
+      name: "Heritage Bus Service",
       type: "HERITAGE",
-      image: sugamaImg,
-      rating: 4.4,
-      reviews: 156,
-      contact: "+91-80-1234-5678",
-      address: "Bangalore",
-    },
-    {
-      id: 4,
-      name: "SRS Travels",
-      type: "LUXURY COACHES",
-      image: srsImg,
       rating: 4.6,
       reviews: 198,
-      contact: "+91-80-2345-6789",
-      address: "Bangalore",
-    },
-    {
-      id: 5,
-      name: "Kadamba Transport",
-      type: "STATE RUN",
-      image: kadambaImg,
-      rating: 4.2,
-      reviews: 145,
-      contact: "+91-832-1234-567",
-      address: "Panaji, Goa",
-    },
-    {
-      id: 6,
-      name: "KSRTC Volvo",
-      type: "PREMIUM",
-      image: seabirdImg,
-      rating: 4.3,
-      reviews: 267,
-      contact: "+91-80-1234-0000",
-      address: "Bangalore",
-    },
-    {
-      id: 7,
-      name: "Sharma Transport",
-      type: "AC SLEEPER",
-      image: sharmaImg,
-      rating: 4.5,
-      reviews: 189,
       contact: "+91-821-1234-567",
-      address: "Mysore, Karnataka",
-    },
-    {
-      id: 8,
-      name: "National Travels",
-      type: "EXPRESS",
-      image: nationalImg,
-      rating: 4.4,
-      reviews: 134,
-      contact: "+91-80-3456-7890",
       address: "Bangalore",
-    },
-    {
-      id: 9,
-      name: "Anand Travels",
-      type: "SEMI SLEEPER",
-      image: anandImg,
-      rating: 4.1,
-      reviews: 98,
-      contact: "+91-820-1234-567",
-      address: "Mangalore",
-    },
-    {
-      id: 10,
-      name: "Orange Tours",
-      type: "PREMIUM",
-      image: orangeImg,
-      rating: 4.6,
-      reviews: 212,
-      contact: "+91-80-4567-8901",
-      address: "Bangalore",
-    },
+      model: "Bharat Benz AC Sleeper",
+      capacity: "32 Sleeper",
+      safetyGear: "Fire Extinguisher, First Aid Kit, CCTV",
+      engine: "BS6 Compliant",
+      amenities: ["AC", "WiFi", "USB Charging", "Bedroll", "Water Bottle"]
+    }
   ];
 
   return (
-    <>
-      <Navbar />
-      <div className="px-4 md:px-10 pt-24 md:pt-28 pb-12">
-        <h1 className="text-2xl md:text-4xl font-extrabold mb-2">All Tourist Buses</h1>
-        <p className="text-gray-600 mb-6 md:mb-8">Showing all {buses.length} private agency routes</p>
-
-        <button
-          onClick={() => navigate("/businfo")}
-          className="mb-6 md:mb-8 bg-yellow-400 hover:bg-yellow-500 px-5 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base transition"
-        >
-          ← Back to Bus Info
-        </button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            All Bus Services
+          </h1>
+          <p className="text-gray-600">
+            Showing all {buses.length} private agency routes
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {buses.map((bus) => (
-            <div key={bus.id} className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              {/* Image Container */}
-              <div className="relative h-40 md:h-48 overflow-hidden bg-gray-200">
-                <img
-                  src={bus.image}
-                  alt={bus.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1">
-                  <span className="text-yellow-500">★</span>
-                  <span className="font-semibold text-sm">{bus.rating}</span>
-                </div>
+            <div key={bus.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div className="h-48 bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                <span className="text-white text-6xl font-bold">{bus.name[0]}</span>
               </div>
-
-              {/* Content */}
-              <div className="p-4">
-                <div className="flex justify-between items-start mb-2">
+              
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="font-bold text-lg">{bus.name}</h3>
-                    <p className="text-sm text-gray-500">{bus.type}</p>
+                    <h3 className="text-xl font-bold text-gray-800">{bus.name}</h3>
+                    <span className="inline-block bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full mt-1">
+                      {bus.type}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center text-yellow-500">
+                      <span className="text-lg">★★★★★</span>
+                      <span className="ml-1 text-gray-600 text-sm">{bus.rating}</span>
+                    </div>
+                    <p className="text-gray-500 text-xs mt-1">{bus.reviews} reviews</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                  <span>★</span>
-                  <span>{bus.rating} ({bus.reviews} reviews)</span>
+
+                <div className="space-y-2 text-sm text-gray-600 mb-4">
+                  <p><strong>Model:</strong> {bus.model}</p>
+                  <p><strong>Capacity:</strong> {bus.capacity}</p>
+                  <p><strong>Contact:</strong> {bus.contact}</p>
+                  <p><strong>Address:</strong> {bus.address}</p>
                 </div>
 
-                <div className="text-sm text-gray-600 mb-3">
-                  <p>📞 {bus.contact}</p>
-                </div>
-
-                <div className="text-sm text-gray-600 mb-3">
-                  <p>📍 {bus.address}</p>
+                <div className="mb-4">
+                  <p className="text-sm font-semibold text-gray-700 mb-2">Amenities:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {bus.amenities.map((amenity, index) => (
+                      <span key={index} className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">
+                        {amenity}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 <button
-                  onClick={() => navigate(`/busdetails/${bus.id}`)}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg transition"
+                  onClick={() => navigate(`/bus-details/${bus.id}`)}
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
                 >
                   View Details
                 </button>
@@ -181,8 +114,7 @@ const AllBuses = () => {
           ))}
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 
