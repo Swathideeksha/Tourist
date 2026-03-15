@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import vrlBus from "../assets/bus.webp";
+import vrlBus from "/assets/bus.webp";
 
 const Bushero = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from "react";
-import westernGhatsImg from "../assets/geo (1).webp";
+import westernGhatsImg from "/assets/geo (1).webp";
 
 const GeographyNature = () => {
   return (
