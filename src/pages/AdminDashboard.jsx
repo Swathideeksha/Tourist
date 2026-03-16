@@ -93,7 +93,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
     </div>
 
     <div className="mb-4">
-      <label className="block text-sm font-medium mb-2">Gallery Images (up to 6, max 3MB each, 10MB total - will be heavily compressed)</label>
+      <label className="block text-sm font-medium mb-2">Gallery Images (up to 6, max 5MB each, 25MB total - efficient upload)</label>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {[1, 2, 3, 4, 5, 6].map((num) => (
           <div key={num} className="space-y-1">
@@ -309,16 +309,16 @@ const AdminDashboard = () => {
     }
   };
 
-  // Place CRUD operations - use base64 for reliable uploads
+  // Place CRUD operations - use FormData for efficient uploads
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
     try {
-      console.log('Processing place data with base64 uploads...');
+      console.log('Processing place data with FormData uploads...');
       
-      // Validate and count files before processing
-      const maxFileSize = 3 * 1024 * 1024; // 3MB per file (very conservative)
-      const maxTotalSize = 10 * 1024 * 1024; // 10MB total limit (very conservative)
+      // Validate files before processing
+      const maxFileSize = 5 * 1024 * 1024; // 5MB per file (back to normal for FormData)
+      const maxTotalSize = 25 * 1024 * 1024; // 25MB total limit (back to normal for FormData)
       const allFiles = [];
       
       if (placeForm.image && placeForm.image instanceof File) {
@@ -336,149 +336,69 @@ const AdminDashboard = () => {
       let totalSize = 0;
       for (const { file, type } of allFiles) {
         if (file.size > maxFileSize) {
-          window.alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 3MB.`);
+          window.alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 5MB.`);
           return;
         }
         totalSize += file.size;
       }
       
       if (totalSize > maxTotalSize) {
-        window.alert(`Total images size is too large (${(totalSize / 1024 / 1024).toFixed(1)}MB). Please reduce total size under 10MB.`);
+        window.alert(`Total images size is too large (${(totalSize / 1024 / 1024).toFixed(1)}MB). Please reduce total size under 25MB.`);
         return;
       }
       
-      // Warn if total size is large
-      if (totalSize > 5 * 1024 * 1024) { // 5MB total
-        const proceed = window.confirm(`Total upload size is ${(totalSize / 1024 / 1024).toFixed(1)}MB. Images will be heavily compressed to avoid server errors. Continue?`);
-        if (!proceed) return;
-      }
+      // Create FormData for multipart upload
+      const formData = new FormData();
+      formData.append('name', placeForm.name);
+      formData.append('location', placeForm.region);
+      formData.append('category', placeForm.type.toLowerCase().replace(' ', '-'));
+      formData.append('description', placeForm.about);
+      formData.append('bestTime', placeForm.bestTime);
+      formData.append('isActive', 'true');
       
-      // console.log(`Processing ${allFiles.length} images, total size: ${(totalSize / 1024 / 1024).toFixed(1)}MB`);
-      
-      // Convert images to base64
-      let mainImageBase64 = '';
-      let galleryImagesBase64 = [];
-      
-      // Process main image
+      // Add main image
       if (placeForm.image && placeForm.image instanceof File) {
-        // console.log('Converting main image to base64:', placeForm.image.name, 'Size:', placeForm.image.size);
-        mainImageBase64 = await compressImage(placeForm.image);
-        // console.log('Main image compressed, original:', placeForm.image.size, 'compressed:', mainImageBase64.length);
+        formData.append('image', placeForm.image);
       }
       
-      // Process gallery images
+      // Add gallery images
       for (let i = 1; i <= 6; i++) {
         const imageKey = `image${i}`;
         if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
-          // console.log(`Converting gallery image ${i} to base64:`, placeForm[imageKey].name, 'Size:', placeForm[imageKey].size);
-          const base64 = await compressImage(placeForm[imageKey]);
-          galleryImagesBase64.push(base64);
-          // console.log(`Gallery image ${i} compressed, original:`, placeForm[imageKey].size, 'compressed:', base64.length);
+          formData.append('images', placeForm[imageKey]);
         }
       }
       
-      // Calculate final payload size
-      const finalPayloadSize = JSON.stringify({
+      console.log('Submitting place with FormData:', {
         name: placeForm.name,
-        location: placeForm.region,
-        category: placeForm.type.toLowerCase().replace(' ', '-'),
-        description: placeForm.about,
-        bestTime: placeForm.bestTime,
-        isActive: 'true',
-        mainImageBase64,
-        galleryImagesBase64
-      }).length;
-      
-      // console.log(`Final payload size: ${(finalPayloadSize / 1024 / 1024).toFixed(1)}MB`);
-      
-      // Prepare place data with base64 images
-      const placeData = {
-        name: placeForm.name,
-        location: placeForm.region,
-        category: placeForm.type.toLowerCase().replace(' ', '-'),
-        description: placeForm.about,
-        bestTime: placeForm.bestTime,
-        isActive: 'true',
-        mainImageBase64: mainImageBase64,
-        galleryImagesBase64: galleryImagesBase64
-      };
-
-      console.log('Submitting place with base64 images:', {
-        name: placeData.name,
-        hasMainImage: !!mainImageBase64,
-        galleryImageCount: galleryImagesBase64.length,
-        payloadSizeMB: (finalPayloadSize / 1024 / 1024).toFixed(1)
+        hasMainImage: !!placeForm.image,
+        galleryImageCount: allFiles.filter(f => f.type.startsWith('gallery')).length,
+        totalSizeMB: (totalSize / 1024 / 1024).toFixed(1)
       });
 
-      // Send JSON with base64 images
+      // Send FormData instead of JSON
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(placeData)
+        body: formData // No Content-Type header, let browser set it with boundary
       });
-      
-      // console.log('Response status:', response.status);
-      // console.log('Response ok:', response.ok);
       
       if (response.ok) {
         const newPlace = await response.json();
-        // console.log('New place created with images:', newPlace);
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
         window.alert('Place added successfully with your images!');
       } else {
         const errorData = await response.text();
-        // console.error('Server error:', errorData);
         if (errorData.includes('Payload Too Large') || response.status === 413) {
-          window.alert('Error: Images are still too large even after compression. Try uploading fewer images or smaller files (under 1MB each).');
+          window.alert('Error: Images are still too large. Try uploading fewer images or smaller files (under 2MB each).');
         } else {
           window.alert(`Error: ${response.status} - ${errorData}`);
         }
       }
     } catch (error) {
-      // console.error('Network error:', error);
       window.alert(`Network error: ${error.message}`);
     }
-  };
-
-  // Helper function to compress images very aggressively
-  const compressImage = async (file, maxSizeMB = 1) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          
-          let { width, height } = img;
-          
-          // Very aggressive dimension reduction
-          if (width > 800 || height > 800) {
-            const ratio = Math.min(800 / width, 800 / height);
-            width *= ratio;
-            height *= ratio;
-          }
-          
-          canvas.width = width;
-          canvas.height = height;
-          
-          // Draw and compress with very high compression
-          ctx.drawImage(img, 0, 0, width, height);
-          
-          // Convert to base64 with very high compression (0.3 quality for tiny size)
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.3);
-          resolve(compressedBase64);
-        };
-        img.onerror = error => console.error(error);
-        img.src = e.target.result;
-      };
-      reader.onerror = error => console.error(error);
-      reader.readAsDataURL(file);
-    });
   };
 
   const handleLogout = () => {
