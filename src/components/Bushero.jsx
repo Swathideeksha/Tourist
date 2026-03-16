@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import vrlBus from "/assets/bus.webp";
 
 const Bushero = () => {
   const navigate = useNavigate();
@@ -9,7 +8,7 @@ const Bushero = () => {
       <div
         className="relative w-full h-[400px] md:h-[500px] rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to right, rgba(88,0,0,0.75), rgba(0,0,0,0.3)), url(${vrlBus})`,
+          backgroundImage: 'linear-gradient(to right, rgba(88,0,0,0.75), rgba(0,0,0,0.3)), url(/assets/bus.webp)',
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

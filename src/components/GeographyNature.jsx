@@ -1,5 +1,4 @@
 import React from "react";
-import westernGhatsImg from "/assets/geo (1).webp";
 
 const GeographyNature = () => {
   return (
@@ -10,8 +9,8 @@ const GeographyNature = () => {
           {/* LEFT IMAGE */}
           <div className="relative order-2 lg:order-1">
             <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src={westernGhatsImg}
+              <img 
+                src="/assets/geo (1).webp"
                 alt="Western Ghats Karnataka"
                 className="w-full h-full object-cover"
               />

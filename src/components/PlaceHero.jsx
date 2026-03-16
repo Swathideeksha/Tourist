@@ -1,5 +1,3 @@
-import kodachadriImg from "/assets/places.png";
-
 const PlaceHero = () => {
   return (
     <div className="w-full px-4 md:px-8 py-6">
@@ -7,7 +5,7 @@ const PlaceHero = () => {
       <div 
         className="relative w-full h-[400px] md:h-[500px] rounded-3xl md:rounded-[3rem] shadow-2xl overflow-hidden"
         style={{
-          backgroundImage: `url(${kodachadriImg})`,
+          backgroundImage: 'url(/assets/places.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}

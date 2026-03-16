@@ -93,7 +93,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
     </div>
 
     <div className="mb-4">
-      <label className="block text-sm font-medium mb-2">Gallery Images (up to 6)</label>
+      <label className="block text-sm font-medium mb-2">Gallery Images (up to 6, max 5MB each)</label>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {[1, 2, 3, 4, 5, 6].map((num) => (
           <div key={num} className="space-y-1">
@@ -104,18 +104,26 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
               accept="image/*"
             />
             {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'string' && (
-              <img
-                src={placeForm[`image${num}`]}
-                alt={`Current gallery ${num}`}
-                className="w-full h-20 object-cover rounded"
-              />
+              <div>
+                <img
+                  src={placeForm[`image${num}`]}
+                  alt={`Current gallery ${num}`}
+                  className="w-full h-20 object-cover rounded"
+                />
+                <p className="text-xs text-gray-500">Existing image</p>
+              </div>
             )}
             {placeForm[`image${num}`] && typeof placeForm[`image${num}`] === 'object' && (
-              <img
-                src={URL.createObjectURL(placeForm[`image${num}`])}
-                alt={`Preview gallery ${num}`}
-                className="w-full h-20 object-cover rounded"
-              />
+              <div>
+                <img
+                  src={URL.createObjectURL(placeForm[`image${num}`])}
+                  alt={`New gallery ${num}`}
+                  className="w-full h-20 object-cover rounded"
+                />
+                <p className="text-xs text-gray-500">
+                  {(placeForm[`image${num}`].size / 1024 / 1024).toFixed(2)}MB
+                </p>
+              </div>
             )}
           </div>
         ))}
@@ -309,7 +317,8 @@ const AdminDashboard = () => {
       console.log('Processing place data with base64 uploads...');
       
       // Validate and count files before processing
-      const maxFileSize = 3 * 1024 * 1024; // Reduced to 3MB per file
+      const maxFileSize = 5 * 1024 * 1024; // Increased to 5MB per file (matching backend)
+      const maxTotalSize = 25 * 1024 * 1024; // 25MB total limit for all images
       const allFiles = [];
       
       if (placeForm.image && placeForm.image instanceof File) {
@@ -327,10 +336,15 @@ const AdminDashboard = () => {
       let totalSize = 0;
       for (const { file, type } of allFiles) {
         if (file.size > maxFileSize) {
-          window.alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 3MB.`);
+          window.alert(`${type === 'main' ? 'Main image' : `Gallery image ${type.replace('gallery', '')}`} is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please choose images under 5MB.`);
           return;
         }
         totalSize += file.size;
+      }
+      
+      if (totalSize > maxTotalSize) {
+        window.alert(`Total images size is too large (${(totalSize / 1024 / 1024).toFixed(1)}MB). Please reduce total size under 25MB.`);
+        return;
       }
       
       // Warn if total size is large
@@ -430,44 +444,50 @@ const AdminDashboard = () => {
     }
   };
 
-  // Helper function to compress and convert file to base64 with better compression
-  const fileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
+  // Helper function to compress images
+  const compressImage = async (file, maxSizeMB = 5) => {
+    return new Promise((resolve) => {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           
-          // Calculate new dimensions (more aggressive compression for gallery)
-          let width = img.width;
-          let height = img.height;
-          const maxSize = 600; // Reduced from 800px
+          let { width, height } = img;
           
-          if (width > height && width > maxSize) {
-            height = (height * maxSize) / width;
-            width = maxSize;
-          } else if (height > maxSize) {
-            width = (width * maxSize) / height;
-            height = maxSize;
+          // Reduce dimensions for very large images
+          if (width > 1920 || height > 1920) {
+            const ratio = Math.min(1920 / width, 1920 / height);
+            width *= ratio;
+            height *= ratio;
           }
           
           canvas.width = width;
           canvas.height = height;
           
-          // Draw and compress with higher compression
+          // Draw and compress
           ctx.drawImage(img, 0, 0, width, height);
           
-          // Convert to base64 with higher compression (0.5 quality for smaller size)
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5);
+          // Convert to base64 with compression
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
           resolve(compressedBase64);
         };
-        img.onerror = error => reject(error);
-        img.src = event.target.result;
+        img.onerror = error => console.error(error);
+        img.src = e.target.result;
       };
-      reader.onerror = error => reject(error);
+      reader.onerror = error => console.error(error);
       reader.readAsDataURL(file);
+    });
+  };
+
+  // Helper function to convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
     });
   };
 
