@@ -108,6 +108,7 @@ const PlacesGrid = ({ search, activeCategory }) => {
               img={p.image || p.img || "/images/placeholder.jpg"}
               name={p.name}
               location={p.location}
+              images={p.images}
               isLiked={likedPlaces.includes(p._id || p.id)}
               toggleLike={toggleLike}
             />

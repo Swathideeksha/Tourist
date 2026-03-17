@@ -5,10 +5,14 @@ const PlaceCard = ({
   img,
   name,
   location,
+  images,
   isLiked,
   toggleLike,
 }) => {
   const navigate = useNavigate();
+
+  // Use the first image from images array if no img provided
+  const displayImage = img || (images && images.length > 0 ? images[0] : '/images/placeholder.jpg');
 
   return (
     <div className="bg-white rounded-2xl shadow hover:shadow-xl transition-shadow p-4 relative group">
@@ -39,7 +43,7 @@ const PlaceCard = ({
       </button>
 
       <img
-        src={img}
+        src={displayImage}
         alt={name}
         className="rounded-xl h-48 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
       />
