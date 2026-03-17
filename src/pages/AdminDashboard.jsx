@@ -735,7 +735,7 @@ const AdminDashboard = () => {
                       <td className="p-3">{place.region || place.location}</td>
                       <td className="p-3 text-center">
                         <button
-                          onClick={() => handleEditPlace(place)}
+                          onClick={() => handleUpdatePlace(place)}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded mr-2"
                         >
                           Edit
