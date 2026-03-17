@@ -481,6 +481,7 @@ const AdminDashboard = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const setPlaceFormForEdit = (place) => {
     console.log('Editing place data:', place);
     console.log('Place images array:', place.images);
