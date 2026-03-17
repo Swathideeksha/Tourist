@@ -11,6 +11,8 @@ import "swiper/css/pagination";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
+console.log("API_URL being used:", API_URL);
+
 const PlacesGrid = ({ search, activeCategory }) => {
   const { likedPlaces, toggleLike } = useLikes();
   const [places, setPlaces] = useState([]);

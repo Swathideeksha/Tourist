@@ -250,6 +250,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || 'https://backend-chi-one-70.vercel.app/api';
 
+console.log("AdminDashboard API_URL:", API_URL);
+
   // Place form state - updated for file uploads
   const [placeForm, setPlaceForm] = useState({
     name: '',
