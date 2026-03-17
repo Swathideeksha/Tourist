@@ -389,11 +389,15 @@ const AdminDashboard = () => {
         resetPlaceForm();
         window.alert('Place added successfully with your images!');
       } else {
-        const errorData = await response.text();
-        if (errorData.includes('Payload Too Large') || response.status === 413) {
+        const errorData = await response.json();
+        console.error('Server error details:', errorData);
+        
+        if (response.status === 413) {
           window.alert('Error: Images are still too large. Try uploading fewer images or smaller files (under 2MB each).');
+        } else if (response.status === 500) {
+          window.alert(`Server error: ${errorData.message || 'Unknown error'}\n\nDetails: ${errorData.error || 'No details available'}\n\nPlease check the console for more information.`);
         } else {
-          window.alert(`Error: ${response.status} - ${errorData}`);
+          window.alert(`Error: ${response.status} - ${errorData.message || errorData.error || 'Unknown error'}`);
         }
       }
     } catch (error) {
