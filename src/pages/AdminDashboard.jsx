@@ -481,7 +481,11 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleEditPlace = (place) => {
+  const setPlaceFormForEdit = (place) => {
+    console.log('Editing place data:', place);
+    console.log('Place images array:', place.images);
+    console.log('Place main image:', place.image);
+    
     setEditingPlace(place);
     setPlaceForm({
       name: place.name || '',
