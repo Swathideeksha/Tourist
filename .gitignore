@@ -5,11 +5,6 @@ node_modules/
 build/
 dist/
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
 # Logs
 *.log
 npm-debug.log*
@@ -22,15 +17,20 @@ npm-debug.log*
 *.njsproj
 *.sln
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Testing
 coverage/
 
 # Temporary files
 *.tmp
 *.temp
 
+# Vercel
 .vercel
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
