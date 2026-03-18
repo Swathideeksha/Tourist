@@ -486,11 +486,12 @@ console.log("AdminDashboard API_URL:", API_URL);
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
   const setPlaceFormForEdit = (place) => {
     console.log('Editing place data:', place);
     console.log('Place images array:', place.images);
     console.log('Place main image:', place.image);
+    console.log('Place image type:', typeof place.image);
+    console.log('Place images type:', typeof place.images);
     
     setEditingPlace(place);
     setPlaceForm({
