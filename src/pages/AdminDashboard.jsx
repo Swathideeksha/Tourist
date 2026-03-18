@@ -386,6 +386,9 @@ console.log("AdminDashboard API_URL:", API_URL);
       
       if (response.ok) {
         const newPlace = await response.json();
+        console.log("New place created:", newPlace);
+        console.log("New place image:", newPlace.image);
+        console.log("New place images:", newPlace.images);
         setPlaces([newPlace, ...places]);
         setShowAddPlaceForm(false);
         resetPlaceForm();
@@ -731,7 +734,7 @@ console.log("AdminDashboard API_URL:", API_URL);
                   {places.map((place) => (
                     <tr key={place._id} className="border-b hover:bg-gray-50">
                       <td className="p-3">
-                        <img src={place.image || place.img || 'https://via.placeholder.com/50'} alt="" className="w-16 h-12 object-cover rounded" />
+                        <img src={place.image || place.img || '/images/placeholder.jpg'} alt="" className="w-16 h-12 object-cover rounded" />
                       </td>
                       <td className="p-3 font-medium">{place.name}</td>
                       <td className="p-3">{place.type || place.category}</td>
