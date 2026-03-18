@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import PlacesFilter from "./PlacesFilter";
 import PlaceCard from "./PlaceCard";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_URL = "https://backend-chi-one-70.vercel.app/api";
 
 const Beaches = () => {
   const { likedPlaces, toggleLike } = useLikes();
