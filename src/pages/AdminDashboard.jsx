@@ -332,10 +332,13 @@ console.log("AdminDashboard API_URL:", API_URL);
         allFiles.push({ file: placeForm.image, type: 'main' });
       }
       
+      // Only process first 2 gallery images for testing
+      let galleryCount = 0;
       for (let i = 1; i <= 6; i++) {
         const imageKey = `image${i}`;
-        if (placeForm[imageKey] && placeForm[imageKey] instanceof File) {
+        if (placeForm[imageKey] && placeForm[imageKey] instanceof File && galleryCount < 2) {
           allFiles.push({ file: placeForm[imageKey], type: `gallery${i}` });
+          galleryCount++;
         }
       }
       
