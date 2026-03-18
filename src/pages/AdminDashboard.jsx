@@ -374,15 +374,33 @@ console.log("AdminDashboard API_URL:", API_URL);
       console.log('Submitting place with FormData:', {
         name: placeForm.name,
         hasMainImage: !!placeForm.image,
+        mainImageName: placeForm.image?.name,
+        mainImageSize: placeForm.image?.size,
+        mainImageType: placeForm.image?.type,
         galleryImageCount: allFiles.filter(f => f.type.startsWith('gallery')).length,
+        galleryImageNames: allFiles.filter(f => f.type.startsWith('gallery')).map(f => f.file.name),
         totalSizeMB: (totalSize / 1024 / 1024).toFixed(1)
       });
 
+      // Debug FormData contents
+      console.log('FormData entries before sending:');
+      for (let [key, value] of formData.entries()) {
+        if (value instanceof File) {
+          console.log(`${key}:`, { name: value.name, size: value.size, type: value.type });
+        } else {
+          console.log(`${key}:`, value);
+        }
+      }
+
       // Send FormData instead of JSON
+      console.log('Sending request to:', `${API_URL}/admin/places`);
       const response = await fetch(`${API_URL}/admin/places`, {
         method: 'POST',
         body: formData // No Content-Type header, let browser set it with boundary
       });
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
       
       if (response.ok) {
         const newPlace = await response.json();
