@@ -248,7 +248,7 @@ const AdminDashboard = () => {
   const [editingBus, setEditingBus] = useState(null);
   const { admin, logout } = useAdmin();
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL || 'https://backend-chi-one-70.vercel.app/api';
+  const API_URL = "https://backend-chi-one-70.vercel.app/api";
 
 console.log("AdminDashboard API_URL:", API_URL);
 
