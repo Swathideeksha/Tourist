@@ -22,6 +22,9 @@ const Hillstationdetails = () => {
         const response = await fetch(`${API_URL}/places/${id}`);
         if (response.ok) {
           const data = await response.json();
+          console.log("Place data received:", data);
+          console.log("Place image:", data.image);
+          console.log("Place images array:", data.images);
           setPlace(data);
           if (data.image) {
             setSelectedImage(data.image);
@@ -61,6 +64,8 @@ const Hillstationdetails = () => {
   const galleryImages = place.images && place.images.length > 0 
     ? place.images 
     : place.image ? [place.image] : [];
+
+  console.log("Gallery images array:", galleryImages);
 
   return (
     <div className="bg-gray-50 min-h-screen">
