@@ -315,6 +315,11 @@ console.log("AdminDashboard API_URL:", API_URL);
   const handleAddPlace = async (e) => {
     e.preventDefault();
     
+    console.log('🔍 DEBUG: handleAddPlace called');
+    console.log('🔍 DEBUG: placeForm.image:', placeForm.image);
+    console.log('🔍 DEBUG: placeForm.image1:', placeForm.image1);
+    console.log('🔍 DEBUG: placeForm.image2:', placeForm.image2);
+    
     try {
       console.log('Processing place data with FormData uploads...');
       
