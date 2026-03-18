@@ -65,7 +65,12 @@ const Hillstationdetails = () => {
     ? place.images 
     : place.image ? [place.image] : [];
 
-  console.log("Gallery images array:", galleryImages);
+  console.log(`[Hillstationdetails] ${place.name}:`, {
+    mainImage: place.image,
+    galleryImages: place.images,
+    finalGallery: galleryImages,
+    selectedImage
+  });
 
   return (
     <div className="bg-gray-50 min-h-screen">

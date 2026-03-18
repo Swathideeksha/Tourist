@@ -14,6 +14,13 @@ const PlaceCard = ({
   // Use the first image from images array if no img provided
   const displayImage = img || (images && images.length > 0 ? images[0] : '/images/placeholder.jpg');
 
+  console.log(`[PlaceCard] ${name}:`, {
+    img,
+    images,
+    displayImage,
+    imageCount: images?.length || 0
+  });
+
   return (
     <div className="bg-white rounded-2xl shadow hover:shadow-xl transition-shadow p-4 relative group">
       <button

@@ -103,19 +103,27 @@ const PlacesGrid = ({ search, activeCategory }) => {
         }}
         className="pb-12 relative group"
       >
-        {filteredPlaces.map((p) => (
-          <SwiperSlide key={p._id || p.id}>
-            <PlaceCard
-              id={p._id || p.id}
-              img={p.image || p.img || "/images/placeholder.jpg"}
-              name={p.name}
-              location={p.location}
-              images={p.images}
-              isLiked={likedPlaces.includes(p._id || p.id)}
-              toggleLike={toggleLike}
-            />
-          </SwiperSlide>
-        ))}
+        {filteredPlaces.map((p) => {
+          console.log(`[PlacesGrid] Place: ${p.name}`, {
+            mainImage: p.image || p.img,
+            galleryImages: p.images,
+            allImages: [p.image || p.img, ...(p.images || [])]
+          });
+          
+          return (
+            <SwiperSlide key={p._id || p.id}>
+              <PlaceCard
+                id={p._id || p.id}
+                img={p.image || p.img || "/images/placeholder.jpg"}
+                name={p.name}
+                location={p.location}
+                images={p.images}
+                isLiked={likedPlaces.includes(p._id || p.id)}
+                toggleLike={toggleLike}
+              />
+            </SwiperSlide>
+          );
+        })}
 
         {/* Custom Styled Navigation Buttons */}
         <button className="swiper-button-prev absolute left-0 top-1/3 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100">
