@@ -394,7 +394,15 @@ console.log("AdminDashboard API_URL:", API_URL);
       console.log('FormData entries before sending:');
       for (let [key, value] of formData.entries()) {
         if (value instanceof File) {
-          console.log(`${key}:`, { name: value.name, size: value.size, type: value.type });
+          console.log(`${key}:`, {
+            name: value.name,
+            size: value.size,
+            type: value.type,
+            lastModified: value.lastModified,
+            constructor: value.constructor.name
+          });
+        } else if (value instanceof Blob) {
+          console.log(`${key}:`, { type: 'Blob', size: value.size });
         } else {
           console.log(`${key}:`, value);
         }
