@@ -27,7 +27,7 @@ export const AdminProvider = ({ children }) => {
 
   const fetchAdmin = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000/api"}/admin/me`, {
+      const response = await fetch(`https://backend-chi-one-70.vercel.app/api/admin/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +48,7 @@ export const AdminProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000/api"}/admin/login`, {
+      const response = await fetch(`https://backend-chi-one-70.vercel.app/api/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

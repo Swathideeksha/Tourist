@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLikes } from "../context/LikesContext";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_URL = "https://backend-chi-one-70.vercel.app/api";
 
 const Hillstationdetails = () => {
   const { id } = useParams();
