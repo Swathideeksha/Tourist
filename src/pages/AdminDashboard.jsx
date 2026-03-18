@@ -469,6 +469,30 @@ console.log("AdminDashboard API_URL:", API_URL);
     }
   };
 
+  const handleEditPlace = (place) => {
+    console.log('Editing place data:', place);
+    console.log('Place images array:', place.images);
+    console.log('Place main image:', place.image);
+    console.log('Place image type:', typeof place.image);
+    console.log('Place images type:', typeof place.images);
+    
+    setEditingPlace(place);
+    setPlaceForm({
+      name: place.name || '',
+      type: place.type || place.category || 'Hill Station',
+      region: place.region || place.location || '',
+      image: place.image || place.img || null,
+      about: place.about || place.description || '',
+      bestTime: place.bestTime || '',
+      image1: place.images?.[0] || null,
+      image2: place.images?.[1] || null,
+      image3: place.images?.[2] || null,
+      image4: place.images?.[3] || null,
+      image5: place.images?.[4] || null,
+      image6: place.images?.[5] || null
+    });
+  };
+
   const handleDeletePlace = async (id) => {
     if (!window.confirm('Are you sure you want to delete this place?')) return;
     try {
@@ -742,7 +766,7 @@ console.log("AdminDashboard API_URL:", API_URL);
                       <td className="p-3">{place.region || place.location}</td>
                       <td className="p-3 text-center">
                         <button
-                          onClick={() => handleUpdatePlace(place)}
+                          onClick={() => handleEditPlace(place)}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded mr-2"
                         >
                           Edit
