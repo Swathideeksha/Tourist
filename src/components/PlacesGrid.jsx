@@ -35,13 +35,25 @@ const PlacesGrid = ({ search, activeCategory }) => {
         const category = categoryMap[activeCategory] || "all";
         const response = await fetch(`${API_URL}/places?category=${category}`);
         
+        console.log("API Request URL:", `${API_URL}/places?category=${category}`);
+        console.log("API Response status:", response.status);
+        console.log("API Response headers:", Object.fromEntries(response.headers.entries()));
+        
         if (response.ok) {
           const data = await response.json();
           console.log("API Response for places:", data);
+          console.log("API Response data length:", data?.length);
+          console.log("API Response first 3 places:", data?.slice(0, 3).map(p => ({
+            name: p.name,
+            image: p.image,
+            hasImage: !!p.image
+          })));
+          
           // Always use API data - remove fallback to static data
           setPlaces(data || []);
         } else {
           console.error("API error:", response.status);
+          console.error("API error text:", await response.text());
           setError("Failed to load places from server");
           setPlaces([]); // Don't use static fallback
         }
