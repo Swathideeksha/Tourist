@@ -769,7 +769,23 @@ console.log("AdminDashboard API_URL:", API_URL);
                   {places.map((place) => (
                     <tr key={place._id} className="border-b hover:bg-gray-50">
                       <td className="p-3">
-                        <img src={place.image || place.img || '/images/placeholder.jpg'} alt="" className="w-16 h-12 object-cover rounded" />
+                        <div className="flex flex-col gap-1">
+                          <img 
+                            src={place.image || place.img || '/images/placeholder.jpg'} 
+                            alt="" 
+                            className="w-16 h-12 object-cover rounded" 
+                            onError={(e) => {
+                              console.log(`Image load error for place ${place.name}:`, place.image);
+                              console.log(`Image src attempted:`, e.target.src);
+                            }}
+                            onLoad={(e) => {
+                              console.log(`Image loaded successfully for place ${place.name}:`, e.target.src);
+                            }}
+                          />
+                          <div className="text-xs text-gray-500 max-w-16 truncate">
+                            {place.image ? 'Custom' : 'Placeholder'}
+                          </div>
+                        </div>
                       </td>
                       <td className="p-3 font-medium">{place.name}</td>
                       <td className="p-3">{place.type || place.category}</td>
