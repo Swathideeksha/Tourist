@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = process.env.REACT_APP_API_URL?.replace('/api', '') || "http://localhost:5000";
+const API_URL = "https://backend-chi-one-70.vercel.app/api";
 
 const ContactSupport = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState("faq");
