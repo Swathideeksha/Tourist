@@ -39,7 +39,7 @@ const ContactSupport = ({ isOpen, onClose }) => {
     setSubmitted(true);
     
     try {
-      const response = await fetch(`${API_URL}/api/contact/contact`, {
+      const response = await fetch(`${API_URL}/contact/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
