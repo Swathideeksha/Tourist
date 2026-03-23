@@ -66,11 +66,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
         required={!isEditing}
       />
       {placeForm.image && typeof placeForm.image === 'string' && (
-        <img
-          src={placeForm.image}
-          alt="Current main"
-          className="mt-2 w-32 h-32 object-cover rounded"
-        />
+        <img src={placeForm.image || '/images/placeholder.jpg'} alt="" className="w-16 h-12 object-cover rounded" />
       )}
       {placeForm.image && typeof placeForm.image === 'object' && (
         <img
