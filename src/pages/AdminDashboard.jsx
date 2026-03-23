@@ -45,6 +45,28 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
         />
       </div>
       <div>
+        <label className="block text-sm font-medium mb-1">Latitude</label>
+        <input
+          type="number"
+          step="0.000001"
+          placeholder="e.g., 12.9716"
+          value={placeForm.latitude || ''}
+          onChange={(e) => setPlaceForm({...placeForm, latitude: parseFloat(e.target.value) || null})}
+          className="w-full border p-2 rounded"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Longitude</label>
+        <input
+          type="number"
+          step="0.000001"
+          placeholder="e.g., 77.5946"
+          value={placeForm.longitude || ''}
+          onChange={(e) => setPlaceForm({...placeForm, longitude: parseFloat(e.target.value) || null})}
+          className="w-full border p-2 rounded"
+        />
+      </div>
+      <div>
         <label className="block text-sm font-medium mb-1">Best Time to Visit</label>
         <input
           type="text"
@@ -248,11 +270,13 @@ const AdminDashboard = () => {
 
 console.log("AdminDashboard API_URL:", API_URL);
 
-  // Place form state - updated for file uploads
+  // Place form state - updated for file uploads and coordinates
   const [placeForm, setPlaceForm] = useState({
     name: '',
     type: 'Hill Station',
     region: '',
+    latitude: '',
+    longitude: '',
     image: null,
     about: '',
     bestTime: '',
@@ -535,6 +559,8 @@ console.log("AdminDashboard API_URL:", API_URL);
       name: place.name || '',
       type: place.type || place.category || 'Hill Station',
       region: place.region || place.location || '',
+      latitude: place.latitude || '',
+      longitude: place.longitude || '',
       image: place.image || place.img || null,
       about: place.about || place.description || '',
       bestTime: place.bestTime || '',
@@ -569,6 +595,8 @@ console.log("AdminDashboard API_URL:", API_URL);
       name: '',
       type: 'Hill Station',
       region: '',
+      latitude: '',
+      longitude: '',
       image: null,
       about: '',
       bestTime: '',
