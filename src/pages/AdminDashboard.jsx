@@ -423,7 +423,31 @@ console.log("AdminDashboard API_URL:", API_URL);
         console.log("New place created:", newPlace);
         console.log("New place image:", newPlace.image);
         console.log("New place images:", newPlace.images);
+        
+        // DEBUG: Check current places list before update
+        console.log("Current places list before update:", places.length);
+        console.log("Current places names before update:", places.map(p => p.name));
+        
+        // DEBUG: Check new place details
+        console.log("New place details:", {
+          _id: newPlace._id,
+          name: newPlace.name,
+          image: newPlace.image,
+          imagesCount: newPlace.images?.length || 0
+        });
+        
         setPlaces([newPlace, ...places]);
+        
+        // DEBUG: Check places list after update
+        setTimeout(() => {
+          console.log("Places list after update:", places.length);
+          console.log("First 3 places after update:", places.slice(0, 3).map(p => ({
+            name: p.name,
+            image: p.image,
+            hasImage: !!p.image
+          })));
+        }, 100);
+        
         setShowAddPlaceForm(false);
         resetPlaceForm();
         window.alert('Place added successfully with your images!');
@@ -766,7 +790,10 @@ console.log("AdminDashboard API_URL:", API_URL);
                   </tr>
                 </thead>
                 <tbody>
-                  {places.map((place) => (
+                  {console.log("RENDERING PLACES LIST:", places.length)}
+                  {places.map((place) => {
+                    console.log("RENDERING PLACE:", place.name, place.image);
+                    return (
                     <tr key={place._id} className="border-b hover:bg-gray-50">
                       <td className="p-3">
                         <div className="flex flex-col gap-1">
@@ -805,7 +832,8 @@ console.log("AdminDashboard API_URL:", API_URL);
                         </button>
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                   {places.length === 0 && (
                     <tr>
                       <td colSpan="5" className="p-4 text-center text-gray-500">
