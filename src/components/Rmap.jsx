@@ -28,21 +28,29 @@ const Rmap = () => {
     const fetchPlaces = async () => {
       try {
         setLoading(true);
+        console.log("Rmap - Starting fetch...");
         const response = await fetch(`${API_URL}/places`);
+        
+        console.log("Rmap - Response status:", response.status);
         
         if (response.ok) {
           const data = await response.json();
           console.log("Rmap - Places fetched:", data);
+          console.log("Rmap - Places count:", data.length);
           
           // Filter places that have coordinates
           const placesWithCoordinates = data.filter(place => 
             place.latitude && place.longitude && !isNaN(place.latitude) && !isNaN(place.longitude)
           );
           
-          setPlaces(placesWithCoordinates);
           console.log("Rmap - Places with coordinates:", placesWithCoordinates);
+          console.log("Rmap - Places with coordinates count:", placesWithCoordinates.length);
+          
+          setPlaces(placesWithCoordinates);
         } else {
           console.error("Rmap - API error:", response.status);
+          const errorText = await response.text();
+          console.error("Rmap - Error text:", errorText);
           setError("Failed to load places");
         }
       } catch (error) {
