@@ -215,16 +215,10 @@ const Rmap = () => {
                   </Marker>
                 ))
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-90">
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-90 pointer-events-none">
                   <div className="text-center p-8">
                     <h3 className="text-xl font-semibold text-gray-600 mb-4">No Places Available</h3>
                     <p className="text-gray-500 mb-4">Please add places through the Admin Dashboard</p>
-                    <button 
-                      onClick={() => window.location.href = '/admin'}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      Go to Admin Dashboard
-                    </button>
                   </div>
                 </div>
               )}
