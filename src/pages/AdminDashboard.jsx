@@ -51,7 +51,10 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
           step="0.000001"
           placeholder="e.g., 12.9716"
           value={placeForm.latitude || ''}
-          onChange={(e) => setPlaceForm({...placeForm, latitude: e.target.value ? parseFloat(e.target.value) : ''})}
+          onChange={(e) => {
+            console.log('Latitude input changed:', e.target.value, 'parsed:', e.target.value ? parseFloat(e.target.value) : '');
+            setPlaceForm({...placeForm, latitude: e.target.value ? parseFloat(e.target.value) : ''});
+          }}
           className="w-full border p-2 rounded"
         />
       </div>
@@ -62,7 +65,10 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
           step="0.000001"
           placeholder="e.g., 77.5946"
           value={placeForm.longitude || ''}
-          onChange={(e) => setPlaceForm({...placeForm, longitude: e.target.value ? parseFloat(e.target.value) : ''})}
+          onChange={(e) => {
+            console.log('Longitude input changed:', e.target.value, 'parsed:', e.target.value ? parseFloat(e.target.value) : '');
+            setPlaceForm({...placeForm, longitude: e.target.value ? parseFloat(e.target.value) : ''});
+          }}
           className="w-full border p-2 rounded"
         />
       </div>
@@ -549,13 +555,15 @@ console.log("AdminDashboard API_URL:", API_URL);
 
   const handleEditPlace = (place) => {
     console.log('Editing place data:', place);
+    console.log('Place latitude:', place.latitude, 'type:', typeof place.latitude);
+    console.log('Place longitude:', place.longitude, 'type:', typeof place.longitude);
     console.log('Place images array:', place.images);
     console.log('Place main image:', place.image);
     console.log('Place image type:', typeof place.image);
     console.log('Place images type:', typeof place.images);
     
     setEditingPlace(place);
-    setPlaceForm({
+    const updatedForm = {
       name: place.name || '',
       type: place.type || place.category || 'Hill Station',
       region: place.region || place.location || '',
@@ -570,7 +578,10 @@ console.log("AdminDashboard API_URL:", API_URL);
       image4: place.images?.[3] || null,
       image5: place.images?.[4] || null,
       image6: place.images?.[5] || null
-    });
+    };
+    
+    console.log('Updated form data:', updatedForm);
+    setPlaceForm(updatedForm);
   };
 
   const handleDeletePlace = async (id) => {
