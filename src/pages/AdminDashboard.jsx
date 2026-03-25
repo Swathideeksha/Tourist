@@ -391,6 +391,8 @@ console.log("AdminDashboard API_URL:", API_URL);
       formData.append('description', placeForm.about);
       formData.append('bestTime', placeForm.bestTime);
       formData.append('isActive', 'true');
+      formData.append('latitude', placeForm.latitude);
+      formData.append('longitude', placeForm.longitude);
       
       // Add main image
       if (placeForm.image && placeForm.image instanceof File) {
@@ -509,6 +511,8 @@ console.log("AdminDashboard API_URL:", API_URL);
     formDataToSend.append('description', placeForm.about);
     formDataToSend.append('bestTime', placeForm.bestTime);
     formDataToSend.append('isActive', 'true');
+    formDataToSend.append('latitude', placeForm.latitude);
+    formDataToSend.append('longitude', placeForm.longitude);
     
     // Add existing images to preserve them if no new ones are uploaded
     formDataToSend.append('existingImage', editingPlace.image || '');
