@@ -91,7 +91,11 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
 
           {/* Explore Button */}
           <button
-            onClick={() => onExplore(place._id)}
+            onClick={() => {
+              console.log('🔍 Explore button clicked - place._id:', place._id);
+              console.log('🔍 Explore button clicked - placeId:', place._id);
+              onExplore(place._id);
+            }}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             Explore Place
@@ -171,6 +175,7 @@ const Rmap = () => {
   };
 
   const handleExplorePlace = (placeId) => {
+    console.log('🔍 Explore Place clicked - navigating to:', `/place/${placeId}`);
     navigate(`/place/${placeId}`);
   };
 
