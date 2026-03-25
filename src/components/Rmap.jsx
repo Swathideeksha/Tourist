@@ -119,6 +119,18 @@ const Rmap = () => {
         if (response.ok) {
           const data = await response.json();
           console.log("Rmap - Places fetched:", data);
+          console.log("Rmap - Places count:", data.length);
+          
+          // Log each place's coordinates for debugging
+          data.forEach((place, index) => {
+            console.log(`Rmap - Place ${index + 1}:`, {
+              name: place.name,
+              latitude: place.latitude,
+              longitude: place.longitude,
+              hasCoordinates: !!(place.latitude && place.longitude),
+              isValidCoordinates: !!(place.latitude && place.longitude && !isNaN(place.latitude) && !isNaN(place.longitude))
+            });
+          });
           
           // Filter places that have coordinates
           const placesWithCoordinates = data.filter(place => 
@@ -127,6 +139,12 @@ const Rmap = () => {
           );
           
           console.log("Rmap - Places with coordinates:", placesWithCoordinates);
+          console.log("Rmap - Places with coordinates count:", placesWithCoordinates.length);
+          
+          if (placesWithCoordinates.length === 0) {
+            console.warn("Rmap - No places with valid coordinates found!");
+          }
+          
           setPlaces(placesWithCoordinates);
         } else {
           console.error("Rmap - API error:", response.status);
