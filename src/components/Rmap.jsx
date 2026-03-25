@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import L from "leaflet";
-import { useNavigate } from "react-router-dom";
 
 // Fix for default marker icons in React-Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -11,277 +10,43 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icons
-const createCustomIcon = (isActive = false) => {
-  return L.divIcon({
-    html: `
-      <div style="
-        background-color: ${isActive ? '#ef4444' : '#fbbf24'};
-        width: 30px;
-        height: 30px;
-        border-radius: 50% 50% 50% 0;
-        transform: rotate(-45deg);
-        border: 2px solid white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      ">
-        <div style="
-          transform: rotate(45deg);
-          color: white;
-          font-size: 12px;
-          font-weight: bold;
-        ">📍</div>
-      </div>
-    `,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
-    className: 'custom-marker'
-  });
-};
-
-const API_URL = "https://backend-chi-one-70.vercel.app/api";
-
-const PlaceCard = ({ place, onClose, onExplore }) => {
-  if (!place) return null;
-
-  return (
-    <div className="fixed inset-0 md:relative md:inset-auto z-50 md:z-40">
-      {/* Mobile overlay */}
-      <div 
-        className="md:hidden absolute inset-0 bg-black/50"
-        onClick={onClose}
-      />
-      
-      {/* Card */}
-      <div className={`
-        absolute md:relative right-0 top-0 h-full md:h-auto w-full md:w-80
-        bg-white rounded-t-3xl md:rounded-2xl shadow-2xl
-        transform transition-all duration-300 ease-out
-        ${place ? 'translate-y-0' : 'translate-y-full md:translate-y-0'}
-      `}>
-        {/* Close button for mobile */}
-        <button
-          onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 bg-white/90 backdrop-blur rounded-full p-2 shadow-lg"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        {/* Place Image */}
-        <div className="h-48 md:h-40 relative overflow-hidden rounded-t-3xl md:rounded-t-2xl">
-          <img
-            src={place.image || '/images/placeholder.jpg'}
-            alt={place.name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        </div>
-
-        {/* Place Content */}
-        <div className="p-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{place.name}</h3>
-          
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-            {place.description || 'Beautiful destination in Karnataka'}
-          </p>
-
-          {/* Distance/Connectivity */}
-          <div className="flex items-center gap-4 mb-6 text-sm text-gray-500">
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span>{place.distance || 'Unknown distance'}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span>Well connected</span>
-            </div>
-          </div>
-
-          {/* Explore Button */}
-          <button
-            onClick={() => onExplore(place._id || place.slug)}
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
-          >
-            Explore Place
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const MarkersLayer = ({ places, selectedPlace, onMarkerClick }) => {
-  return (
-    <>
-      {places.map((place) => (
-        <Marker
-          key={place._id}
-          position={[place.latitude, place.longitude]}
-          icon={createCustomIcon(selectedPlace?._id === place._id)}
-          eventHandlers={{
-            click: () => onMarkerClick(place),
-          }}
-        >
-          <Popup>
-            <div className="p-2 text-center">
-              <div className="font-semibold">{place.name}</div>
-              <div className="text-xs text-gray-600">Click for details</div>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </>
-  );
-};
-
 const Rmap = () => {
-  const [places, setPlaces] = useState([]);
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [mapCenter, setMapCenter] = useState([14.5204, 75.7224]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchPlaces = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${API_URL}/places`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Rmap - Places fetched:", data);
-          
-          // Filter places that have coordinates
-          const placesWithCoordinates = data.filter(place => 
-            place.latitude && place.longitude && 
-            !isNaN(place.latitude) && !isNaN(place.longitude)
-          );
-          
-          console.log("Rmap - Places with coordinates:", placesWithCoordinates);
-          setPlaces(placesWithCoordinates);
-        } else {
-          console.error("Rmap - API error:", response.status);
-          setError("Failed to load places");
-        }
-      } catch (error) {
-        console.error("Rmap - Error fetching places:", error);
-        setError("Network error loading places");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPlaces();
-  }, []);
-
-  const handleMarkerClick = (place) => {
-    setSelectedPlace(place);
-    setMapCenter([place.latitude, place.longitude]);
-  };
-
-  const handleClosePlaceCard = () => {
-    setSelectedPlace(null);
-  };
-
-  const handleExplorePlace = (placeId) => {
-    navigate(`/place/${placeId}`);
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <div className="text-xl text-gray-600">Loading map...</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4">😞</div>
-          <div className="text-xl text-red-600">{error}</div>
-        </div>
-      </div>
-    );
-  }
+  const center = [14.5204, 75.7224]; // Center of Karnataka
 
   return (
     <section className="bg-gray-50 py-4 md:py-8">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="relative bg-white rounded-xl md:rounded-3xl p-4 md:p-6 shadow-xl overflow-hidden min-h-[350px] md:min-h-[500px]">
           
-          {/* Map Container with Place Card */}
-          <div className="relative flex flex-col md:flex-row h-[300px] md:h-[450px]">
-            {/* Map */}
-            <div className="flex-1 relative z-10 rounded-lg md:rounded-xl overflow-hidden">
-              <MapContainer 
-                center={mapCenter}
-                zoom={6} 
-                style={{ height: "100%", width: "100%" }}
-                scrollWheelZoom={true}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                
-                {places.length > 0 ? (
-                  <MarkersLayer 
-                    places={places}
-                    selectedPlace={selectedPlace}
-                    onMarkerClick={handleMarkerClick}
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-90">
-                    <div className="text-center p-8">
-                      <h3 className="text-xl font-semibold text-gray-600 mb-4">No Places Available</h3>
-                      <p className="text-gray-500 mb-4">Please add places through the Admin Dashboard</p>
-                      <button 
-                        onClick={() => window.location.href = '/admin'}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        Go to Admin Dashboard
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </MapContainer>
-            </div>
-
-            {/* Place Card - Desktop */}
-            <div className="hidden md:block md:w-80 md:ml-4">
-              <PlaceCard 
-                place={selectedPlace} 
-                onClose={handleClosePlaceCard}
-                onExplore={handleExplorePlace}
+          {/* Map Container */}
+          <div className="relative z-10 h-[300px] md:h-[450px] w-full rounded-lg md:rounded-xl overflow-hidden">
+            <MapContainer 
+              center={center} 
+              zoom={6} 
+              style={{ height: "100%", width: "100%" }}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-            </div>
+              
+              {/* Show empty state message since no places */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-90">
+                <div className="text-center p-8">
+                  <h3 className="text-xl font-semibold text-gray-600 mb-4">No Places Available</h3>
+                  <p className="text-gray-500 mb-4">Please add places through the Admin Dashboard</p>
+                  <button 
+                    onClick={() => window.location.href = '/admin'}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Go to Admin Dashboard
+                  </button>
+                </div>
+              </div>
+            </MapContainer>
           </div>
         </div>
-      </div>
-
-      {/* Place Card - Mobile */}
-      <div className="md:hidden">
-        <PlaceCard 
-          place={selectedPlace} 
-          onClose={handleClosePlaceCard}
-          onExplore={handleExplorePlace}
-        />
       </div>
     </section>
   );
