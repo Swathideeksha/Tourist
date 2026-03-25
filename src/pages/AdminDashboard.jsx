@@ -51,7 +51,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
           step="0.000001"
           placeholder="e.g., 12.9716"
           value={placeForm.latitude || ''}
-          onChange={(e) => setPlaceForm({...placeForm, latitude: parseFloat(e.target.value) || null})}
+          onChange={(e) => setPlaceForm({...placeForm, latitude: e.target.value ? parseFloat(e.target.value) : ''})}
           className="w-full border p-2 rounded"
         />
       </div>
@@ -62,7 +62,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
           step="0.000001"
           placeholder="e.g., 77.5946"
           value={placeForm.longitude || ''}
-          onChange={(e) => setPlaceForm({...placeForm, longitude: parseFloat(e.target.value) || null})}
+          onChange={(e) => setPlaceForm({...placeForm, longitude: e.target.value ? parseFloat(e.target.value) : ''})}
           className="w-full border p-2 rounded"
         />
       </div>
@@ -559,8 +559,8 @@ console.log("AdminDashboard API_URL:", API_URL);
       name: place.name || '',
       type: place.type || place.category || 'Hill Station',
       region: place.region || place.location || '',
-      latitude: place.latitude || '',
-      longitude: place.longitude || '',
+      latitude: place.latitude ? parseFloat(place.latitude) : '',
+      longitude: place.longitude ? parseFloat(place.longitude) : '',
       image: place.image || place.img || null,
       about: place.about || place.description || '',
       bestTime: place.bestTime || '',
