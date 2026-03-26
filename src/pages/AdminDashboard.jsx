@@ -266,7 +266,7 @@ const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
         />
         <input
           type="text"
-          placeholder="Contact"
+          placeholder="Phone Number"
           value={busForm.contact}
           onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
           className="border p-2 rounded"
