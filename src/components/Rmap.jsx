@@ -41,19 +41,6 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full max-h-[80vh] overflow-y-auto animate-fade-in">
-        {/* Close button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose();
-          }}
-          className="absolute top-2 right-2 z-20 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 shadow-lg transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
         {/* Place Image */}
         <div className="h-36 relative overflow-hidden rounded-t-2xl">
           <img
@@ -66,6 +53,20 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
 
         {/* Place Content */}
         <div className="p-4">
+          {/* Close button inside content */}
+          <div className="flex justify-end mb-2">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+              className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 shadow-lg transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
           {/* Place Name */}
           <h3 className="text-xl font-bold text-gray-900 mb-2">{place.name}</h3>
           
