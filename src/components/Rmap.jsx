@@ -13,41 +13,35 @@ L.Icon.Default.mergeOptions({
 
 // Custom marker icon - Google Maps style
 const createCustomIcon = (isActive = false) => {
+  console.log('Creating custom icon, isActive:', isActive);
+  
   return L.divIcon({
     html: `
       <div style="
+        background-color: ${isActive ? '#ef4444' : '#4285f4'};
+        width: 30px;
+        height: 30px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 2px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         position: relative;
-        width: 34px;
-        height: 34px;
       ">
         <div style="
-          background-color: ${isActive ? '#ef4444' : '#4285f4'};
-          width: 34px;
-          height: 34px;
-          border-radius: 50% 50% 50% 0;
-          transform: rotate(-45deg);
-          border: 2px solid white;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-          position: absolute;
-          top: 0;
-          left: 0;
-        "></div>
-        <div style="
           background-color: white;
-          width: 10px;
-          height: 10px;
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
           position: absolute;
-          top: 8px;
-          left: 8px;
-          transform: rotate(45deg);
+          top: 6px;
+          left: 6px;
         "></div>
       </div>
     `,
-    iconSize: [34, 34],
-    iconAnchor: [17, 34],
-    popupAnchor: [0, -34],
-    className: 'custom-google-marker'
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30],
+    className: ''
   });
 };
 
@@ -236,7 +230,9 @@ const Rmap = () => {
               />
               
               {places.length > 0 ? (
-                places.map((place) => (
+                places.map((place) => {
+                  console.log('Rendering marker for place:', place.name, 'coords:', [place.latitude, place.longitude]);
+                  return (
                   <Marker
                     key={place._id}
                     position={[place.latitude, place.longitude]}
@@ -252,7 +248,8 @@ const Rmap = () => {
                       </div>
                     </Popup>
                   </Marker>
-                ))
+                  );
+                })
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-90 pointer-events-none">
                   <div className="text-center p-8">
