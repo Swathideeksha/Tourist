@@ -238,12 +238,6 @@ const Rmap = () => {
                       click: () => handleMarkerClick(place),
                     }}
                   >
-                    <Popup>
-                      <div className="p-2 text-center">
-                        <div className="font-semibold">{place.name}</div>
-                        <div className="text-xs text-gray-600">Click for details</div>
-                      </div>
-                    </Popup>
                   </Marker>
                   );
                 })
