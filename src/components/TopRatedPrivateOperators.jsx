@@ -97,10 +97,18 @@ const TopRatedPrivateOperators = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      {/* Header with View All Buses Button */}
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-4xl font-bold text-gray-900">
           Top Rated Private Operators
         </h2>
+        <button
+          type="button"
+          onClick={() => navigate("/allbuses")}
+          className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-lg"
+        >
+          View All Buses →
+        </button>
       </div>
 
       <div className="relative">
