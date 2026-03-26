@@ -49,19 +49,19 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-fade-in">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full max-h-[80vh] overflow-y-auto animate-fade-in">
         {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {/* Place Image */}
-        <div className="h-48 relative overflow-hidden rounded-t-2xl">
+        <div className="h-36 relative overflow-hidden rounded-t-2xl">
           <img
             src={place.image || '/images/placeholder.jpg'}
             alt={place.name}
@@ -71,15 +71,16 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
         </div>
 
         {/* Place Content */}
-        <div className="p-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{place.name}</h3>
+        <div className="p-4">
+          {/* Place Name */}
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{place.name}</h3>
           
           <p className="text-gray-600 text-sm mb-4 line-clamp-3">
             {place.description || 'Beautiful destination in Karnataka'}
           </p>
 
           {/* Location Info */}
-          <div className="flex items-center gap-4 mb-6 text-sm text-gray-500">
+          <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
             <div className="flex items-center gap-1">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -98,7 +99,7 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
               console.log('🔍 Explore button clicked - placeId:', place._id || place.slug);
               onExplore(place._id || place.slug);
             }}
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             View Details
           </button>
