@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Navbar from "../components/Navbar";
 
 const BusDetails = () => {
   const { id } = useParams();
@@ -81,155 +82,158 @@ const BusDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{bus.name}</h1>
-          <p className="text-xl text-gray-600">{bus.type}</p>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Image and Info */}
-          <div>
-            {/* Main Image */}
-            {bus.image && (
-              <div className="mb-6">
-                <img 
-                  src={bus.image} 
-                  alt={bus.name}
-                  className="w-full h-96 object-cover rounded-lg shadow-lg"
-                />
-              </div>
-            )}
-
-            {/* Bus Info */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Bus</h2>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Premium bus service offering comfortable and safe travel experience with modern amenities and professional service.
-              </p>
-
-              {/* Additional Info */}
-              <div className="space-y-4">
-                {bus.model && (
-                  <div>
-                    <span className="font-semibold text-gray-900">Model:</span>
-                    <span className="text-gray-700 ml-2">{bus.model}</span>
-                  </div>
-                )}
-
-                {bus.capacity && (
-                  <div>
-                    <span className="font-semibold text-gray-900">Capacity:</span>
-                    <span className="text-gray-700 ml-2">{bus.capacity}</span>
-                  </div>
-                )}
-
-                {bus.engine && (
-                  <div>
-                    <span className="font-semibold text-gray-900">Engine:</span>
-                    <span className="text-gray-700 ml-2">{bus.engine}</span>
-                  </div>
-                )}
-
-                <div>
-                  <span className="font-semibold text-gray-900">Rating:</span>
-                  <span className="text-gray-700 ml-2">{bus.overallRating || '4.5'}/5</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Website Link */}
-            {bus.website && (
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Official Website</h3>
-                <a 
-                  href={(() => {
-                    const website = bus.website.trim();
-                    console.log('🔍 Processing website URL:', website);
-                    if (website.startsWith('http://') || website.startsWith('https://')) {
-                      return website;
-                    }
-                    return `https://${website}`;
-                  })()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 hover:text-blue-800 underline font-semibold"
-                  onClick={(e) => {
-                    console.log('🔍 Website link clicked:', bus.website);
-                  }}
-                >
-                  Visit Official Website →
-                </a>
-              </div>
-            )}
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{bus.name}</h1>
+            <p className="text-xl text-gray-600">{bus.type}</p>
           </div>
 
-          {/* Right Column - Details */}
-          <div>
-            {/* Contact Information */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Location Information</h2>
-              <div className="space-y-4">
-                {bus.address && (
-                  <div>
-                    <span className="font-semibold text-gray-900">Address:</span>
-                    <span className="text-gray-700 ml-2">{bus.address}</span>
-                  </div>
-                )}
-              </div>
-            </div>
+          {/* Main Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column - Image and Info */}
+            <div>
+              {/* Main Image */}
+              {bus.image && (
+                <div className="mb-6">
+                  <img 
+                    src={bus.image} 
+                    alt={bus.name}
+                    className="w-full h-96 object-cover rounded-lg shadow-lg"
+                  />
+                </div>
+              )}
 
-            {/* Safety Features */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Safety Features</h2>
-              <p className="text-gray-700">{bus.safetyGear || 'Standard safety equipment including fire extinguisher, first aid kit, and safety hammers.'}</p>
-            </div>
-
-            {/* Amenities */}
-            {bus.amenities && bus.amenities.length > 0 && (
+              {/* Bus Info */}
               <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Amenities</h2>
-                <div className="flex flex-wrap gap-3">
-                  {bus.amenities.map((amenity, index) => (
-                    <span key={index} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg">
-                      {amenity}
-                    </span>
-                  ))}
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Bus</h2>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Premium bus service offering comfortable and safe travel experience with modern amenities and professional service.
+                </p>
+
+                {/* Additional Info */}
+                <div className="space-y-4">
+                  {bus.model && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Model:</span>
+                      <span className="text-gray-700 ml-2">{bus.model}</span>
+                    </div>
+                  )}
+
+                  {bus.capacity && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Capacity:</span>
+                      <span className="text-gray-700 ml-2">{bus.capacity}</span>
+                    </div>
+                  )}
+
+                  {bus.engine && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Engine:</span>
+                      <span className="text-gray-700 ml-2">{bus.engine}</span>
+                    </div>
+                  )}
+
+                  <div>
+                    <span className="font-semibold text-gray-900">Rating:</span>
+                    <span className="text-gray-700 ml-2">{bus.overallRating || '4.5'}/5</span>
+                  </div>
                 </div>
               </div>
-            )}
 
-            {/* Travel Information */}
-            {bus.travelInfo && bus.travelInfo.length > 0 && (
+              {/* Website Link */}
+              {bus.website && (
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Official Website</h3>
+                  <a 
+                    href={(() => {
+                      const website = bus.website.trim();
+                      console.log('🔍 Processing website URL:', website);
+                      if (website.startsWith('http://') || website.startsWith('https://')) {
+                        return website;
+                      }
+                      return `https://${website}`;
+                    })()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 underline font-semibold"
+                    onClick={(e) => {
+                      console.log('🔍 Website link clicked:', bus.website);
+                    }}
+                  >
+                    Visit Official Website →
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Right Column - Details */}
+            <div>
+              {/* Location Information */}
               <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Travel Information</h2>
-                <ul className="space-y-2">
-                  {bus.travelInfo.map((info, index) => (
-                    <li key={index} className="text-gray-600 flex items-start gap-2">
-                      <span className="text-blue-600 mt-1">•</span>
-                      {info}
-                    </li>
-                  ))}
-                </ul>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Location Information</h2>
+                <div className="space-y-4">
+                  {bus.address && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Address:</span>
+                      <span className="text-gray-700 ml-2">{bus.address}</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
 
-            {/* Action Button */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <button 
-                onClick={() => navigate('/businfo')}
-                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
-              >
-                ← Back to All Buses
-              </button>
+              {/* Safety Features */}
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Safety Features</h2>
+                <p className="text-gray-700">{bus.safetyGear || 'Standard safety equipment including fire extinguisher, first aid kit, and safety hammers.'}</p>
+              </div>
+
+              {/* Amenities */}
+              {bus.amenities && bus.amenities.length > 0 && (
+                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Amenities</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {bus.amenities.map((amenity, index) => (
+                      <span key={index} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg">
+                        {amenity}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Travel Information */}
+              {bus.travelInfo && bus.travelInfo.length > 0 && (
+                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Travel Information</h2>
+                  <ul className="space-y-2">
+                    {bus.travelInfo.map((info, index) => (
+                      <li key={index} className="text-gray-600 flex items-start gap-2">
+                        <span className="text-blue-600 mt-1">•</span>
+                        {info}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Action Button */}
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <button 
+                  onClick={() => navigate('/businfo')}
+                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
+                  ← Back to All Buses
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
