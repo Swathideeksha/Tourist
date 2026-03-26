@@ -92,9 +92,11 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
           {/* Explore Button */}
           <button
             onClick={() => {
-              console.log('🔍 Explore button clicked - place:', place);
-              console.log('🔍 Place slug:', place.slug);
-              onExplore(place);
+              console.log('🔍 Explore button clicked - place object:', place);
+              console.log('🔍 Explore button clicked - place._id:', place._id);
+              console.log('🔍 Explore button clicked - place.slug:', place.slug);
+              console.log('🔍 Explore button clicked - placeId:', place._id || place.slug);
+              onExplore(place._id || place.slug);
             }}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
@@ -174,15 +176,13 @@ const Rmap = () => {
     setSelectedPlace(null);
   };
 
-  const handleExplorePlace = (place) => {
-    console.log('🔍 Explore Place clicked - navigating to:', `/place/${place.slug}`);
-    console.log('🔍 Place details:', { _id: place._id, name: place.name, slug: place.slug });
-    if (place.slug) {
-      navigate(`/place/${place.slug}`);
-    } else {
-      console.error('🔍 Place has no slug, falling back to ID:', place._id);
-      navigate(`/place/${place._id}`);
-    }
+  const handleExplorePlace = (placeId) => {
+    console.log('🔍 Explore Place clicked - navigating to:', `/place/${placeId}`);
+    console.log('🔍 Place ID type:', typeof placeId);
+    console.log('🔍 Place ID value:', placeId);
+    
+    // Navigate to the place details page
+    navigate(`/place/${placeId}`);
   };
 
   if (loading) {
