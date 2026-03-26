@@ -158,7 +158,7 @@ function PlaceDetails() {
                       <img 
                         key={index}
                         src={image} 
-                        alt={`${place.name} - Image ${index + 1}`}
+                        alt={`${place.name} - ${index + 1}`}
                         className="w-full h-48 object-cover rounded-lg"
                       />
                     ))}
