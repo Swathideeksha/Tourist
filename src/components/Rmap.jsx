@@ -89,7 +89,7 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
             </div>
           </div>
 
-          {/* Explore Button */}
+          {/* View Details Button */}
           <button
             onClick={() => {
               console.log('🔍 Explore button clicked - place object:', place);
@@ -100,7 +100,7 @@ const PlaceCard = ({ place, onClose, onExplore }) => {
             }}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
-            Explore Place
+            View Details
           </button>
         </div>
       </div>
