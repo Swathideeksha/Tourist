@@ -10,8 +10,8 @@ const Businfo = () => {
     <>
       <Navbar />
       <Bushero />
-      <ViewAllBusButton />
       <TopRatedPrivateOperators />
+      <ViewAllBusButton />
       <Footer />
     </>
   );
