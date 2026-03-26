@@ -13,9 +13,6 @@ const ViewAllBusButton = () => {
         >
           View All Buses →
         </button>
-        <p className="text-gray-600 mt-4">
-          Explore our complete fleet of premium tourist buses
-        </p>
       </div>
     </div>
   );
