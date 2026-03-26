@@ -81,128 +81,123 @@ const BusDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">Bus Details</h1>
-              <p className="text-blue-100 text-lg">Complete information about our premium bus services</p>
-            </div>
-            <button
-              onClick={() => navigate('/businfo')}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
-            >
-              ← Back to All Buses
-            </button>
-          </div>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{bus.name}</h1>
+          <p className="text-xl text-gray-600">{bus.type}</p>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {/* Bus Header */}
-          <div className="h-96 bg-gradient-to-br from-blue-500 to-blue-700 relative">
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Image and Info */}
+          <div>
+            {/* Main Image */}
             {bus.image && (
-              <img 
-                src={bus.image} 
-                alt={bus.name}
-                className="w-full h-full object-cover"
-              />
+              <div className="mb-6">
+                <img 
+                  src={bus.image} 
+                  alt={bus.name}
+                  className="w-full h-96 object-cover rounded-lg shadow-lg"
+                />
+              </div>
             )}
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h1 className="text-5xl font-bold mb-3">{bus.name}</h1>
-                <span className="inline-block bg-white/20 backdrop-blur text-white text-xl px-6 py-3 rounded-full">
-                  {bus.type}
-                </span>
+
+            {/* Bus Info */}
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Bus</h2>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Premium bus service offering comfortable and safe travel experience with modern amenities and professional service.
+              </p>
+
+              {/* Additional Info */}
+              <div className="space-y-4">
+                {bus.model && (
+                  <div>
+                    <span className="font-semibold text-gray-900">Model:</span>
+                    <span className="text-gray-700 ml-2">{bus.model}</span>
+                  </div>
+                )}
+
+                {bus.capacity && (
+                  <div>
+                    <span className="font-semibold text-gray-900">Capacity:</span>
+                    <span className="text-gray-700 ml-2">{bus.capacity}</span>
+                  </div>
+                )}
+
+                {bus.engine && (
+                  <div>
+                    <span className="font-semibold text-gray-900">Engine:</span>
+                    <span className="text-gray-700 ml-2">{bus.engine}</span>
+                  </div>
+                )}
+
+                <div>
+                  <span className="font-semibold text-gray-900">Rating:</span>
+                  <span className="text-gray-700 ml-2">{bus.overallRating || '4.5'}/5</span>
+                </div>
               </div>
             </div>
+
+            {/* Website Link */}
+            {bus.website && (
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Official Website</h3>
+                <a 
+                  href={(() => {
+                    const website = bus.website.trim();
+                    console.log('🔍 Processing website URL:', website);
+                    if (website.startsWith('http://') || website.startsWith('https://')) {
+                      return website;
+                    }
+                    return `https://${website}`;
+                  })()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-blue-600 hover:text-blue-800 underline font-semibold"
+                  onClick={(e) => {
+                    console.log('🔍 Website link clicked:', bus.website);
+                  }}
+                >
+                  Visit Official Website →
+                </a>
+              </div>
+            )}
           </div>
 
-          <div className="p-8">
-            {/* Rating and Reviews Count */}
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">{bus.name}</h2>
-                <div className="flex items-center gap-2">
-                  <div className="flex text-yellow-500 text-2xl">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className={i < (bus.overallRating || 4.5) ? "" : "opacity-30"}>★</span>
-                    ))}
+          {/* Right Column - Details */}
+          <div>
+            {/* Contact Information */}
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Information</h2>
+              <div className="space-y-4">
+                {bus.contact && (
+                  <div>
+                    <span className="font-semibold text-gray-900">Contact:</span>
+                    <span className="text-gray-700 ml-2">{bus.contact}</span>
                   </div>
-                  <span className="ml-2 text-gray-600 text-lg">{bus.overallRating || '4.5'}</span>
-                  <span className="text-gray-500">({bus.reviewsCount || 0} reviews)</span>
-                </div>
+                )}
+                {bus.address && (
+                  <div>
+                    <span className="font-semibold text-gray-900">Address:</span>
+                    <span className="text-gray-700 ml-2">{bus.address}</span>
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              {/* Basic Information */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Bus Information</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Model:</span>
-                    <span className="font-semibold">{bus.model || 'N/A'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Capacity:</span>
-                    <span className="font-semibold">{bus.capacity || 'N/A'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Contact:</span>
-                    <span className="font-semibold">{bus.contact || 'N/A'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Address:</span>
-                    <span className="font-semibold">{bus.address || 'N/A'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Website:</span>
-                    {bus.website ? (
-                      <a 
-                        href={(() => {
-                          const website = bus.website.trim();
-                          console.log('🔍 Processing website URL:', website);
-                          if (website.startsWith('http://') || website.startsWith('https://')) {
-                            return website;
-                          }
-                          return `https://${website}`;
-                        })()}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-blue-600 hover:text-blue-800 underline"
-                        onClick={(e) => {
-                          console.log('🔍 Website link clicked:', bus.website);
-                          // Optional: Add confirmation or tracking
-                        }}
-                      >
-                        Visit Website
-                      </a>
-                    ) : (
-                      <span className="font-semibold">N/A</span>
-                    )}
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Engine:</span>
-                    <span className="font-semibold">{bus.engine || 'N/A'}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Safety Features */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Safety Features</h3>
-                <p className="text-gray-600">{bus.safetyGear || 'Standard safety equipment'}</p>
-              </div>
+            {/* Safety Features */}
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Safety Features</h2>
+              <p className="text-gray-700">{bus.safetyGear || 'Standard safety equipment including fire extinguisher, first aid kit, and safety hammers.'}</p>
             </div>
 
             {/* Amenities */}
             {bus.amenities && bus.amenities.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Amenities</h3>
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Amenities</h2>
                 <div className="flex flex-wrap gap-3">
                   {bus.amenities.map((amenity, index) => (
                     <span key={index} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg">
@@ -215,8 +210,8 @@ const BusDetails = () => {
 
             {/* Travel Information */}
             {bus.travelInfo && bus.travelInfo.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Travel Information</h3>
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Travel Information</h2>
                 <ul className="space-y-2">
                   {bus.travelInfo.map((info, index) => (
                     <li key={index} className="text-gray-600 flex items-start gap-2">
@@ -228,13 +223,13 @@ const BusDetails = () => {
               </div>
             )}
 
-            {/* Back to Buses Button */}
-            <div className="mt-8">
+            {/* Action Button */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
               <button 
                 onClick={() => navigate('/businfo')}
                 className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
               >
-                Back to All Buses
+                ← Back to All Buses
               </button>
             </div>
           </div>
