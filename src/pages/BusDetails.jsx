@@ -175,8 +175,7 @@ const BusDetails = () => {
               <div className="space-y-4">
                 {bus.contact && (
                   <div>
-                    <span className="font-semibold text-gray-900">Contact:</span>
-                    <span className="text-gray-700 ml-2">{bus.contact}</span>
+                    <span className="text-gray-700">{bus.contact}</span>
                   </div>
                 )}
                 {bus.address && (
