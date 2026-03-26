@@ -190,8 +190,8 @@ const TopRatedPrivateOperators = () => {
                     onClick={() => handleViewDetails(bus._id)}
                     className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                       bus.dark
-                        ? "bg-white text-gray-900 hover:bg-gray-100"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                        ? "bg-yellow-400 text-gray-900 hover:bg-yellow-300"
+                        : "bg-yellow-500 text-white hover:bg-yellow-600"
                     }`}
                   >
                     View Details
