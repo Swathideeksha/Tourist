@@ -11,7 +11,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - Simple red pin style
+// Custom marker icon - Classic Google Maps style
 const createCustomIcon = (isActive = false) => {
   console.log('Creating custom icon, isActive:', isActive);
   
@@ -19,45 +19,51 @@ const createCustomIcon = (isActive = false) => {
     html: `
       <div style="
         position: relative;
-        width: 25px;
-        height: 35px;
+        width: 30px;
+        height: 40px;
       ">
+        <!-- Shadow -->
         <div style="
-          background-color: ${isActive ? '#dc2626' : '#ef4444'};
-          width: 25px;
-          height: 25px;
-          border-radius: 50%;
-          border: 2px solid white;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          position: absolute;
-          top: 0;
-          left: 0;
-        "></div>
-        <div style="
-          background-color: white;
-          width: 8px;
+          background-color: rgba(0,0,0,0.2);
+          width: 20px;
           height: 8px;
           border-radius: 50%;
           position: absolute;
-          top: 6px;
-          left: 6px;
+          bottom: -2px;
+          left: 5px;
+          filter: blur(2px);
         "></div>
+        
+        <!-- Main pin body -->
         <div style="
-          background-color: ${isActive ? '#dc2626' : '#ef4444'};
-          width: 0;
-          height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-top: 10px solid ${isActive ? '#dc2626' : '#ef4444'};
+          background-color: ${isActive ? '#d93025' : '#ea4335'};
+          width: 30px;
+          height: 30px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
           position: absolute;
-          bottom: 0;
-          left: 6px;
+          top: 0;
+          left: 0;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        "></div>
+        
+        <!-- White center dot -->
+        <div style="
+          background-color: white;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          transform: rotate(45deg);
+          box-shadow: 0 1px 2px rgba(0,0,0,0.2);
         "></div>
       </div>
     `,
-    iconSize: [25, 35],
-    iconAnchor: [12, 35],
-    popupAnchor: [0, -35],
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
+    popupAnchor: [0, -40],
     className: ''
   });
 };
