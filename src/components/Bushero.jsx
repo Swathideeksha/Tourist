@@ -31,24 +31,14 @@ const Bushero = () => {
             circuits, coastal getaways, and luxury hill station retreats.
           </p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <button
-              type="button"
-              onClick={() => navigate("/places")}
-              className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg"
-            >
-              Ready to Explore →
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => navigate("/businfo?showAll=true")}
-              className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 border border-white/30"
-            >
-              View All Buses →
-            </button>
-          </div>
+          {/* READY TO EXPLORE BUTTON */}
+          <button
+            type="button"
+            onClick={() => navigate("/places")}
+            className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg"
+          >
+            Ready to Explore →
+          </button>
         </div>
       </div>
     </section>

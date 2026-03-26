@@ -14,6 +14,7 @@ import Religious from "./components/Religious";
 import Businfo from "./pages/Businfo";
 import BusDetails from "./pages/BusDetails";
 import AllBuses from "./pages/AllBuses";
+import AllBusesPage from "./pages/AllBusesPage";
 import Routemap from "./pages/Routemap";
 import DestinationDetails from "./pages/DestinationDetails";
 import AdminLogin from "./pages/AdminLogin";
@@ -39,7 +40,7 @@ function App() {
           <Route path="/bus/:id" element={<BusDetails />} />
           <Route path="/routemap" element={<Routemap />} />
           <Route path="/discover-more" element={<DiscoverMore />} />
-          <Route path="/allbuses" element={<AllBuses />} />
+          <Route path="/allbuses" element={<AllBusesPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin-login" element={<AdminLogin />} />
