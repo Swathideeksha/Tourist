@@ -11,18 +11,18 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - Simple visible marker
+// Custom marker icon - Simple red marker
 const createCustomIcon = (isActive = false) => {
   console.log('Creating custom icon, isActive:', isActive);
   
   return L.divIcon({
     html: `
       <div style="
-        background-color: ${isActive ? '#d93025' : '#ea4335'};
+        background-color: ${isActive ? '#d93025' : '#ef4444'};
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        border: 3px solid white;
+        border: 2px solid #d93025;
         box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       "></div>
     `,
