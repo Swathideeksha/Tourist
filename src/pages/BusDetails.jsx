@@ -92,7 +92,7 @@ const BusDetails = () => {
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           {/* Bus Header */}
-          <div className="h-64 bg-gradient-to-br from-blue-500 to-blue-700 relative">
+          <div className="h-96 bg-gradient-to-br from-blue-500 to-blue-700 relative">
             {bus.image && (
               <img 
                 src={bus.image} 
@@ -100,10 +100,10 @@ const BusDetails = () => {
                 className="w-full h-full object-cover"
               />
             )}
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <div className="text-center text-white">
-                <h1 className="text-4xl font-bold mb-2">{bus.name}</h1>
-                <span className="inline-block bg-white/20 backdrop-blur text-white text-lg px-4 py-2 rounded-full">
+                <h1 className="text-5xl font-bold mb-3">{bus.name}</h1>
+                <span className="inline-block bg-white/20 backdrop-blur text-white text-xl px-6 py-3 rounded-full">
                   {bus.type}
                 </span>
               </div>
