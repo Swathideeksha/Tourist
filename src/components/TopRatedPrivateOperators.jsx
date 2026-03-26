@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TopRatedPrivateOperators = () => {
+  const navigate = useNavigate();
   const [buses, setBuses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -71,6 +73,11 @@ const TopRatedPrivateOperators = () => {
   };
   const scrollRight = () => {
     sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
+  const handleViewDetails = (busId) => {
+    console.log('🔍 Navigating to bus details for bus ID:', busId);
+    navigate(`/bus/${busId}`);
   };
 
   if (loading) {
@@ -180,6 +187,7 @@ const TopRatedPrivateOperators = () => {
                     ))}
                   </div>
                   <button
+                    onClick={() => handleViewDetails(bus._id)}
                     className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                       bus.dark
                         ? "bg-white text-gray-900 hover:bg-gray-100"
