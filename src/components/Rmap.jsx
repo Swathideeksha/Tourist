@@ -11,59 +11,24 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - Classic Google Maps style
+// Custom marker icon - Simple visible marker
 const createCustomIcon = (isActive = false) => {
   console.log('Creating custom icon, isActive:', isActive);
   
   return L.divIcon({
     html: `
       <div style="
-        position: relative;
-        width: 30px;
-        height: 40px;
-      ">
-        <!-- Shadow -->
-        <div style="
-          background-color: rgba(0,0,0,0.2);
-          width: 20px;
-          height: 8px;
-          border-radius: 50%;
-          position: absolute;
-          bottom: -2px;
-          left: 5px;
-          filter: blur(2px);
-        "></div>
-        
-        <!-- Main pin body -->
-        <div style="
-          background-color: ${isActive ? '#d93025' : '#ea4335'};
-          width: 30px;
-          height: 30px;
-          border-radius: 50% 50% 50% 0;
-          transform: rotate(-45deg);
-          position: absolute;
-          top: 0;
-          left: 0;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        "></div>
-        
-        <!-- White center dot -->
-        <div style="
-          background-color: white;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          position: absolute;
-          top: 8px;
-          left: 8px;
-          transform: rotate(45deg);
-          box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        "></div>
-      </div>
+        background-color: ${isActive ? '#d93025' : '#ea4335'};
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      "></div>
     `,
-    iconSize: [30, 40],
-    iconAnchor: [15, 40],
-    popupAnchor: [0, -40],
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    popupAnchor: [0, -10],
     className: ''
   });
 };
@@ -164,6 +129,12 @@ const Rmap = () => {
               isValidCoordinates: !!(place.latitude && place.longitude && !isNaN(place.latitude) && !isNaN(place.longitude))
             });
           });
+          
+          console.log('Total places loaded:', data.length);
+          console.log('Places with valid coordinates:', data.filter(place => 
+            place.latitude && place.longitude && 
+            !isNaN(place.latitude) && !isNaN(place.longitude)
+          ).length);
           
           // Filter places that have coordinates
           const placesWithCoordinates = data.filter(place => 
