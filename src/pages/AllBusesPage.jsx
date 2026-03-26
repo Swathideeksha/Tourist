@@ -111,60 +111,60 @@ const AllBusesPage = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {buses.map((bus) => (
             <div
               key={bus._id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden"
             >
               {/* Bus Image */}
-              <div className="relative h-36">
+              <div className="relative h-24">
                 <img
                   src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
                   alt={bus.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-2 left-2">
-                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-2 py-1 rounded-full backdrop-blur-sm">
+                <div className="absolute top-1 left-1">
+                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-1 py-0.5 rounded backdrop-blur-sm">
                     {bus.type || 'PREMIUM'}
                   </span>
                 </div>
               </div>
 
               {/* Bus Content */}
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-bold text-gray-900 truncate">{bus.name}</h3>
-                  <div className="flex items-center gap-1">
-                    <svg className="w-3 h-3 text-yellow-500 fill-current" viewBox="0 0 20 20">
+              <div className="p-2">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-bold text-gray-900 truncate flex-1">{bus.name}</h3>
+                  <div className="flex items-center gap-0.5 ml-1">
+                    <svg className="w-2 h-2 text-yellow-500 fill-current" viewBox="0 0 20 20">
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                     </svg>
                     <span className="text-xs font-semibold text-gray-900">
-                      {bus.rating || '4.5/5'}
+                      {bus.rating || '4.5'}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-gray-600 mb-3 line-clamp-2 text-xs">
-                  {bus.desc || 'Premium bus service with comfortable seating and modern amenities.'}
+                <p className="text-gray-600 mb-2 line-clamp-1 text-xs">
+                  {bus.desc || 'Premium bus service'}
                 </p>
 
                 {/* Bus Details */}
-                <div className="space-y-1 text-xs text-gray-600 mb-3">
+                <div className="space-y-0.5 text-xs text-gray-600 mb-2">
                   {bus.model && (
-                    <p><strong>Model:</strong> {bus.model}</p>
+                    <p><strong>M:</strong> {bus.model}</p>
                   )}
                   {bus.capacity && (
-                    <p><strong>Capacity:</strong> {bus.capacity}</p>
+                    <p><strong>C:</strong> {bus.capacity}</p>
                   )}
                   {bus.address && (
-                    <p><strong>Address:</strong> {bus.address}</p>
+                    <p><strong>A:</strong> {bus.address}</p>
                   )}
                 </div>
 
                 {/* Website Link */}
                 {bus.website && (
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <a 
                       href={(() => {
                         const website = bus.website.trim();
@@ -177,20 +177,18 @@ const AllBusesPage = () => {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800 underline text-xs font-semibold"
                     >
-                      Visit Website →
+                      Website →
                     </a>
                   </div>
                 )}
 
-                {/* Action Buttons */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleViewDetails(bus._id)}
-                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-xs"
-                  >
-                    View Details
-                  </button>
-                </div>
+                {/* Action Button */}
+                <button
+                  onClick={() => handleViewDetails(bus._id)}
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded transition-colors text-xs"
+                >
+                  View Details
+                </button>
               </div>
             </div>
           ))}
