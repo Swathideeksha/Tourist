@@ -88,7 +88,6 @@ const AllBuses = () => {
                 <div className="space-y-2 text-sm text-gray-600 mb-4">
                   <p><strong>Model:</strong> {bus.model}</p>
                   <p><strong>Capacity:</strong> {bus.capacity}</p>
-                  <p>{bus.contact}</p>
                   <p><strong>Address:</strong> {bus.address}</p>
                 </div>
 

@@ -266,13 +266,6 @@ const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
         />
         <input
           type="text"
-          placeholder="Phone Number"
-          value={busForm.contact}
-          onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
-          className="border p-2 rounded"
-        />
-        <input
-          type="text"
           placeholder="Address"
           value={busForm.address}
           onChange={(e) => setBusForm({...busForm, address: e.target.value})}
@@ -355,7 +348,6 @@ console.log("AdminDashboard API_URL:", API_URL);
     capacity: '',
     safetyGear: '',
     engine: '',
-    contact: '',
     address: '',
     website: '',
     amenities: '',
@@ -691,7 +683,6 @@ console.log("AdminDashboard API_URL:", API_URL);
     formData.append('capacity', busForm.capacity);
     formData.append('safetyGear', busForm.safetyGear);
     formData.append('engine', busForm.engine);
-    formData.append('contact', busForm.contact);
     formData.append('address', busForm.address);
     formData.append('website', busForm.website);
     formData.append('amenities', busForm.amenities);
@@ -806,7 +797,6 @@ console.log("AdminDashboard API_URL:", API_URL);
       capacity: bus.capacity || '',
       safetyGear: bus.safetyGear || '',
       engine: bus.engine || '',
-      contact: bus.contact || '',
       address: bus.address || '',
       website: bus.website || '',
       amenities: bus.amenities ? bus.amenities.join(', ') : '',
@@ -815,7 +805,7 @@ console.log("AdminDashboard API_URL:", API_URL);
   };
 
   const resetBusForm = () => {
-    setBusForm({ name: '', type: '', image: '', model: '', capacity: '', safetyGear: '', engine: '', contact: '', address: '', website: '', amenities: '', travelInfo: '' });
+    setBusForm({ name: '', type: '', image: '', model: '', capacity: '', safetyGear: '', engine: '', address: '', website: '', amenities: '', travelInfo: '' });
   };
 
   if (loading) {
