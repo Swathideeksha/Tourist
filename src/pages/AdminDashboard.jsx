@@ -165,90 +165,134 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
   </form>
 );
 
-const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => (
-  <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
-    <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Bus' : 'Add New Bus'}</h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input
-        type="text"
-        placeholder="Bus Operator Name"
-        value={busForm.name}
-        onChange={(e) => setBusForm({...busForm, name: e.target.value})}
-        className="border p-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Type (e.g., PREMIUM, LUXURY)"
-        value={busForm.type}
-        onChange={(e) => setBusForm({...busForm, type: e.target.value})}
-        className="border p-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={busForm.image}
-        onChange={(e) => setBusForm({...busForm, image: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Bus Model"
-        value={busForm.model}
-        onChange={(e) => setBusForm({...busForm, model: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Capacity"
-        value={busForm.capacity}
-        onChange={(e) => setBusForm({...busForm, capacity: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Safety Gear"
-        value={busForm.safetyGear}
-        onChange={(e) => setBusForm({...busForm, safetyGear: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Engine Type"
-        value={busForm.engine}
-        onChange={(e) => setBusForm({...busForm, engine: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Contact"
-        value={busForm.contact}
-        onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Address"
-        value={busForm.address}
-        onChange={(e) => setBusForm({...busForm, address: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Amenities (comma separated)"
-        value={busForm.amenities}
-        onChange={(e) => setBusForm({...busForm, amenities: e.target.value})}
-        className="border p-2 rounded"
-      />
-      <input
-        type="text"
-        placeholder="Travel Info (comma separated)"
-        value={busForm.travelInfo}
-        onChange={(e) => setBusForm({...busForm, travelInfo: e.target.value})}
-        className="border p-2 rounded md:col-span-2"
-      />
-    </div>
+const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Bus' : 'Add New Bus'}</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Bus Operator Name"
+          value={busForm.name}
+          onChange={(e) => setBusForm({...busForm, name: e.target.value})}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Type (e.g., PREMIUM, LUXURY)"
+          value={busForm.type}
+          onChange={(e) => setBusForm({...busForm, type: e.target.value})}
+          className="border p-2 rounded"
+          required
+        />
+        
+        {/* Image Upload Section */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-2">Bus Image</label>
+          <div className="flex items-center space-x-4">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+              id="busImageUpload"
+            />
+            <label
+              htmlFor="busImageUpload"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer transition-colors"
+            >
+              Select Image
+            </label>
+            {imageFile && (
+              <span className="text-sm text-gray-600">{imageFile.name}</span>
+            )}
+          </div>
+          
+          {/* Image Preview */}
+          {(imagePreview || busForm.image) && (
+            <div className="mt-3">
+              <img
+                src={imagePreview || busForm.image}
+                alt="Bus preview"
+                className="h-32 w-32 object-cover rounded border"
+              />
+            </div>
+          )}
+        </div>
+
+        <input
+          type="text"
+          placeholder="Bus Model"
+          value={busForm.model}
+          onChange={(e) => setBusForm({...busForm, model: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Capacity"
+          value={busForm.capacity}
+          onChange={(e) => setBusForm({...busForm, capacity: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Safety Gear"
+          value={busForm.safetyGear}
+          onChange={(e) => setBusForm({...busForm, safetyGear: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Engine Type"
+          value={busForm.engine}
+          onChange={(e) => setBusForm({...busForm, engine: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Contact"
+          value={busForm.contact}
+          onChange={(e) => setBusForm({...busForm, contact: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          value={busForm.address}
+          onChange={(e) => setBusForm({...busForm, address: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Amenities (comma separated)"
+          value={busForm.amenities}
+          onChange={(e) => setBusForm({...busForm, amenities: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Travel Info (comma separated)"
+          value={busForm.travelInfo}
+          onChange={(e) => setBusForm({...busForm, travelInfo: e.target.value})}
+          className="border p-2 rounded md:col-span-2"
+        />
+      </div>
     <div className="flex gap-2 mt-4">
       <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
         {isEditing ? 'Update' : 'Add'} Bus
@@ -627,8 +671,37 @@ console.log("AdminDashboard API_URL:", API_URL);
   // Bus CRUD operations
   const handleAddBus = async (e) => {
     e.preventDefault();
+    
+    // Get the file from the form
+    const fileInput = document.getElementById('busImageUpload');
+    const imageFile = fileInput?.files[0];
+    
+    let imageUrl = busForm.image; // Keep existing image if no new file
+    
+    // If there's a new image file, upload it first
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append('image', imageFile);
+      
+      try {
+        const uploadResponse = await fetch(`${API_URL}/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (uploadResponse.ok) {
+          const uploadResult = await uploadResponse.json();
+          imageUrl = uploadResult.url;
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        // Continue with existing image or demo mode
+      }
+    }
+    
     const busData = {
       ...busForm,
+      image: imageUrl,
       amenities: busForm.amenities.split(',').map(a => a.trim()).filter(a => a),
       travelInfo: busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t)
     };
@@ -648,8 +721,12 @@ console.log("AdminDashboard API_URL:", API_URL);
       }
     } catch (error) {
       // console.error('Error adding bus:', error);
-      // Demo mode
-      const newBus = { ...busData, _id: Date.now().toString() };
+      // Demo mode - add with local image if available
+      const newBus = { 
+        ...busData, 
+        _id: Date.now().toString(),
+        image: imageUrl || `https://picsum.photos/seed/bus${Date.now()}/400/300.jpg`
+      };
       setBuses([newBus, ...buses]);
       setShowAddBusForm(false);
       resetBusForm();
