@@ -24,6 +24,7 @@ const TopRatedPrivateOperators = () => {
               rating: '4.8/5',
               image: 'https://picsum.photos/seed/seabird/400/300.jpg',
               dark: true,
+              website: 'www.seabirdtourists.com'
             },
             {
               _id: '2',
@@ -33,6 +34,7 @@ const TopRatedPrivateOperators = () => {
               rating: '4.7/5',
               image: 'https://picsum.photos/seed/vrl/400/300.jpg',
               dark: false,
+              website: 'www.vrllogistics.in'
             },
             {
               _id: '3',
@@ -42,6 +44,7 @@ const TopRatedPrivateOperators = () => {
               rating: '4.6/5',
               image: 'https://picsum.photos/seed/srs/400/300.jpg',
               dark: true,
+              website: 'www.srstravels.in'
             }
           ]);
         }
@@ -57,6 +60,7 @@ const TopRatedPrivateOperators = () => {
             rating: '4.8/5',
             image: 'https://picsum.photos/seed/seabird/400/300.jpg',
             dark: true,
+            website: 'www.seabirdtourists.com'
           }
         ]);
       } finally {

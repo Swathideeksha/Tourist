@@ -17,6 +17,7 @@ const BusDetails = () => {
         if (response.ok) {
           const busData = await response.json();
           console.log('🔍 Bus data received:', busData);
+          console.log('🔍 Bus website field:', busData.website);
           setBus(busData);
           setLoading(false);
         } else {
@@ -151,10 +152,21 @@ const BusDetails = () => {
                     <span className="text-gray-600">Website:</span>
                     {bus.website ? (
                       <a 
-                        href={bus.website.startsWith('http') ? bus.website : `https://${bus.website}`}
+                        href={(() => {
+                          const website = bus.website.trim();
+                          console.log('🔍 Processing website URL:', website);
+                          if (website.startsWith('http://') || website.startsWith('https://')) {
+                            return website;
+                          }
+                          return `https://${website}`;
+                        })()}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-blue-600 hover:text-blue-800 underline"
+                        onClick={(e) => {
+                          console.log('🔍 Website link clicked:', bus.website);
+                          // Optional: Add confirmation or tracking
+                        }}
                       >
                         Visit Website
                       </a>
