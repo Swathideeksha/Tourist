@@ -177,12 +177,12 @@ const Rmap = () => {
   };
 
   const handleExplorePlace = (placeId) => {
-    console.log('🔍 Explore Place clicked - navigating to:', `/place/${placeId}`);
+    console.log('🔍 Explore Place clicked - navigating to:', `/destination/${placeId}`);
     console.log('🔍 Place ID type:', typeof placeId);
     console.log('🔍 Place ID value:', placeId);
     
-    // Navigate to the place details page
-    navigate(`/place/${placeId}`);
+    // Navigate to the existing destination page
+    navigate(`/destination/${placeId}`);
   };
 
   if (loading) {
