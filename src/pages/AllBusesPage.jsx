@@ -111,46 +111,46 @@ const AllBusesPage = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {buses.map((bus) => (
             <div
               key={bus._id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
               {/* Bus Image */}
-              <div className="relative h-48">
+              <div className="relative h-36">
                 <img
                   src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
                   alt={bus.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+                <div className="absolute top-2 left-2">
+                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-2 py-1 rounded-full backdrop-blur-sm">
                     {bus.type || 'PREMIUM'}
                   </span>
                 </div>
               </div>
 
               {/* Bus Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-900">{bus.name}</h3>
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-bold text-gray-900 truncate">{bus.name}</h3>
                   <div className="flex items-center gap-1">
-                    <svg className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                    <svg className="w-3 h-3 text-yellow-500 fill-current" viewBox="0 0 20 20">
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                     </svg>
-                    <span className="text-sm font-semibold text-gray-900">
+                    <span className="text-xs font-semibold text-gray-900">
                       {bus.rating || '4.5/5'}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                <p className="text-gray-600 mb-3 line-clamp-2 text-xs">
                   {bus.desc || 'Premium bus service with comfortable seating and modern amenities.'}
                 </p>
 
                 {/* Bus Details */}
-                <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div className="space-y-1 text-xs text-gray-600 mb-3">
                   {bus.model && (
                     <p><strong>Model:</strong> {bus.model}</p>
                   )}
@@ -164,7 +164,7 @@ const AllBusesPage = () => {
 
                 {/* Website Link */}
                 {bus.website && (
-                  <div className="mb-4">
+                  <div className="mb-3">
                     <a 
                       href={(() => {
                         const website = bus.website.trim();
@@ -175,7 +175,7 @@ const AllBusesPage = () => {
                       })()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline text-sm font-semibold"
+                      className="text-blue-600 hover:text-blue-800 underline text-xs font-semibold"
                     >
                       Visit Website →
                     </a>
@@ -186,7 +186,7 @@ const AllBusesPage = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleViewDetails(bus._id)}
-                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-xs"
                   >
                     View Details
                   </button>
