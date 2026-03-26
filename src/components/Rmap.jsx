@@ -11,34 +11,43 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon
+// Custom marker icon - Google Maps style
 const createCustomIcon = (isActive = false) => {
   return L.divIcon({
     html: `
       <div style="
-        background-color: ${isActive ? '#ef4444' : '#fbbf24'};
-        width: 30px;
-        height: 30px;
-        border-radius: 50% 50% 50% 0;
-        transform: rotate(-45deg);
-        border: 2px solid white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        width: 34px;
+        height: 34px;
       ">
         <div style="
+          background-color: ${isActive ? '#ef4444' : '#4285f4'};
+          width: 34px;
+          height: 34px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+          position: absolute;
+          top: 0;
+          left: 0;
+        "></div>
+        <div style="
+          background-color: white;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          position: absolute;
+          top: 8px;
+          left: 8px;
           transform: rotate(45deg);
-          color: white;
-          font-size: 12px;
-          font-weight: bold;
-        ">📍</div>
+        "></div>
       </div>
     `,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
-    className: 'custom-marker'
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    popupAnchor: [0, -34],
+    className: 'custom-google-marker'
   });
 };
 
