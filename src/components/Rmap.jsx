@@ -18,23 +18,31 @@ const createCustomIcon = (isActive = false) => {
   return L.divIcon({
     html: `
       <div style="
-        background-color: ${isActive ? '#ef4444' : '#4285f4'};
+        position: relative;
         width: 30px;
         height: 30px;
-        border-radius: 50% 50% 50% 0;
-        transform: rotate(-45deg);
-        border: 2px solid white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        position: relative;
       ">
+        <div style="
+          background-color: ${isActive ? '#ef4444' : '#4285f4'};
+          width: 30px;
+          height: 30px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 2px solid white;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          position: absolute;
+          top: 0;
+          left: 0;
+        "></div>
         <div style="
           background-color: white;
           width: 8px;
           height: 8px;
           border-radius: 50%;
           position: absolute;
-          top: 6px;
-          left: 6px;
+          top: 8px;
+          left: 8px;
+          transform: rotate(45deg);
         "></div>
       </div>
     `,
