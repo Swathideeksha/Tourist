@@ -101,9 +101,6 @@ const TopRatedPrivateOperators = () => {
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
           Top Rated Private Operators
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Premium bus operators offering exceptional service, comfort, and reliability across Karnataka's most popular routes
-        </p>
       </div>
 
       <div className="relative">
