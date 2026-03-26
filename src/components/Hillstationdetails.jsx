@@ -19,7 +19,7 @@ const Hillstationdetails = () => {
       
       // Try API directly - no static data fallback
       try {
-        const response = await fetch(`${API_URL}/places/${id}`);
+        const response = await fetch(`${API_URL}/admin/places/${id}`);
         if (response.ok) {
           const data = await response.json();
           console.log("Place data received:", data);
