@@ -11,7 +11,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-// Custom marker icon - Google Maps style
+// Custom marker icon - Simple red pin style
 const createCustomIcon = (isActive = false) => {
   console.log('Creating custom icon, isActive:', isActive);
   
@@ -19,15 +19,14 @@ const createCustomIcon = (isActive = false) => {
     html: `
       <div style="
         position: relative;
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 35px;
       ">
         <div style="
-          background-color: ${isActive ? '#ef4444' : '#4285f4'};
-          width: 30px;
-          height: 30px;
-          border-radius: 50% 50% 50% 0;
-          transform: rotate(-45deg);
+          background-color: ${isActive ? '#dc2626' : '#ef4444'};
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
           border: 2px solid white;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
           position: absolute;
@@ -40,15 +39,25 @@ const createCustomIcon = (isActive = false) => {
           height: 8px;
           border-radius: 50%;
           position: absolute;
-          top: 8px;
-          left: 8px;
-          transform: rotate(45deg);
+          top: 6px;
+          left: 6px;
+        "></div>
+        <div style="
+          background-color: ${isActive ? '#dc2626' : '#ef4444'};
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 10px solid ${isActive ? '#dc2626' : '#ef4444'};
+          position: absolute;
+          bottom: 0;
+          left: 6px;
         "></div>
       </div>
     `,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
+    iconSize: [25, 35],
+    iconAnchor: [12, 35],
+    popupAnchor: [0, -35],
     className: ''
   });
 };
