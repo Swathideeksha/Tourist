@@ -148,6 +148,21 @@ const BusDetails = () => {
                     <span className="font-semibold">{bus.address || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between">
+                    <span className="text-gray-600">Website:</span>
+                    {bus.website ? (
+                      <a 
+                        href={bus.website.startsWith('http') ? bus.website : `https://${bus.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-blue-600 hover:text-blue-800 underline"
+                      >
+                        Visit Website
+                      </a>
+                    ) : (
+                      <span className="font-semibold">N/A</span>
+                    )}
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-gray-600">Engine:</span>
                     <span className="font-semibold">{bus.engine || 'N/A'}</span>
                   </div>

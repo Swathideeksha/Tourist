@@ -280,6 +280,13 @@ const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
         />
         <input
           type="text"
+          placeholder="Website URL"
+          value={busForm.website}
+          onChange={(e) => setBusForm({...busForm, website: e.target.value})}
+          className="border p-2 rounded"
+        />
+        <input
+          type="text"
           placeholder="Amenities (comma separated)"
           value={busForm.amenities}
           onChange={(e) => setBusForm({...busForm, amenities: e.target.value})}
@@ -350,6 +357,7 @@ console.log("AdminDashboard API_URL:", API_URL);
     engine: '',
     contact: '',
     address: '',
+    website: '',
     amenities: '',
     travelInfo: ''
   });
@@ -685,6 +693,7 @@ console.log("AdminDashboard API_URL:", API_URL);
     formData.append('engine', busForm.engine);
     formData.append('contact', busForm.contact);
     formData.append('address', busForm.address);
+    formData.append('website', busForm.website);
     formData.append('amenities', busForm.amenities);
     formData.append('travelInfo', busForm.travelInfo);
     
@@ -799,13 +808,14 @@ console.log("AdminDashboard API_URL:", API_URL);
       engine: bus.engine || '',
       contact: bus.contact || '',
       address: bus.address || '',
+      website: bus.website || '',
       amenities: bus.amenities ? bus.amenities.join(', ') : '',
       travelInfo: bus.travelInfo ? bus.travelInfo.join(', ') : ''
     });
   };
 
   const resetBusForm = () => {
-    setBusForm({ name: '', type: '', image: '', model: '', capacity: '', safetyGear: '', engine: '', contact: '', address: '', amenities: '', travelInfo: '' });
+    setBusForm({ name: '', type: '', image: '', model: '', capacity: '', safetyGear: '', engine: '', contact: '', address: '', website: '', amenities: '', travelInfo: '' });
   };
 
   if (loading) {
