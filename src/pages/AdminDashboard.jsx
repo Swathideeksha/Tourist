@@ -302,7 +302,8 @@ const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
       </button>
     </div>
   </form>
-);
+  );
+};
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('places');
