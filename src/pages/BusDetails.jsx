@@ -82,14 +82,25 @@ const BusDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-        <button
-          onClick={() => navigate('/businfo')}
-          className="mb-6 text-red-600 hover:text-red-700 font-semibold flex items-center gap-2"
-        >
-          ← Back to All Buses
-        </button>
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">Bus Details</h1>
+              <p className="text-blue-100 text-lg">Complete information about our premium bus services</p>
+            </div>
+            <button
+              onClick={() => navigate('/businfo')}
+              className="bg-white/20 hover:bg-white/30 backdrop-blur text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
+            >
+              ← Back to All Buses
+            </button>
+          </div>
+        </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           {/* Bus Header */}
           <div className="h-96 bg-gradient-to-br from-blue-500 to-blue-700 relative">
