@@ -13,7 +13,6 @@ import History from "./components/History";
 import Religious from "./components/Religious";
 import Businfo from "./pages/Businfo";
 import BusDetails from "./pages/BusDetails";
-import AllBuses from "./pages/AllBuses";
 import AllBusesPage from "./pages/AllBusesPage";
 import Routemap from "./pages/Routemap";
 import DestinationDetails from "./pages/DestinationDetails";
