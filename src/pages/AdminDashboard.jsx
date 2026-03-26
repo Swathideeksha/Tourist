@@ -673,60 +673,65 @@ console.log("AdminDashboard API_URL:", API_URL);
   const handleAddBus = async (e) => {
     e.preventDefault();
     
-    // Get the file from the form
+    // Create FormData for file upload
+    const formData = new FormData();
+    
+    // Add all form fields
+    formData.append('name', busForm.name);
+    formData.append('type', busForm.type);
+    formData.append('model', busForm.model);
+    formData.append('capacity', busForm.capacity);
+    formData.append('safetyGear', busForm.safetyGear);
+    formData.append('engine', busForm.engine);
+    formData.append('contact', busForm.contact);
+    formData.append('address', busForm.address);
+    formData.append('amenities', busForm.amenities);
+    formData.append('travelInfo', busForm.travelInfo);
+    
+    // Add image file if selected
     const fileInput = document.getElementById('busImageUpload');
     const imageFile = fileInput?.files[0];
-    
-    let imageUrl = busForm.image; // Keep existing image if no new file
-    
-    // If there's a new image file, upload it first
     if (imageFile) {
-      const formData = new FormData();
       formData.append('image', imageFile);
-      
-      try {
-        const uploadResponse = await fetch(`${API_URL}/upload`, {
-          method: 'POST',
-          body: formData
-        });
-        
-        if (uploadResponse.ok) {
-          const uploadResult = await uploadResponse.json();
-          imageUrl = uploadResult.url;
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
-        // Continue with existing image or demo mode
-      }
+      console.log('🔍 Adding image file to FormData:', imageFile.name);
     }
     
-    const busData = {
-      ...busForm,
-      image: imageUrl,
-      amenities: busForm.amenities.split(',').map(a => a.trim()).filter(a => a),
-      travelInfo: busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t)
-    };
-    
     try {
+      console.log('🔍 Submitting bus data with FormData...');
       const response = await fetch(`${API_URL}/admin/buses`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(busData)
+        body: formData // Don't set Content-Type header, let browser set it with boundary
       });
       
       if (response.ok) {
         const newBus = await response.json();
+        console.log('🔍 Bus added successfully:', newBus);
+        setBuses([newBus, ...buses]);
+        setShowAddBusForm(false);
+        resetBusForm();
+      } else {
+        console.error('🔍 Error response:', response.status, response.statusText);
+        // Demo mode - add with placeholder image
+        const newBus = { 
+          ...busForm, 
+          _id: Date.now().toString(),
+          image: `https://picsum.photos/seed/bus${Date.now()}/400/300.jpg`,
+          amenities: busForm.amenities.split(',').map(a => a.trim()).filter(a => a),
+          travelInfo: busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t)
+        };
         setBuses([newBus, ...buses]);
         setShowAddBusForm(false);
         resetBusForm();
       }
     } catch (error) {
-      // console.error('Error adding bus:', error);
-      // Demo mode - add with local image if available
+      console.error('🔍 Error adding bus:', error);
+      // Demo mode - add with placeholder image
       const newBus = { 
-        ...busData, 
+        ...busForm, 
         _id: Date.now().toString(),
-        image: imageUrl || `https://picsum.photos/seed/bus${Date.now()}/400/300.jpg`
+        image: `https://picsum.photos/seed/bus${Date.now()}/400/300.jpg`,
+        amenities: busForm.amenities.split(',').map(a => a.trim()).filter(a => a),
+        travelInfo: busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t)
       };
       setBuses([newBus, ...buses]);
       setShowAddBusForm(false);

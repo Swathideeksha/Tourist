@@ -186,7 +186,7 @@ const TopRatedPrivateOperators = () => {
                         : "bg-blue-600 text-white hover:bg-blue-700"
                     }`}
                   >
-                    Book Now
+                    View Details
                   </button>
                 </div>
               </div>
