@@ -217,16 +217,13 @@ const BusDetails = () => {
               </div>
             )}
 
-            {/* Action Buttons */}
-            <div className="flex gap-4 mt-8">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                Book Now
-              </button>
+            {/* Back to Buses Button */}
+            <div className="mt-8">
               <button 
                 onClick={() => navigate('/businfo')}
-                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
               >
-                View All Buses
+                Back to All Buses
               </button>
             </div>
           </div>
