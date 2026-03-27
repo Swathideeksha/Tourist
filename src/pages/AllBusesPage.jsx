@@ -115,81 +115,63 @@ const AllBusesPage = () => {
           {buses.map((bus) => (
             <div
               key={bus._id}
-              className="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-2xl shadow hover:shadow-xl transition-shadow p-4 relative group"
             >
               {/* Bus Image */}
-              <div className="relative h-24">
+              <div className="relative h-48">
                 <img
                   src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
                   alt={bus.name}
-                  className="w-full h-full object-cover"
+                  className="rounded-xl h-48 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                 />
-                <div className="absolute top-1 left-1">
-                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-1 py-0.5 rounded backdrop-blur-sm">
+                <div className="absolute top-4 left-4">
+                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
                     {bus.type || 'PREMIUM'}
                   </span>
                 </div>
               </div>
 
               {/* Bus Content */}
-              <div className="p-2">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="text-xs font-bold text-gray-900 truncate flex-1">{bus.name}</h3>
-                  <div className="flex items-center gap-0.5 ml-1">
-                    <svg className="w-2 h-2 text-yellow-500 fill-current" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                    </svg>
-                    <span className="text-xs font-semibold text-gray-900">
-                      {bus.rating || '4.5'}
-                    </span>
-                  </div>
-                </div>
+              <h3 className="font-semibold mt-2">{bus.name}</h3>
+              <p className="text-sm text-gray-500">{bus.address || 'Karnataka'}</p>
 
-                <p className="text-gray-600 mb-2 line-clamp-1 text-xs">
-                  {bus.desc || 'Premium bus service'}
-                </p>
-
-                {/* Bus Details */}
-                <div className="space-y-0.5 text-xs text-gray-600 mb-2">
-                  {bus.model && (
-                    <p><strong>M:</strong> {bus.model}</p>
-                  )}
-                  {bus.capacity && (
-                    <p><strong>C:</strong> {bus.capacity}</p>
-                  )}
-                  {bus.address && (
-                    <p><strong>A:</strong> {bus.address}</p>
-                  )}
-                </div>
-
-                {/* Website Link */}
-                {bus.website && (
-                  <div className="mb-2">
-                    <a 
-                      href={(() => {
-                        const website = bus.website.trim();
-                        if (website.startsWith('http://') || website.startsWith('https://')) {
-                          return website;
-                        }
-                        return `https://${website}`;
-                      })()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline text-xs font-semibold"
-                    >
-                      Website →
-                    </a>
-                  </div>
+              {/* Bus Details */}
+              <div className="space-y-2 text-sm text-gray-600 mb-4">
+                {bus.model && (
+                  <p><strong>Model:</strong> {bus.model}</p>
                 )}
-
-                {/* Action Button */}
-                <button
-                  onClick={() => handleViewDetails(bus._id)}
-                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded transition-colors text-xs"
-                >
-                  View Details
-                </button>
+                {bus.capacity && (
+                  <p><strong>Capacity:</strong> {bus.capacity}</p>
+                )}
               </div>
+
+              {/* Website Link */}
+              {bus.website && (
+                <div className="mb-4">
+                  <a 
+                    href={(() => {
+                      const website = bus.website.trim();
+                      if (website.startsWith('http://') || website.startsWith('https://')) {
+                        return website;
+                      }
+                      return `https://${website}`;
+                    })()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline text-sm font-semibold"
+                  >
+                    Visit Website →
+                  </a>
+                </div>
+              )}
+
+              {/* Action Button */}
+              <button
+                onClick={() => handleViewDetails(bus._id)}
+                className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-full transition"
+              >
+                View Details
+              </button>
             </div>
           ))}
         </div>
