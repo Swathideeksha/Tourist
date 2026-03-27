@@ -111,67 +111,56 @@ const AllBusesPage = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {buses.map((bus) => (
             <div
               key={bus._id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
+              className="flex-none w-80 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white text-gray-900"
             >
-              <div className="flex">
-                {/* Bus Image - Left Side */}
-                <div className="w-1/3 relative">
-                  <img 
-                    src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
-                    alt={bus.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-blue-600/90 text-white text-xs font-semibold px-2 py-1 rounded">
-                      {bus.type || 'PREMIUM'}
+              <div className="relative h-48">
+                <img
+                  src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
+                  alt={bus.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-900/90 text-white backdrop-blur-sm">
+                    {bus.type || 'PREMIUM'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xl font-bold">{bus.name}</h3>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">
+                      {bus.rating || '4.5/5'}
                     </span>
                   </div>
                 </div>
 
-                {/* Bus Content - Right Side */}
-                <div className="w-2/3 p-4">
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">{bus.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{bus.address || 'Karnataka'}</p>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {bus.desc || bus.travelInfo?.join(', ') || 'Premium bus service with comfortable seating and modern amenities.'}
+                </p>
 
-                  {/* Bus Details */}
-                  <div className="space-y-1 text-xs text-gray-600 mb-3">
-                    {bus.model && (
-                      <p><strong>Model:</strong> {bus.model}</p>
-                    )}
-                    {bus.capacity && (
-                      <p><strong>Capacity:</strong> {bus.capacity}</p>
-                    )}
-                    {bus.engine && (
-                      <p><strong>Engine:</strong> {bus.engine}</p>
-                    )}
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap gap-2">
+                    {bus.amenities?.slice(0, 2).map((amenity, index) => (
+                      <span
+                        key={index}
+                        className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-700"
+                      >
+                        {amenity}
+                      </span>
+                    ))}
                   </div>
-
-                  {/* Website Link */}
-                  {bus.website && (
-                    <a 
-                      href={(() => {
-                        const website = bus.website.trim();
-                        if (website.startsWith('http://') || website.startsWith('https://')) {
-                          return website;
-                        }
-                        return `https://${website}`;
-                      })()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline text-xs font-semibold"
-                    >
-                      Website →
-                    </a>
-                  )}
-
-                  {/* Action Button */}
                   <button
                     onClick={() => handleViewDetails(bus._id)}
-                    className="mt-3 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded transition-colors text-sm"
+                    className="px-4 py-2 rounded-lg font-semibold transition-colors bg-yellow-500 text-white hover:bg-yellow-600"
                   >
                     View Details
                   </button>
