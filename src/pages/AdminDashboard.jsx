@@ -165,10 +165,7 @@ const PlaceForm = ({ placeForm, setPlaceForm, onSubmit, onCancel, isEditing }) =
   </form>
 );
 
-const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState('');
-
+const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing, imageFile, setImageFile, imagePreview, setImagePreview }) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -307,14 +304,13 @@ const BusForm = ({ busForm, setBusForm, onSubmit, onCancel, isEditing }) => {
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('places');
-  const [places, setPlaces] = useState([]);
-  const [buses, setBuses] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showAddPlaceForm, setShowAddPlaceForm] = useState(false);
   const [showAddBusForm, setShowAddBusForm] = useState(false);
   const [editingPlace, setEditingPlace] = useState(null);
   const [editingBus, setEditingBus] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
   const { admin, logout } = useAdmin();
   const navigate = useNavigate();
   const API_URL = "https://backend-chi-one-70.vercel.app/api";
@@ -741,17 +737,45 @@ console.log("AdminDashboard API_URL:", API_URL);
 
   const handleUpdateBus = async (e) => {
     e.preventDefault();
-    const busData = {
-      ...busForm,
-      amenities: busForm.amenities.split(',').map(a => a.trim()).filter(a => a),
-      travelInfo: busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t)
-    };
     
     try {
+      console.log('🔍 Updating bus with FormData...');
+      
+      // Create FormData for bus update
+      const formData = new FormData();
+      
+      // Add all form fields
+      formData.append('name', busForm.name);
+      formData.append('type', busForm.type);
+      formData.append('model', busForm.model);
+      formData.append('capacity', busForm.capacity);
+      formData.append('safetyGear', busForm.safetyGear);
+      formData.append('engine', busForm.engine);
+      formData.append('address', busForm.address);
+      formData.append('website', busForm.website);
+      
+      // Handle amenities array
+      const amenities = busForm.amenities.split(',').map(a => a.trim()).filter(a => a);
+      amenities.forEach((amenity, index) => {
+        formData.append(`amenities[${index}]`, amenity);
+      });
+      
+      // Handle travelInfo array
+      const travelInfo = busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t);
+      travelInfo.forEach((info, index) => {
+        formData.append(`travelInfo[${index}]`, info);
+      });
+      
+      // Add image if it's a file or URL
+      if (imageFile) {
+        formData.append('image', imageFile);
+      } else if (busForm.image) {
+        formData.append('imageUrl', busForm.image);
+      }
+      
       const response = await fetch(`${API_URL}/admin/buses/${editingBus._id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(busData)
+        body: formData // Don't set Content-Type header, let browser set it with boundary
       });
       
       if (response.ok) {
@@ -759,14 +783,20 @@ console.log("AdminDashboard API_URL:", API_URL);
         setBuses(buses.map(b => b._id === editingBus._id ? updatedBus : b));
         setEditingBus(null);
         resetBusForm();
+        setImageFile(null);
+        setImagePreview('');
+      } else {
+        console.error('Update failed:', response.status, response.statusText);
       }
     } catch (error) {
-      // console.error('Error updating bus:', error);
-      // Demo mode
-      const updatedBus = { ...busData, _id: editingBus._id };
+      console.error('Error updating bus:', error);
+      // Demo mode fallback
+      const updatedBus = { ...busForm, _id: editingBus._id };
       setBuses(buses.map(b => b._id === editingBus._id ? updatedBus : b));
       setEditingBus(null);
       resetBusForm();
+      setImageFile(null);
+      setImagePreview('');
     }
   };
 
@@ -997,6 +1027,10 @@ console.log("AdminDashboard API_URL:", API_URL);
                   resetBusForm();
                 }}
                 isEditing={!!editingBus}
+                imageFile={imageFile}
+                setImageFile={setImageFile}
+                imagePreview={imagePreview}
+                setImagePreview={setImagePreview}
               />
             )}
 
