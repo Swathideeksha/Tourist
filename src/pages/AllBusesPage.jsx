@@ -111,65 +111,47 @@ const AllBusesPage = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {buses.map((bus) => (
             <div
               key={bus._id}
               className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
-              {/* Bus Image */}
-              {bus.image && (
-                <div className="relative">
+              <div className="flex">
+                {/* Bus Image - Left Side */}
+                <div className="w-1/3 relative">
                   <img 
-                    src={bus.image} 
+                    src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
                     alt={bus.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-blue-600/90 text-white text-xs font-semibold px-2 py-1 rounded">
                       {bus.type || 'PREMIUM'}
                     </span>
                   </div>
                 </div>
-              )}
 
-              {/* Bus Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{bus.name}</h3>
-                <p className="text-xl text-gray-600 mb-4">{bus.type}</p>
+                {/* Bus Content - Right Side */}
+                <div className="w-2/3 p-4">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">{bus.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{bus.address || 'Karnataka'}</p>
 
-                {/* Bus Info */}
-                <div className="space-y-4 mb-6">
-                  {bus.model && (
-                    <div>
-                      <span className="font-semibold text-gray-900">Model:</span>
-                      <span className="text-gray-700 ml-2">{bus.model}</span>
-                    </div>
-                  )}
-
-                  {bus.capacity && (
-                    <div>
-                      <span className="font-semibold text-gray-900">Capacity:</span>
-                      <span className="text-gray-700 ml-2">{bus.capacity}</span>
-                    </div>
-                  )}
-
-                  {bus.engine && (
-                    <div>
-                      <span className="font-semibold text-gray-900">Engine:</span>
-                      <span className="text-gray-700 ml-2">{bus.engine}</span>
-                    </div>
-                  )}
-
-                  <div>
-                    <span className="font-semibold text-gray-900">Rating:</span>
-                    <span className="text-gray-700 ml-2">{bus.overallRating || '4.5'}/5</span>
+                  {/* Bus Details */}
+                  <div className="space-y-1 text-xs text-gray-600 mb-3">
+                    {bus.model && (
+                      <p><strong>Model:</strong> {bus.model}</p>
+                    )}
+                    {bus.capacity && (
+                      <p><strong>Capacity:</strong> {bus.capacity}</p>
+                    )}
+                    {bus.engine && (
+                      <p><strong>Engine:</strong> {bus.engine}</p>
+                    )}
                   </div>
-                </div>
 
-                {/* Website Link */}
-                {bus.website && (
-                  <div className="mb-6">
+                  {/* Website Link */}
+                  {bus.website && (
                     <a 
                       href={(() => {
                         const website = bus.website.trim();
@@ -180,20 +162,20 @@ const AllBusesPage = () => {
                       })()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-blue-600 hover:text-blue-800 underline font-semibold"
+                      className="text-blue-600 hover:text-blue-800 underline text-xs font-semibold"
                     >
-                      Visit Official Website →
+                      Website →
                     </a>
-                  </div>
-                )}
+                  )}
 
-                {/* Action Button */}
-                <button
-                  onClick={() => handleViewDetails(bus._id)}
-                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
-                >
-                  View Details
-                </button>
+                  {/* Action Button */}
+                  <button
+                    onClick={() => handleViewDetails(bus._id)}
+                    className="mt-3 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded transition-colors text-sm"
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
             </div>
           ))}
