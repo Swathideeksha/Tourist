@@ -311,6 +311,9 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
+  const [places, setPlaces] = useState([]);
+  const [buses, setBuses] = useState([]);
+  const [messages, setMessages] = useState([]);
   const { admin, logout } = useAdmin();
   const navigate = useNavigate();
   const API_URL = "https://backend-chi-one-70.vercel.app/api";
