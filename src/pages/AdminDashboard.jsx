@@ -757,17 +757,11 @@ console.log("AdminDashboard API_URL:", API_URL);
       formData.append('address', busForm.address);
       formData.append('website', busForm.website);
       
-      // Handle amenities array
-      const amenities = busForm.amenities.split(',').map(a => a.trim()).filter(a => a);
-      amenities.forEach((amenity, index) => {
-        formData.append(`amenities[${index}]`, amenity);
-      });
+      // Handle amenities as comma-separated string (backend will split it)
+      formData.append('amenities', busForm.amenities);
       
-      // Handle travelInfo array
-      const travelInfo = busForm.travelInfo.split(',').map(t => t.trim()).filter(t => t);
-      travelInfo.forEach((info, index) => {
-        formData.append(`travelInfo[${index}]`, info);
-      });
+      // Handle travelInfo as comma-separated string (backend will split it)
+      formData.append('travelInfo', busForm.travelInfo);
       
       // Add image if it's a file or URL
       if (imageFile) {
@@ -776,30 +770,50 @@ console.log("AdminDashboard API_URL:", API_URL);
         formData.append('imageUrl', busForm.image);
       }
       
+      // Debug FormData contents
+      console.log('FormData contents being sent:');
+      for (let [key, value] of formData.entries()) {
+        if (value instanceof File) {
+          console.log(`${key}:`, value.name, value.size);
+        } else {
+          console.log(`${key}:`, value);
+        }
+      }
+      
       const response = await fetch(`${API_URL}/admin/buses/${editingBus._id}`, {
         method: 'PUT',
         body: formData // Don't set Content-Type header, let browser set it with boundary
       });
       
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
       if (response.ok) {
         const updatedBus = await response.json();
+        console.log('Bus updated successfully:', updatedBus);
         setBuses(buses.map(b => b._id === editingBus._id ? updatedBus : b));
         setEditingBus(null);
         resetBusForm();
         setImageFile(null);
         setImagePreview('');
       } else {
-        console.error('Update failed:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Update failed with status:', response.status);
+        console.error('Error response:', errorText);
+        
+        // Try to parse error as JSON
+        try {
+          const errorData = JSON.parse(errorText);
+          console.error('Parsed error:', errorData);
+          alert(`Update failed: ${errorData.message || errorData.error || 'Unknown error'}`);
+        } catch (parseError) {
+          console.error('Raw error text:', errorText);
+          alert(`Update failed: Server error (${response.status})`);
+        }
       }
     } catch (error) {
       console.error('Error updating bus:', error);
-      // Demo mode fallback
-      const updatedBus = { ...busForm, _id: editingBus._id };
-      setBuses(buses.map(b => b._id === editingBus._id ? updatedBus : b));
-      setEditingBus(null);
-      resetBusForm();
-      setImageFile(null);
-      setImagePreview('');
+      alert('Update failed: Network error');
     }
   };
 
