@@ -111,67 +111,90 @@ const AllBusesPage = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {buses.map((bus) => (
             <div
               key={bus._id}
-              className="bg-white rounded-2xl shadow hover:shadow-xl transition-shadow p-4 relative group"
+              className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
               {/* Bus Image */}
-              <div className="relative h-48">
-                <img
-                  src={bus.image || `https://picsum.photos/seed/bus${bus._id}/400/300.jpg`}
-                  alt={bus.name}
-                  className="rounded-xl h-48 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-blue-600/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
-                    {bus.type || 'PREMIUM'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Bus Content */}
-              <h3 className="font-semibold mt-2">{bus.name}</h3>
-              <p className="text-sm text-gray-500">{bus.address || 'Karnataka'}</p>
-
-              {/* Bus Details */}
-              <div className="space-y-2 text-sm text-gray-600 mb-4">
-                {bus.model && (
-                  <p><strong>Model:</strong> {bus.model}</p>
-                )}
-                {bus.capacity && (
-                  <p><strong>Capacity:</strong> {bus.capacity}</p>
-                )}
-              </div>
-
-              {/* Website Link */}
-              {bus.website && (
-                <div className="mb-4">
-                  <a 
-                    href={(() => {
-                      const website = bus.website.trim();
-                      if (website.startsWith('http://') || website.startsWith('https://')) {
-                        return website;
-                      }
-                      return `https://${website}`;
-                    })()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 underline text-sm font-semibold"
-                  >
-                    Visit Website →
-                  </a>
+              {bus.image && (
+                <div className="relative">
+                  <img 
+                    src={bus.image} 
+                    alt={bus.name}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-blue-600/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+                      {bus.type || 'PREMIUM'}
+                    </span>
+                  </div>
                 </div>
               )}
 
-              {/* Action Button */}
-              <button
-                onClick={() => handleViewDetails(bus._id)}
-                className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-full transition"
-              >
-                View Details
-              </button>
+              {/* Bus Content */}
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{bus.name}</h3>
+                <p className="text-xl text-gray-600 mb-4">{bus.type}</p>
+
+                {/* Bus Info */}
+                <div className="space-y-4 mb-6">
+                  {bus.model && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Model:</span>
+                      <span className="text-gray-700 ml-2">{bus.model}</span>
+                    </div>
+                  )}
+
+                  {bus.capacity && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Capacity:</span>
+                      <span className="text-gray-700 ml-2">{bus.capacity}</span>
+                    </div>
+                  )}
+
+                  {bus.engine && (
+                    <div>
+                      <span className="font-semibold text-gray-900">Engine:</span>
+                      <span className="text-gray-700 ml-2">{bus.engine}</span>
+                    </div>
+                  )}
+
+                  <div>
+                    <span className="font-semibold text-gray-900">Rating:</span>
+                    <span className="text-gray-700 ml-2">{bus.overallRating || '4.5'}/5</span>
+                  </div>
+                </div>
+
+                {/* Website Link */}
+                {bus.website && (
+                  <div className="mb-6">
+                    <a 
+                      href={(() => {
+                        const website = bus.website.trim();
+                        if (website.startsWith('http://') || website.startsWith('https://')) {
+                          return website;
+                        }
+                        return `https://${website}`;
+                      })()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-blue-600 hover:text-blue-800 underline font-semibold"
+                    >
+                      Visit Official Website →
+                    </a>
+                  </div>
+                )}
+
+                {/* Action Button */}
+                <button
+                  onClick={() => handleViewDetails(bus._id)}
+                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
+                  View Details
+                </button>
+              </div>
             </div>
           ))}
         </div>

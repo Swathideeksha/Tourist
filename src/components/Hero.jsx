@@ -4,7 +4,7 @@ const Hero = () => {
       className="h-[50vh] md:h-[60vh] lg:h-[80vh] bg-cover bg-center flex items-center"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(245, 237, 237, 0), rgba(255, 251, 251, 0)), url('/images/heroo.jpg')",
+          "linear-gradient(rgba(245, 237, 237, 0), rgba(255, 251, 251, 0)), url('/images/heroo.png)",
       }}
     >
       {/* TEXT BOX */}
