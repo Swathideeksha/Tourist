@@ -14,18 +14,16 @@ const AllBusesCard = () => {
           const data = await response.json();
           setBuses(data);
         } else {
-          // Fallback to static data if API fails
+          // Fallback to static data
           setBuses([
             {
               _id: '1',
               name: 'Sea-Bird Multi-Axle',
               type: 'PREMIUM',
-              desc: 'Pioneer in coastal routes with premium Volvo and Scania sleeper coaches.',
+              desc: 'Pioneer in coastal routes with premium Volvo and Scania coaches.',
               rating: '4.8/5',
               image: 'https://picsum.photos/seed/seabird/400/300.jpg',
               model: 'Volvo 9800 Multi-Axle',
-              capacity: '45 Seater',
-              address: 'Mangalore',
               website: 'www.seabirdtourists.com'
             },
             {
@@ -36,8 +34,6 @@ const AllBusesCard = () => {
               rating: '4.7/5',
               image: 'https://picsum.photos/seed/vrl/400/300.jpg',
               model: 'Volvo 9400',
-              capacity: '40 Seater',
-              address: 'Hubli',
               website: 'www.vrllogistics.in'
             },
             {
@@ -47,9 +43,17 @@ const AllBusesCard = () => {
               desc: 'Luxury Volvo coaches connecting Bengaluru to heritage circuits and beach destinations.',
               rating: '4.6/5',
               image: 'https://picsum.photos/seed/srs/400/300.jpg',
-              model: 'Bharat Benz AC Sleeper',
-              capacity: '32 Sleeper',
-              address: 'Bangalore',
+              model: 'Bharat Benz AC',
+              website: 'www.srstravels.in'
+            },
+            {
+              _id: '4',
+              name: 'SRS Royal Engineers',
+              type: 'PREMIUM',
+              desc: 'Luxury Volvo coaches connecting Bengaluru to heritage circuits and beach destinations.',
+              rating: '4.6/5',
+              image: 'https://picsum.photos/seed/srs/400/300.jpg',
+              model: 'Bharat Benz AC',
               website: 'www.srstravels.in'
             }
           ]);
