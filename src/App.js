@@ -6,6 +6,7 @@ import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import Home from "./pages/Home";
 import Places from "./pages/Places";
 import PlaceDetails from "./pages/PlaceDetails";
+import AboutKarnataka from "./pages/AboutKarnataka";
 import DiscoverMore from "./components/DiscoverMore";
 import HillStations from "./components/HillStations";
 import Beaches from "./components/Beaches";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/places" element={<Places />} />
           <Route path="/place-details" element={<PlaceDetails />} />
+          <Route path="/about-karnataka" element={<AboutKarnataka />} />
           <Route path="/place/:id" element={<PlaceDetails />} />
           <Route path="/hill-stations" element={<HillStations />} />
           <Route path="/destination/:id" element={<DestinationDetails />} />

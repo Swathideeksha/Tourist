@@ -12,7 +12,7 @@ const DiscoverMore = () => {
             Uncover the layers of Karnataka's rich tapestry. Gain deeper professional insights into the state's governance, historical evolution, and geographical diversity.
           </p>
           
-          <Link to="/place-details" className="inline-block bg-yellow-500 text-red-600 px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300 font-semibold">
+          <Link to="/about-karnataka" className="inline-block bg-yellow-500 text-red-600 px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300 font-semibold">
             About Karnataka
           </Link>
         </div>
